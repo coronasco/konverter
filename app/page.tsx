@@ -1,8 +1,7 @@
 import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
-import { ArrowRight, Zap, Code, Palette, Download, CheckCircle, Star } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Zap, Code, Palette, Download, CheckCircle, Star } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Home() {
@@ -20,27 +19,12 @@ export default function Home() {
             Instantly convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. 
             Free, fast, and developer-friendly tool for modern web development.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Start Converting <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="lg">
-              View Examples
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Main Converter */}
-      <section className="py-16 px-6">
+      <section className="pb-16 px-6" id="converter">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Convert Your SVG Files</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Upload or paste your SVG code and get multiple conversion formats instantly. 
-              Our tool optimizes your SVGs for better performance and compatibility.
-            </p>
-          </div>
           <SvgConverter />
         </div>
       </section>
@@ -49,7 +33,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Our SVG Converter?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose Konverter Online?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Professional-grade SVG conversion with advanced optimization and multiple output formats
             </p>
@@ -158,7 +142,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Optimize & Convert</h3>
               <p className="text-muted-foreground">
-                Our tool optimizes your SVG and converts it to multiple formats
+                Konverter optimizes your SVG and converts it to multiple formats
               </p>
             </div>
             
