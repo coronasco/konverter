@@ -1,0 +1,54 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="headerGradient" x1="0" y1="0" x2="1200" y2="0">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Header section -->
+  <rect x="0" y="0" width="1200" height="120" fill="url(#headerGradient)"/>
+
+  <!-- Main title -->
+  <text x="600" y="75" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">Konverter</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="105" font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.9)" text-anchor="middle">Advanced SVG to CSS &amp; JSX Converter</text>
+  
+  <!-- Main content area -->
+  <rect x="50" y="150" width="1100" height="380" rx="20" fill="white" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- Left column features -->
+  <text x="120" y="200" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1e293b">Features:</text>
+  
+  <text x="120" y="240" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Free &amp; Fast Conversion</text>
+  <text x="120" y="270" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ CSS Background Output</text>
+  <text x="120" y="300" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Base64 Encoding</text>
+  <text x="120" y="330" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ React JSX Components</text>
+  <text x="120" y="360" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ SVG Optimization</text>
+  <text x="120" y="390" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Drag &amp; Drop Upload</text>
+  
+  <!-- Right column features -->
+  <text x="650" y="240" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Live Preview</text>
+  <text x="650" y="270" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Copy to Clipboard</text>
+  <text x="650" y="300" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ Dark Mode UI</text>
+  <text x="650" y="330" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ SEO Optimized</text>
+  <text x="650" y="360" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ No Registration</text>
+  <text x="650" y="390" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#3b82f6">✓ 100% Free</text>
+  
+  <!-- Call to action -->
+  <text x="600" y="470" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Try it now - 100% Free!</text>
+  
+  <!-- URL -->
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="20" fill="#64748b" text-anchor="middle">konverter-online.com</text>
+  
+  <!-- Made with love -->
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">Made with ❤️ by Daniel Zaharia</text>
+</svg> 
