@@ -19,6 +19,7 @@ export default function Home() {
             Instantly convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. 
             Free, fast, and developer-friendly tool for modern web development.
           </p>
+          <span className='text-xs text-black bg-amber-300 p-4 rounded-full font-bold'>Free Forever</span>
         </div>
       </section>
 
@@ -26,6 +27,33 @@ export default function Home() {
       <section className="pb-16 px-6" id="converter">
         <div className="container mx-auto">
           <SvgConverter />
+        </div>
+      </section>
+
+      <section className="py-20 px-6 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20">
+        <div className="container mx-auto">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Why I built this?
+                </h2>
+                <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mx-auto"></div>
+              </div>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Hey there! 👋 I&apos;m Daniel, a developer who got tired of manually converting SVGs for every project. 
+                You know the drill, you find a perfect icon, but it&apos;s bloated with unnecessary metadata, and you need it as a CSS background or React component ASAP.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                The existing tools were either slow, clunky, or hidden behind paywalls. So I built Konverter - a fast, free tool that does exactly what developers need. 
+                No more copy-pasting between different converters or dealing with outdated interfaces.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Just drag, drop, and get your optimized SVG in any format you want. Because honestly, we have better things to do than wrestle with file conversions! 
+                More converting options are on the way! Stay tuned!
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
