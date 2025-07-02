@@ -137,4 +137,45 @@ export function convertToJsx(svgString: string): string {
 );
 
 export default MyIcon;`
+}
+
+export function validateSvg(svgString: string): { isValid: boolean; error?: string } {
+  if (!svgString.trim()) {
+    return { isValid: false, error: 'SVG input is empty' }
+  }
+
+  // Verifică dacă conține tag-ul SVG
+  if (!svgString.includes('<svg')) {
+    return { isValid: false, error: 'Input is not a valid SVG' }
+  }
+
+  // Verifică dacă are tag-ul de închidere
+  if (!svgString.includes('</svg>')) {
+    return { isValid: false, error: 'SVG is missing closing tag' }
+  }
+
+  // Verifică dacă are atributele de bază
+  const hasViewBox = svgString.includes('viewBox') || svgString.includes('width') || svgString.includes('height')
+  if (!hasViewBox) {
+    return { isValid: false, error: 'SVG is missing required attributes (viewBox, width, or height)' }
+  }
+
+  // Verifică dacă conține elemente SVG valide
+  const hasValidElements = svgString.includes('<path') || 
+                          svgString.includes('<rect') || 
+                          svgString.includes('<circle') || 
+                          svgString.includes('<ellipse') || 
+                          svgString.includes('<line') || 
+                          svgString.includes('<polyline') || 
+                          svgString.includes('<polygon') || 
+                          svgString.includes('<text') || 
+                          svgString.includes('<image') || 
+                          svgString.includes('<g>') ||
+                          svgString.includes('<use')
+  
+  if (!hasValidElements) {
+    return { isValid: false, error: 'SVG must contain valid elements (path, rect, circle, etc.)' }
+  }
+
+  return { isValid: true }
 } 

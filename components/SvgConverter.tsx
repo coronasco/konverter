@@ -5,7 +5,7 @@ import SvgInputArea from './SvgInputArea'
 import OptionsPanel from './OptionsPanel'
 import SvgPreview from './SvgPreview'
 import OutputTabs from './OutputTabs'
-import { optimizeSvg, urlEncodeSvg, base64EncodeSvg, convertToJsx } from '@/lib/svg-utils'
+import { optimizeSvg, urlEncodeSvg, base64EncodeSvg, convertToJsx, validateSvg } from '@/lib/svg-utils'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertCircle } from 'lucide-react'
 
@@ -22,7 +22,7 @@ export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
   const [optimizedSvg, setOptimizedSvg] = useState<string>('')
   const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
-  const [isOptimized, setIsOptimized] = useState<boolean>(true)
+  const [isOptimized, setIsOptimized] = useState<boolean>(false)
   const [fileStats, setFileStats] = useState<{
     originalSize: number
     optimizedSize: number
@@ -45,6 +45,17 @@ export default function SvgConverter() {
   useEffect(() => {
     const processSvg = async () => {
       if (!inputSvg.trim()) {
+        setOutput({ urlEncoded: '', base64: '', jsx: '' })
+        setOptimizedSvg('')
+        setFileStats(null)
+        setError(null)
+        return
+      }
+
+      // Validează SVG-ul
+      const validation = validateSvg(inputSvg)
+      if (!validation.isValid) {
+        setError(validation.error || 'Input is not a valid SVG')
         setOutput({ urlEncoded: '', base64: '', jsx: '' })
         setOptimizedSvg('')
         setFileStats(null)
@@ -100,8 +111,9 @@ export default function SvgConverter() {
           base64,
           jsx,
         })
+        setError(null)
       } catch {
-        setError('Invalid SVG code. Please check your input.')
+        setError('Failed to process SVG. Please check your input.')
         setOutput({ urlEncoded: '', base64: '', jsx: '' })
         setFileStats(null)
       }
