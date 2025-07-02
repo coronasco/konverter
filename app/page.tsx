@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
-import { Zap, Code, Palette, Download, CheckCircle, Star, Droplets, FileText, Sparkles, Layers } from 'lucide-react'
+import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Home() {
@@ -14,16 +14,19 @@ export default function Home() {
       <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
-            Advanced SVG to CSS & JSX Converter
+            Transform SVGs into Whatever You Need
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Instantly convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. 
-            Now with live color editing and PDF export! Free, fast, and developer-friendly tool for modern web development.
+                         Tired of wrestling with SVG conversions? Drop your files here and get them back as CSS backgrounds, 
+             React components, or whatever format your project craves. Plus, edit colors live and export to PDF. 
+             Because life&apos;s too short for manual conversions! 
           </p>
           <div className='flex items-center justify-center gap-4 flex-wrap'>
-            <span className='text-xs text-black bg-amber-300 px-4 py-2 rounded-full font-bold'>Free Forever</span>
-            <span className='text-xs text-white bg-green-600 px-4 py-2 rounded-full font-bold'>New: Live Color Editor</span>
-            <span className='text-xs text-white bg-purple-600 px-4 py-2 rounded-full font-bold'>New: PDF Export</span>
+            <span className='text-xs text-black bg-amber-300 px-4 py-2 rounded-full font-bold'>Always Free</span>
+            <span className='text-xs text-white bg-green-600 px-4 py-2 rounded-full font-bold'>Live Color Editor</span>
+            <span className='text-xs text-white bg-purple-600 px-4 py-2 rounded-full font-bold'>PDF Export</span>
+            <span className='text-xs text-white bg-blue-600 px-4 py-2 rounded-full font-bold'>Responsive Builder</span>
+            <span className='text-xs text-white bg-pink-600 px-4 py-2 rounded-full font-bold'>Animation Studio</span>
             <ShareButton />
           </div>
         </div>
@@ -36,27 +39,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Story Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20">
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <div className="space-y-6">
               <div className="space-y-4">
                 <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
-                  Why I built this?
+                  Why I built this thing
                 </h2>
                 <div className="w-20 h-1 bg-gradient-to-r from-white to-cyan-600 rounded-full mx-auto"></div>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Hey there! 👋 I&apos;m Daniel, a developer who got tired of manually converting SVGs for every project. 
-                You know the drill, you find a perfect icon, but it&apos;s bloated with unnecessary metadata, and you need it as a CSS background or React component ASAP.
+                                 Hey! 👋 I&apos;m Daniel, and I got fed up with the SVG conversion circus. You find this perfect icon, 
+                 but it&apos;s bloated with unnecessary junk, and you need it as a CSS background or React component yesterday.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                The existing tools were either slow, clunky, or hidden behind paywalls. So I built Konverter - a fast, free tool that does exactly what developers need. 
-                No more copy-pasting between different converters or dealing with outdated interfaces.
+                The existing tools were either painfully slow, clunky as a brick, or hidden behind paywalls. 
+                So I built Konverter - a lightning-fast, completely free tool that does exactly what we developers need. 
+                No more jumping between different converters or dealing with interfaces from the stone age.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Just drag, drop, and get your optimized SVG in any format you want. Because honestly, we have better things to do than wrestle with file conversions! 
-                I&apos;ve just added live color editing and PDF export - because why not make it even more awesome? 🚀
+                                 Just drag, drop, and boom - you&apos;ve got your optimized SVG in whatever format you want. 
+                 Because honestly, we have better things to do than wrestle with file conversions! 
+                 I&apos;ve just added live color editing and PDF export because... why not make it even more awesome?
               </p>
             </div>
           </div>
@@ -67,83 +73,139 @@ export default function Home() {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Konverter Online?</h2>
+            <h2 className="text-3xl font-bold mb-4">What makes this tool special?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Professional-grade SVG conversion with advanced optimization and multiple output formats
+              Built by a developer who actually uses this stuff daily
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card>
-              <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Zap className="h-6 w-6 text-blue-600" />
-                </div>
-                <CardTitle>Lightning Fast</CardTitle>
-                <CardDescription>
-                  Convert SVGs instantly with our optimized processing engine
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="border-green-200 dark:border-green-800">
               <CardHeader>
                 <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Code className="h-6 w-6 text-green-600" />
+                  <Droplets className="h-6 w-6 text-green-600" />
                 </div>
-                <CardTitle>Multiple Formats</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  Live Color Editor
+                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
                 <CardDescription>
-                  Get URL-encoded CSS, Base64, and React JSX components
+                  Change colors on the fly with intuitive color picker. Perfect when you need to match brand colors 
+                  or just want to experiment with different looks without opening another app.
                 </CardDescription>
               </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Visual picker for each element
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    See changes instantly
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Reset with one click
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-purple-200 dark:border-purple-800">
               <CardHeader>
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Sparkles className="h-6 w-6 text-purple-600" />
+                  <FileText className="h-6 w-6 text-purple-600" />
                 </div>
-                <CardTitle>SVG Optimization</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  PDF Export
+                  <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
                 <CardDescription>
-                  Automatic optimization using SVGO for smaller file sizes
+                  Turn your SVGs into crisp PDFs for presentations, docs, or client handoffs. 
+                  Because sometimes you need something more than just code.
                 </CardDescription>
               </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    High-res PDF output
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    Vector quality intact
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    Perfect for docs & presentations
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-blue-200 dark:border-blue-800">
               <CardHeader>
-                <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Download className="h-6 w-6 text-orange-600" />
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Maximize2 className="h-6 w-6 text-blue-600" />
                 </div>
-                <CardTitle>Drag & Drop</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  Responsive Builder
+                  <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
                 <CardDescription>
-                  Easy file upload with drag and drop functionality
+                  Automatically generate responsive CSS for your graphics. Because your SVGs should look 
+                  great on everything from phones to giant monitors.
                 </CardDescription>
               </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-blue-600" />
+                    Smart viewBox detection
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-blue-600" />
+                    Responsive CSS magic
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-blue-600" />
+                    Preview on all devices
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-pink-200 dark:border-pink-800">
               <CardHeader>
-                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Layers className="h-6 w-6 text-red-600" />
+                <div className="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <PlayCircle className="h-6 w-6 text-pink-600" />
                 </div>
-                <CardTitle>Live Preview</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  Animation Studio
+                  <span className="text-xs bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
                 <CardDescription>
-                  See your SVG rendered in real-time before conversion
+                  Bring your SVGs to life with our visual timeline editor. Create smooth animations 
+                  without touching a single line of code.
                 </CardDescription>
               </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Star className="h-6 w-6 text-indigo-600" />
-                </div>
-                <CardTitle>Free Forever</CardTitle>
-                <CardDescription>
-                  No registration required, completely free to use
-                </CardDescription>
-              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-pink-600" />
+                    Visual timeline editor
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-pink-600" />
+                    CSS & JS export
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-pink-600" />
+                    Real-time preview
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -153,9 +215,9 @@ export default function Home() {
       <section className="py-20 px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+                         <h2 className="text-3xl font-bold mb-4">How it works (spoiler: it&apos;s super simple)</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Simple 3-step process to convert your SVG files
+                             Three steps and you&apos;re done. No rocket science involved.
             </p>
           </div>
           
@@ -164,9 +226,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-blue-600">1</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Upload SVG</h3>
+              <h3 className="text-xl font-semibold mb-2">Drop your SVG</h3>
               <p className="text-muted-foreground">
-                Drag and drop your SVG file or paste the code directly
+                                 Drag and drop or paste the code. We&apos;re not picky about how you get it here.
               </p>
             </div>
             
@@ -174,9 +236,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-green-600">2</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Edit & Convert</h3>
+              <h3 className="text-xl font-semibold mb-2">Tweak & transform</h3>
               <p className="text-muted-foreground">
-                Customize colors live, optimize your SVG, and convert to multiple formats
+                Change colors, optimize, and pick your output format. The fun part!
               </p>
             </div>
             
@@ -184,9 +246,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-purple-600">3</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Export & Use</h3>
+              <h3 className="text-xl font-semibold mb-2">Grab & go</h3>
               <p className="text-muted-foreground">
-                Copy the code, export as PDF, or download in your preferred format
+                Copy the code, export as PDF, or download. Then get back to building awesome stuff.
               </p>
             </div>
           </div>
@@ -197,9 +259,9 @@ export default function Home() {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Perfect For Developers & Designers</h2>
+            <h2 className="text-3xl font-bold mb-4">Built for people who build things</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Whether you&apos;re building React apps, CSS backgrounds, or optimizing web performance
+                             Whether you&apos;re crafting React apps, styling with CSS, or just trying to make things look good
             </p>
           </div>
           
@@ -215,15 +277,15 @@ export default function Home() {
                 <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Convert SVGs to React components
+                    Turn SVGs into React components
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Optimized JSX output
+                    Clean, optimized JSX
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Props support for customization
+                    Props ready for customization
                   </li>
                 </ul>
               </CardContent>
@@ -233,7 +295,7 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Palette className="h-5 w-5 text-purple-600" />
-                  CSS Developers
+                  CSS Wizards
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -248,7 +310,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Optimized for performance
+                    Optimized for speed
                   </li>
                 </ul>
               </CardContent>
@@ -258,14 +320,14 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Droplets className="h-5 w-5 text-green-600" />
-                  UI/UX Designers
+                  Design Folks
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Live color editing
+                    Live color experimentation
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
@@ -283,7 +345,7 @@ export default function Home() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-orange-600" />
-                  Project Managers
+                  Project Coordinators
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -298,7 +360,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
-                    Asset management
+                    Asset organization
                   </li>
                 </ul>
               </CardContent>
@@ -310,10 +372,10 @@ export default function Home() {
       {/* Stats */}
       <section className="py-20 px-6">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-              <div className="text-muted-foreground">Free to Use</div>
+              <div className="text-muted-foreground">Free Forever</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-green-600 mb-2">3 Formats</div>
@@ -326,6 +388,14 @@ export default function Home() {
             <div>
               <div className="text-3xl font-bold text-orange-600 mb-2">PDF Export</div>
               <div className="text-muted-foreground">High Quality</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-indigo-600 mb-2">Responsive</div>
+              <div className="text-muted-foreground">Auto CSS</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-pink-600 mb-2">Animations</div>
+              <div className="text-muted-foreground">Timeline Editor</div>
             </div>
           </div>
         </div>

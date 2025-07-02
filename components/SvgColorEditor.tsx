@@ -16,19 +16,20 @@ interface ColorElement {
 
 interface SvgColorEditorProps {
   svgContent: string
+  originalSvg: string
   onColorChange: (modifiedSvg: string) => void
 }
 
-export default function SvgColorEditor({ svgContent, onColorChange }: SvgColorEditorProps) {
+export default function SvgColorEditor({ svgContent, originalSvg, onColorChange }: SvgColorEditorProps) {
   const [colorElements, setColorElements] = useState<ColorElement[]>([])
   const [isVisible, setIsVisible] = useState(true)
 
   // Parse SVG and extract color elements
   useEffect(() => {
-    if (!svgContent) return
+    if (!originalSvg) return
 
     const parser = new DOMParser()
-    const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml')
+    const svgDoc = parser.parseFromString(originalSvg, 'image/svg+xml')
     const svgElement = svgDoc.querySelector('svg')
     
     if (!svgElement) return
@@ -38,13 +39,10 @@ export default function SvgColorEditor({ svgContent, onColorChange }: SvgColorEd
 
     // Find all elements with fill or stroke attributes
     const allElements = svgElement.querySelectorAll('*')
-    console.log('Found', allElements.length, 'elements in SVG')
     
-    allElements.forEach((element, index) => {
+    allElements.forEach((element) => {
       const fill = element.getAttribute('fill')
       const stroke = element.getAttribute('stroke')
-      
-      console.log(`Element ${index}:`, element.tagName, 'fill:', fill, 'stroke:', stroke)
       
       if (fill && fill !== 'none' && fill !== 'currentColor') {
         elements.push({
@@ -67,57 +65,57 @@ export default function SvgColorEditor({ svgContent, onColorChange }: SvgColorEd
       }
     })
 
-    console.log('Found', elements.length, 'color elements')
     setColorElements(elements)
-  }, [svgContent])
+  }, [originalSvg, svgContent])
 
   const handleColorChange = (id: string, newColor: string) => {
-    console.log('Changing color for', id, 'to', newColor)
-    
     const updatedElements = colorElements.map(el => 
       el.id === id ? { ...el, currentColor: newColor } : el
     )
     setColorElements(updatedElements)
 
-    // Update the SVG with new colors
+    // Update the SVG with new colors using DOM parsing
     const parser = new DOMParser()
     const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml')
     const svgElement = svgDoc.querySelector('svg')
     
     if (!svgElement) return
 
-    // Find and update elements by their position/index
+    // Find and update the specific element that was changed
+    const changedElement = updatedElements.find(el => el.id === id)
+    if (!changedElement) return
+
+    // Find the element in the current SVG by matching its original color
     const allElements = svgElement.querySelectorAll('*')
     
-    updatedElements.forEach(colorEl => {
-      // Find the element by matching its attributes
-      for (let i = 0; i < allElements.length; i++) {
-        const element = allElements[i]
-        const elementFill = element.getAttribute('fill')
-        const elementStroke = element.getAttribute('stroke')
-        
-        if (colorEl.type === 'fill' && elementFill === colorEl.originalColor) {
-          element.setAttribute('fill', colorEl.currentColor)
-          break
-        } else if (colorEl.type === 'stroke' && elementStroke === colorEl.originalColor) {
-          element.setAttribute('stroke', colorEl.currentColor)
-          break
-        }
+    for (let i = 0; i < allElements.length; i++) {
+      const element = allElements[i]
+      const elementFill = element.getAttribute('fill')
+      const elementStroke = element.getAttribute('stroke')
+      
+      if (changedElement.type === 'fill' && elementFill === changedElement.originalColor) {
+        element.setAttribute('fill', changedElement.currentColor)
+        break
+      } else if (changedElement.type === 'stroke' && elementStroke === changedElement.originalColor) {
+        element.setAttribute('stroke', changedElement.currentColor)
+        break
       }
-    })
+    }
 
     const modifiedSvg = new XMLSerializer().serializeToString(svgElement)
-    console.log('Modified SVG:', modifiedSvg.substring(0, 200) + '...')
     onColorChange(modifiedSvg)
   }
 
   const resetColors = () => {
+    // Reset state to original colors
     const updatedElements = colorElements.map(el => ({
       ...el,
       currentColor: el.originalColor
     }))
     setColorElements(updatedElements)
-    onColorChange(svgContent)
+    
+    // Return the original SVG content
+    onColorChange(originalSvg)
   }
 
   const getColorTypeLabel = (element: ColorElement) => {
@@ -181,15 +179,14 @@ export default function SvgColorEditor({ svgContent, onColorChange }: SvgColorEd
               <label className="text-sm font-medium">
                 Found {colorElements.length} color elements
               </label>
-              <Button
-                variant="outline"
-                size="sm"
+              <button
+                type="button"
                 onClick={resetColors}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium border rounded-md bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
               >
                 <RotateCcw className="h-3 w-3" />
                 Reset All
-              </Button>
+              </button>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-64 overflow-y-auto">

@@ -6,6 +6,8 @@ import OptionsPanel from './OptionsPanel'
 import SvgPreview from './SvgPreview'
 import OutputTabs from './OutputTabs'
 import ExportFormats from './ExportFormats'
+import ResponsiveSvgBuilder from './ResponsiveSvgBuilder'
+import SvgAnimationEditor from './SvgAnimationEditor'
 import { optimizeSvg, urlEncodeSvg, base64EncodeSvg, convertToJsx, validateSvg } from '@/lib/svg-utils'
 import { exportToImage, exportToPdf } from '@/lib/export-utils'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -23,6 +25,7 @@ const formatFileSize = (bytes: number): string => {
 export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
   const [optimizedSvg, setOptimizedSvg] = useState<string>('')
+  const [modifiedSvg, setModifiedSvg] = useState<string>('')
   const [isOptimized, setIsOptimized] = useState<boolean>(false)
   const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
   const [fileStats, setFileStats] = useState<{
@@ -99,6 +102,7 @@ export default function SvgConverter() {
             const optimized = await optimizeSvg(inputSvg)
             svgToProcess = optimized
             setOptimizedSvg(optimized)
+            setModifiedSvg(optimized)
             
             const optimizedSize = new Blob([optimized]).size
             const reduction = ((originalSize - optimizedSize) / originalSize) * 100
@@ -112,6 +116,7 @@ export default function SvgConverter() {
             console.warn('Optimization failed, using original SVG:', optimizeError)
             svgToProcess = inputSvg
             setOptimizedSvg(inputSvg)
+            setModifiedSvg(inputSvg)
             setFileStats({
               originalSize,
               optimizedSize: originalSize,
@@ -122,6 +127,7 @@ export default function SvgConverter() {
           }
         } else {
           setOptimizedSvg(inputSvg)
+          setModifiedSvg(inputSvg)
           setFileStats({
             originalSize,
             optimizedSize: originalSize,
@@ -169,12 +175,13 @@ export default function SvgConverter() {
 
         <div className="space-y-6">
           <SvgPreview 
-            svgString={optimizedSvg} 
-            onSvgChange={(modifiedSvg) => {
+            svgString={modifiedSvg || optimizedSvg} 
+            onSvgChange={(newModifiedSvg) => {
+              setModifiedSvg(newModifiedSvg)
               // Update output with modified SVG
-              const urlEncoded = urlEncodeSvg(modifiedSvg)
-              const base64 = base64EncodeSvg(modifiedSvg)
-              const jsx = convertToJsx(modifiedSvg)
+              const urlEncoded = urlEncodeSvg(newModifiedSvg)
+              const base64 = base64EncodeSvg(newModifiedSvg)
+              const jsx = convertToJsx(newModifiedSvg)
               setOutput({ urlEncoded, base64, jsx })
             }}
           />
@@ -223,6 +230,13 @@ export default function SvgConverter() {
           hasSvg={!!optimizedSvg}
         />
       </div>
+
+      {(modifiedSvg || optimizedSvg) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ResponsiveSvgBuilder svgContent={modifiedSvg || optimizedSvg} />
+          <SvgAnimationEditor svgContent={modifiedSvg || optimizedSvg} />
+        </div>
+      )}
 
       {isExporting && (
         <div className="text-sm text-muted-foreground text-center">

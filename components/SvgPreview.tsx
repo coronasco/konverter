@@ -13,10 +13,12 @@ interface SvgPreviewProps {
 export default function SvgPreview({ svgString, onSvgChange }: SvgPreviewProps) {
   const [showColorEditor, setShowColorEditor] = useState(false)
   const [currentSvg, setCurrentSvg] = useState(svgString)
+  const [originalSvg, setOriginalSvg] = useState(svgString)
 
-  // Update currentSvg when svgString changes
-  if (svgString !== currentSvg && !showColorEditor) {
+  // Update currentSvg and originalSvg when svgString changes
+  if (svgString !== originalSvg) {
     setCurrentSvg(svgString)
+    setOriginalSvg(svgString)
   }
 
   const handleColorChange = (modifiedSvg: string) => {
@@ -69,6 +71,7 @@ export default function SvgPreview({ svgString, onSvgChange }: SvgPreviewProps) 
       {showColorEditor && currentSvg && (
         <SvgColorEditor 
           svgContent={currentSvg}
+          originalSvg={originalSvg}
           onColorChange={handleColorChange}
         />
       )}
