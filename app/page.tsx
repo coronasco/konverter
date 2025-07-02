@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
+import ShareButton from '@/components/ShareButton'
 import { Zap, Code, Palette, Download, CheckCircle, Star } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -12,19 +13,22 @@ export default function Home() {
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
             Advanced SVG to CSS & JSX Converter
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Instantly convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. 
             Free, fast, and developer-friendly tool for modern web development.
           </p>
-          <span className='text-xs text-black bg-amber-300 p-4 rounded-full font-bold'>Free Forever</span>
+          <div className='flex items-center justify-center gap-4 flex-wrap'>
+            <span className='text-xs text-black bg-amber-300 px-4 py-2 rounded-full font-bold'>Free Forever</span>
+            <ShareButton />
+          </div>
         </div>
       </section>
 
       {/* Main Converter */}
-      <section className="pb-16 px-6" id="converter">
+      <section className="pb-16 px-2 md:px-6" id="converter">
         <div className="container mx-auto">
           <SvgConverter />
         </div>
@@ -35,10 +39,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="space-y-6">
               <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
                   Why I built this?
                 </h2>
-                <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mx-auto"></div>
+                <div className="w-20 h-1 bg-gradient-to-r from-white to-cyan-600 rounded-full mx-auto"></div>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Hey there! 👋 I&apos;m Daniel, a developer who got tired of manually converting SVGs for every project. 

@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="url(#gradient)"/>
+  
+  <!-- Letter K -->
+  <text x="256" y="320" font-family="Arial, sans-serif" font-size="200" font-weight="bold" fill="white" text-anchor="middle">K</text>
+  
+  <!-- Small decorative elements -->
+  <circle cx="128" cy="128" r="20" fill="white" opacity="0.2"/>
+  <circle cx="384" cy="384" r="15" fill="white" opacity="0.2"/>
+  <circle cx="384" cy="128" r="12" fill="white" opacity="0.2"/>
+  <circle cx="128" cy="384" r="18" fill="white" opacity="0.2"/>
+</svg> 

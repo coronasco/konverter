@@ -1,19 +1,21 @@
-import { Coffee, Palette } from 'lucide-react'
+import { Coffee } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 
 export default function Header() {
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center space-x-3">
-          <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg">
-            <Palette className="h-5 w-5 text-white" />
+          <div className='border border-slate-700'>
+
+            <Image src="/konverter_logo.svg" alt="Konverter Online" width={42} height={42} />
           </div>
           <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-xl font-bold bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
               Konverter Online
             </h1>
-            <p className="text-xs text-muted-foreground -mt-1">
+            <p className="text-xs text-cyan-500 -mt-1">
               Advanced SVG Conversion Tool
             </p>
           </div>
