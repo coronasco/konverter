@@ -143,27 +143,9 @@ export default function BlogPage() {
             })}
           </div>
 
-          {/* Newsletter Signup */}
-          <div className="mt-16">
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-blue-200 dark:border-blue-800">
-              <CardContent className="py-8 text-center">
-                <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-                <p className="text-muted-foreground mb-6">
-                  Get the latest SVG tips, CSS techniques, and web development insights delivered to your inbox.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Subscribe
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <div className='flex items-center justify-center mt-12 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg'>
+            <p>Thank you for visiting this website. If you have any questions, please <a href="https://www.linkedin.com/in/rolax" className="text-blue-600 hover:text-blue-800">contact me</a>. </p>
+          </div> 
         </div>
       </main>
 
