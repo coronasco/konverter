@@ -12,7 +12,7 @@ export default function Header() {
 
             <Image src="/konverter_logo.svg" alt="Konverter Online" width={42} height={42} />
           </div>
-          <Link href="/"> 
+          <Link href="/" className='hidden md:flex flex-col'> 
             <p className="text-xl font-bold bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
               Konverter Online
             </p>

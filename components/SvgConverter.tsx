@@ -21,20 +21,19 @@ const formatFileSize = (bytes: number): string => {
 export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
   const [optimizedSvg, setOptimizedSvg] = useState<string>('')
-  const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
+
   const [isOptimized, setIsOptimized] = useState<boolean>(false)
+  const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
   const [fileStats, setFileStats] = useState<{
     originalSize: number
     optimizedSize: number
     reduction: number
   } | null>(null)
-
   const [output, setOutput] = useState({
     urlEncoded: '',
     base64: '',
-    jsx: '',
+    jsx: ''
   })
-
   const [error, setError] = useState<string | null>(null)
 
   const handleSvgChange = (newSvg: string) => {
@@ -122,6 +121,8 @@ export default function SvgConverter() {
     processSvg()
   }, [inputSvg, isOptimized])
 
+
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       {error && (
@@ -139,9 +140,18 @@ export default function SvgConverter() {
             onOptimizedChange={setIsOptimized} 
           />
         </div>
-        
+
         <div className="space-y-6">
-          <SvgPreview svgString={optimizedSvg} />
+          <SvgPreview 
+            svgString={optimizedSvg} 
+            onSvgChange={(modifiedSvg) => {
+              // Update output with modified SVG
+              const urlEncoded = urlEncodeSvg(modifiedSvg)
+              const base64 = base64EncodeSvg(modifiedSvg)
+              const jsx = convertToJsx(modifiedSvg)
+              setOutput({ urlEncoded, base64, jsx })
+            }}
+          />
           {isOptimizing && (
             <div className="text-sm text-muted-foreground">
               Optimizing SVG...
@@ -174,7 +184,7 @@ export default function SvgConverter() {
           )}
         </div>
       </div>
-      
+
       <OutputTabs 
         urlEncoded={output.urlEncoded}
         base64={output.base64}
