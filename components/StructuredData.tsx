@@ -3,7 +3,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Konverter - Advanced SVG to CSS/JSX Converter",
-    "description": "Free online tool to convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components",
+    "description": "Free online tool to convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. Now with live color editing and PDF export!",
     "url": "https://www.konverter-online.com",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web Browser",
@@ -30,6 +30,8 @@ export default function StructuredData() {
       "SVG to Base64 conversion", 
       "SVG to React JSX conversion",
       "SVG optimization",
+      "Live color editing",
+      "PDF export",
       "Drag and drop upload",
       "Live preview",
       "Copy to clipboard"
@@ -37,7 +39,7 @@ export default function StructuredData() {
     "screenshot": "https://www.konverter-online.com/og-image.svg",
     "softwareVersion": "1.0.0",
     "dateCreated": "2024-01-01",
-    "dateModified": new Date().toISOString().split('T')[0],
+    "dateModified": "2025-01-01",
     "inLanguage": "en-US",
     "isAccessibleForFree": true,
     "license": "https://opensource.org/licenses/MIT"

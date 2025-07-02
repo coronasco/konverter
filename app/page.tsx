@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
-import { Zap, Code, Palette, Download, CheckCircle, Star } from 'lucide-react'
+import { Zap, Code, Palette, Download, CheckCircle, Star, Droplets, FileText, Sparkles, Layers } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Home() {
@@ -18,10 +18,12 @@ export default function Home() {
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Instantly convert SVG files to optimized URL-encoded CSS, Base64, or React JSX components. 
-            Free, fast, and developer-friendly tool for modern web development.
+            Now with live color editing and PDF export! Free, fast, and developer-friendly tool for modern web development.
           </p>
           <div className='flex items-center justify-center gap-4 flex-wrap'>
             <span className='text-xs text-black bg-amber-300 px-4 py-2 rounded-full font-bold'>Free Forever</span>
+            <span className='text-xs text-white bg-green-600 px-4 py-2 rounded-full font-bold'>New: Live Color Editor</span>
+            <span className='text-xs text-white bg-purple-600 px-4 py-2 rounded-full font-bold'>New: PDF Export</span>
             <ShareButton />
           </div>
         </div>
@@ -54,9 +56,85 @@ export default function Home() {
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Just drag, drop, and get your optimized SVG in any format you want. Because honestly, we have better things to do than wrestle with file conversions! 
-                More converting options are on the way! Stay tuned!
+                I&apos;ve just added live color editing and PDF export - because why not make it even more awesome? 🚀
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Features Section */}
+      <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">✨ Fresh New Features</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Just dropped these game-changers to make your SVG workflow even smoother
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="border-green-200 dark:border-green-800">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <Droplets className="h-6 w-6 text-green-600" />
+                </div>
+                <CardTitle className="flex items-center gap-2">
+                  Live Color Editor
+                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
+                <CardDescription>
+                  Edit SVG colors in real-time with our intuitive color picker. Perfect for designers who need to match brand colors or experiment with different palettes.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Visual color picker for each SVG element
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Live preview as you edit
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    One-click color reset
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-purple-200 dark:border-purple-800">
+              <CardHeader>
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-purple-600" />
+                </div>
+                <CardTitle className="flex items-center gap-2">
+                  PDF Export
+                  <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">NEW</span>
+                </CardTitle>
+                <CardDescription>
+                  Export your SVGs as high-quality PDFs for presentations, documentation, or client deliverables. Perfect for designers and project managers.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    High-resolution PDF output
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    Vector quality preserved
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-purple-600" />
+                    Perfect for documentation
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -99,7 +177,7 @@ export default function Home() {
             <Card>
               <CardHeader>
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Palette className="h-6 w-6 text-purple-600" />
+                  <Sparkles className="h-6 w-6 text-purple-600" />
                 </div>
                 <CardTitle>SVG Optimization</CardTitle>
                 <CardDescription>
@@ -123,7 +201,7 @@ export default function Home() {
             <Card>
               <CardHeader>
                 <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <CheckCircle className="h-6 w-6 text-red-600" />
+                  <Layers className="h-6 w-6 text-red-600" />
                 </div>
                 <CardTitle>Live Preview</CardTitle>
                 <CardDescription>
@@ -172,9 +250,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-green-600">2</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Optimize & Convert</h3>
+              <h3 className="text-xl font-semibold mb-2">Edit & Convert</h3>
               <p className="text-muted-foreground">
-                Konverter optimizes your SVG and converts it to multiple formats
+                Customize colors live, optimize your SVG, and convert to multiple formats
               </p>
             </div>
             
@@ -182,9 +260,9 @@ export default function Home() {
               <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-purple-600">3</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Copy & Use</h3>
+              <h3 className="text-xl font-semibold mb-2">Export & Use</h3>
               <p className="text-muted-foreground">
-                Copy the generated code and use it in your projects
+                Copy the code, export as PDF, or download in your preferred format
               </p>
             </div>
           </div>
@@ -197,7 +275,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Perfect For Developers & Designers</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-                             Whether you&apos;re building React apps, CSS backgrounds, or optimizing web performance
+              Whether you&apos;re building React apps, CSS backgrounds, or optimizing web performance
             </p>
           </div>
           
@@ -251,6 +329,56 @@ export default function Home() {
                 </ul>
               </CardContent>
             </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Droplets className="h-5 w-5 text-green-600" />
+                  UI/UX Designers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Live color editing
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    PDF export for presentations
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Brand color matching
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 text-orange-600" />
+                  Project Managers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    PDF documentation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Client deliverables
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Asset management
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -258,7 +386,7 @@ export default function Home() {
       {/* Stats */}
       <section className="py-20 px-6">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
               <div className="text-muted-foreground">Free to Use</div>
@@ -268,8 +396,12 @@ export default function Home() {
               <div className="text-muted-foreground">Output Options</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">Instant</div>
-              <div className="text-muted-foreground">Conversion Speed</div>
+              <div className="text-3xl font-bold text-purple-600 mb-2">Live Editing</div>
+              <div className="text-muted-foreground">Color Picker</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">PDF Export</div>
+              <div className="text-muted-foreground">High Quality</div>
             </div>
           </div>
         </div>

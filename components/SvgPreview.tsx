@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Eye, Palette } from 'lucide-react'
+import { Eye, Palette, Upload } from 'lucide-react'
 import { useState } from 'react'
 import SvgColorEditor from './SvgColorEditor'
 
@@ -57,9 +57,10 @@ export default function SvgPreview({ svgString, onSvgChange }: SvgPreviewProps) 
                 }}
               />
             ) : (
-              <p className="text-muted-foreground text-sm">
-                No SVG to preview
-              </p>
+              <div className="text-center">
+                <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">Upload an SVG to see preview</p>
+              </div>
             )}
           </div>
         </CardContent>
@@ -70,6 +71,17 @@ export default function SvgPreview({ svgString, onSvgChange }: SvgPreviewProps) 
           svgContent={currentSvg}
           onColorChange={handleColorChange}
         />
+      )}
+
+      {!currentSvg && (
+        <Card className="border-dashed border-2 border-muted-foreground/20">
+          <CardContent className="p-4">
+            <div className="text-center">
+              <Palette className="h-6 w-6 text-muted-foreground mx-auto mb-2" />
+              <p className="text-sm text-muted-foreground">Upload an SVG to unlock color editing</p>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   )

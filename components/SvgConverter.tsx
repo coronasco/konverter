@@ -5,7 +5,9 @@ import SvgInputArea from './SvgInputArea'
 import OptionsPanel from './OptionsPanel'
 import SvgPreview from './SvgPreview'
 import OutputTabs from './OutputTabs'
+import ExportFormats from './ExportFormats'
 import { optimizeSvg, urlEncodeSvg, base64EncodeSvg, convertToJsx, validateSvg } from '@/lib/svg-utils'
+import { exportToImage, exportToPdf } from '@/lib/export-utils'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AlertCircle } from 'lucide-react'
 
@@ -21,7 +23,6 @@ const formatFileSize = (bytes: number): string => {
 export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
   const [optimizedSvg, setOptimizedSvg] = useState<string>('')
-
   const [isOptimized, setIsOptimized] = useState<boolean>(false)
   const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
   const [fileStats, setFileStats] = useState<{
@@ -35,10 +36,37 @@ export default function SvgConverter() {
     jsx: ''
   })
   const [error, setError] = useState<string | null>(null)
+  const [isExporting, setIsExporting] = useState(false)
 
   const handleSvgChange = (newSvg: string) => {
     setInputSvg(newSvg)
     setError(null)
+  }
+
+  const handleExport = async (format: string, options: { format: string; width: number; height: number; backgroundColor: string; quality?: number }) => {
+    if (!optimizedSvg) {
+      setError('No SVG to export')
+      return
+    }
+
+    setIsExporting(true)
+    try {
+      if (format.startsWith('image-')) {
+        const imageFormat = format.replace('image-', '') as 'png' | 'jpg' | 'webp'
+        await exportToImage(optimizedSvg, { ...options, format: imageFormat })
+      } else if (format.startsWith('icon-')) {
+        const size = parseInt(format.replace('icon-', '').replace('px', ''))
+        await exportToImage(optimizedSvg, { ...options, width: size, height: size, format: 'png' })
+      } else if (format.startsWith('responsive-')) {
+        await exportToImage(optimizedSvg, { ...options, format: 'png' })
+      } else if (format === 'pdf') {
+        await exportToPdf()
+      }
+    } catch (error) {
+      setError(`Export failed: ${error}`)
+    } finally {
+      setIsExporting(false)
+    }
   }
 
   useEffect(() => {
@@ -121,8 +149,6 @@ export default function SvgConverter() {
     processSvg()
   }, [inputSvg, isOptimized])
 
-
-
   return (
     <div className="container mx-auto p-6 space-y-6">
       {error && (
@@ -185,11 +211,24 @@ export default function SvgConverter() {
         </div>
       </div>
 
-      <OutputTabs 
-        urlEncoded={output.urlEncoded}
-        base64={output.base64}
-        jsx={output.jsx}
-      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <OutputTabs 
+          urlEncoded={output.urlEncoded}
+          base64={output.base64}
+          jsx={output.jsx}
+        />
+        
+        <ExportFormats 
+          onExport={handleExport}
+          hasSvg={!!optimizedSvg}
+        />
+      </div>
+
+      {isExporting && (
+        <div className="text-sm text-muted-foreground text-center">
+          Exporting...
+        </div>
+      )}
     </div>
   )
 } 
