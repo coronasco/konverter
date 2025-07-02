@@ -2,19 +2,20 @@ import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.konverter-online.com'
+  const currentDate = new Date()
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/api/health`, // Dacă ai un endpoint de health check
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
-      priority: 0.5,
+      priority: 0.3,
     },
   ]
 } 
