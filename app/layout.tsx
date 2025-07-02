@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
+import Script from "next/script";
 
 import { Analytics } from "@vercel/analytics/next"
 
@@ -75,6 +76,18 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
         {children}
         <Analytics />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-X53DYH5BFR"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X53DYH5BFR');
+          `}
+        </Script>
       </body>
     </html>
   );
