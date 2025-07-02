@@ -22,12 +22,19 @@ export default function Header() {
           </Link>
         </div>
         
-        <Button variant="outline" size="sm" asChild className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-0">
-          <a href="https://coff.ee/danielzahav" target="_blank" rel="noopener noreferrer">
-            <Coffee className="h-4 w-4 mr-2" />
-            Buy me a coffee
-          </a>
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/blog" className="text-muted-foreground hover:text-foreground">
+              Tips & Tricks
+            </Link>
+          </Button>
+          <Button variant="outline" size="sm" asChild className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-0">
+            <a href="https://coff.ee/danielzahav" target="_blank" rel="noopener noreferrer">
+              <Coffee className="h-4 w-4 mr-2" />
+              Buy me a coffee
+            </a>
+          </Button>
+        </div>
       </div>
     </header>
   )

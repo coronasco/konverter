@@ -3,11 +3,20 @@
 import { Share2, Twitter, Facebook, Linkedin, Mail, Copy, ExternalLink } from 'lucide-react'
 import { useState } from 'react'
 
-export default function ShareButton() {
+interface ShareButtonProps {
+  title?: string
+  text?: string
+  url?: string
+  buttonText?: string
+}
+
+export default function ShareButton({ 
+  title = 'Konverter - Advanced SVG to CSS & JSX Converter',
+  text = 'Check out this amazing free tool for converting SVG to CSS and React components!',
+  url = 'https://www.konverter-online.com',
+  buttonText = 'Share Website'
+}: ShareButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const siteUrl = 'https://www.konverter-online.com'
-  const siteTitle = 'Konverter - Advanced SVG to CSS & JSX Converter'
-  const siteDescription = 'Check out this amazing free tool for converting SVG to CSS and React components!'
 
   const shareOptions = [
     {
@@ -15,8 +24,9 @@ export default function ShareButton() {
       icon: Twitter,
       color: 'text-blue-400 hover:text-blue-500',
       action: () => {
-        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(siteDescription)}&url=${encodeURIComponent(siteUrl)}`
-        window.open(url, '_blank')
+        const shareText = `${title}\n\n${text}`
+        const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`
+        window.open(shareUrl, '_blank')
       }
     },
     {
@@ -24,8 +34,8 @@ export default function ShareButton() {
       icon: Facebook,
       color: 'text-blue-600 hover:text-blue-700',
       action: () => {
-        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`
-        window.open(url, '_blank')
+        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+        window.open(shareUrl, '_blank')
       }
     },
     {
@@ -33,8 +43,8 @@ export default function ShareButton() {
       icon: Linkedin,
       color: 'text-blue-700 hover:text-blue-800',
       action: () => {
-        const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(siteUrl)}`
-        window.open(url, '_blank')
+        const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`
+        window.open(shareUrl, '_blank')
       }
     },
     {
@@ -42,8 +52,8 @@ export default function ShareButton() {
       icon: ExternalLink,
       color: 'text-orange-500 hover:text-orange-600',
       action: () => {
-        const url = `https://reddit.com/submit?url=${encodeURIComponent(siteUrl)}&title=${encodeURIComponent(siteTitle)}`
-        window.open(url, '_blank')
+        const shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`
+        window.open(shareUrl, '_blank')
       }
     },
     {
@@ -51,10 +61,10 @@ export default function ShareButton() {
       icon: Mail,
       color: 'text-gray-600 hover:text-gray-700',
       action: () => {
-        const subject = encodeURIComponent(siteTitle)
-        const body = encodeURIComponent(`${siteDescription}\n\n${siteUrl}`)
-        const url = `mailto:?subject=${subject}&body=${body}`
-        window.location.href = url
+        const subject = encodeURIComponent(title)
+        const body = encodeURIComponent(`${text}\n\n${url}`)
+        const mailtoUrl = `mailto:?subject=${subject}&body=${body}`
+        window.location.href = mailtoUrl
       }
     },
     {
@@ -63,12 +73,12 @@ export default function ShareButton() {
       color: 'text-green-600 hover:text-green-700',
       action: async () => {
         try {
-          await navigator.clipboard.writeText(siteUrl)
+          await navigator.clipboard.writeText(url)
           alert('Link copied to clipboard!')
         } catch {
           // Fallback pentru browsere vechi
           const textArea = document.createElement('textarea')
-          textArea.value = siteUrl
+          textArea.value = url
           document.body.appendChild(textArea)
           textArea.select()
           document.execCommand('copy')
@@ -86,7 +96,7 @@ export default function ShareButton() {
         className='flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors'
       >
         <Share2 className='h-4 w-4' />
-        Share Website
+        {buttonText}
       </button>
 
       {isOpen && (
