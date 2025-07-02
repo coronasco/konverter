@@ -1,6 +1,7 @@
 import { Coffee } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Header() {
   return (
@@ -11,14 +12,14 @@ export default function Header() {
 
             <Image src="/konverter_logo.svg" alt="Konverter Online" width={42} height={42} />
           </div>
-          <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
+          <Link href="/"> 
+            <p className="text-xl font-bold bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
               Konverter Online
-            </h1>
+            </p>
             <p className="text-xs text-cyan-500 -mt-1">
               Advanced SVG Conversion Tool
             </p>
-          </div>
+          </Link>
         </div>
         
         <Button variant="outline" size="sm" asChild className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-0">
