@@ -8,12 +8,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/', '/admin/', '/private/'],
+        disallow: ['/api/', '/_next/', '/admin/', '/private/', '/_vercel/'],
       },
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/api/'],
+        disallow: ['/api/', '/_next/', '/_vercel/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
