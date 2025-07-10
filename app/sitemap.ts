@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://konverter.online'
+  const baseUrl = 'https://www.konverter-online.com'
   const currentDate = new Date()
   
   // Get all blog posts
@@ -15,12 +15,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   return [
+    // Homepage - highest priority
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
+    
+    // Main tools - high priority
     {
       url: `${baseUrl}/json-formatter`,
       lastModified: currentDate,
@@ -63,13 +66,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    
+    // Blog section
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    
+    // Blog posts
     ...blogUrls,
+    
+    // Legal pages - lower priority
     {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,
