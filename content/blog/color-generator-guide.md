@@ -4,7 +4,7 @@ description: "Learn how to extract color palettes from images with this free onl
 excerpt: "Finding the perfect color palette for a design project can be frustrating. I remember spending hours trying to match colors from inspiration images, manually picking colors pixel by pixel. That's why I built the Color Generator - to make color extraction as simple as uploading an image."
 category: "Design"
 readTime: "6 min read"
-date: "2024-01-15"
+date: "2024-12-05"
 ---
 
 Finding the perfect color palette for a design project can be frustrating. I remember spending hours trying to match colors from inspiration images, manually picking colors pixel by pixel. That's why I built the [Color Generator](https://www.konverter-online.com/color-generator) - to make color extraction as simple as uploading an image.

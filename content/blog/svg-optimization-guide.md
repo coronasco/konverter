@@ -1,9 +1,10 @@
 ---
 title: "Complete Guide to SVG Optimization - Make Your SVGs Lightning Fast! ⚡"
-date: "2025-01-15"
+description: "Learn how to optimize SVG files for better performance. Reduce file size, improve loading speed, and boost your website's Core Web Vitals with these proven techniques."
 excerpt: "Hey there! Ever wondered why your SVG files are so chunky? Let me show you how to make them fly! In this comprehensive guide, I'll share all the tricks I've learned to optimize SVGs and boost your website's performance."
-category: "Optimization"
+category: "Web Development"
 readTime: "12 min read"
+date: "2024-11-10"
 tags: ["svg", "optimization", "performance", "web development", "frontend", "file size", "speed"]
 featured: true
 ---

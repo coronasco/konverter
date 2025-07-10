@@ -4,7 +4,7 @@ description: "Learn how to format and validate JSON with this free online tool. 
 excerpt: "Working with JSON data can be a nightmare when it's all squished into one line. I remember trying to debug API responses that looked like they were written by a cat walking on a keyboard. That's exactly why I built the JSON Formatter - to make JSON readable and manageable."
 category: "Web Development"
 readTime: "6 min read"
-date: "2024-01-15"
+date: "2024-12-10"
 ---
 
 Working with JSON data can be a nightmare when it's all squished into one line. I remember trying to debug API responses that looked like they were written by a cat walking on a keyboard. That's exactly why I built the [JSON Formatter](https://www.konverter-online.com/json-formatter) - to make JSON readable and manageable.

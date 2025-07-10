@@ -4,7 +4,7 @@ description: "Learn how to generate secure passwords with this free online tool.
 excerpt: "Let's be honest - most of us are terrible at creating passwords. 'password123' and '123456' are still among the most common passwords in the world, and that's just asking for trouble. I built the Password Generator because I was tired of trying to come up with secure passwords on the spot."
 category: "Security"
 readTime: "6 min read"
-date: "2024-01-15"
+date: "2024-11-20"
 ---
 
 Let's be honest - most of us are terrible at creating passwords. "password123" and "123456" are still among the most common passwords in the world, and that's just asking for trouble. I built the [Password Generator](https://www.konverter-online.com/password-generator) because I was tired of trying to come up with secure passwords on the spot.

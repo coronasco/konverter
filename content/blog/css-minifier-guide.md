@@ -4,7 +4,7 @@ description: "Learn how to minify CSS with this free online tool. Reduce file si
 excerpt: "CSS files can get pretty bloated during development. I remember working on a project where the CSS file was over 500KB - that's like trying to load a small image every time someone visited the site. That's exactly why I built the CSS Minifier - to make CSS optimization as simple as pasting your code."
 category: "Web Development"
 readTime: "6 min read"
-date: "2024-01-15"
+date: "2024-12-15"
 ---
 
 CSS files can get pretty bloated during development. I remember working on a project where the CSS file was over 500KB - that's like trying to load a small image every time someone visited the site. That's exactly why I built the [CSS Minifier](https://www.konverter-online.com/css-minifier) - to make CSS optimization as simple as pasting your code.

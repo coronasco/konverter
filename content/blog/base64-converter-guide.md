@@ -4,7 +4,7 @@ description: "Learn how to use Base64 encoding with this free online tool. Conve
 excerpt: "Base64 encoding is one of those things that sounds complicated but is actually pretty simple once you understand it. I built the Base64 Converter because I was tired of dealing with broken online tools that couldn't handle the files I needed to encode."
 category: "Web Development"
 readTime: "7 min read"
-date: "2024-01-15"
+date: "2024-12-01"
 ---
 
 Base64 encoding is one of those things that sounds complicated but is actually pretty simple once you understand it. I built the [Base64 Converter](https://www.konverter-online.com/base64-converter) because I was tired of dealing with broken online tools that couldn't handle the files I needed to encode.

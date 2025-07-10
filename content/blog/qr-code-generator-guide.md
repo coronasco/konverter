@@ -4,7 +4,7 @@ description: "Learn how to create custom QR codes with this free online tool. Ge
 excerpt: "QR codes are everywhere these days - on business cards, restaurant menus, product packaging, and even in museums. I remember trying to create a QR code for my business card and getting frustrated with complicated online tools that required registration or had limited customization. That's exactly why I built the QR Code Generator - to make QR code creation simple and accessible."
 category: "Marketing"
 readTime: "6 min read"
-date: "2024-01-15"
+date: "2024-12-20"
 ---
 
 QR codes are everywhere these days - on business cards, restaurant menus, product packaging, and even in museums. I remember trying to create a QR code for my business card and getting frustrated with complicated online tools that required registration or had limited customization. That's exactly why I built the [QR Code Generator](https://www.konverter-online.com/qr-generator) - to make QR code creation simple and accessible.
