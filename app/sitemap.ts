@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.konverter-online.com'
+  const baseUrl = 'https://konverter.online'
   const currentDate = new Date()
   
   // Get all blog posts
