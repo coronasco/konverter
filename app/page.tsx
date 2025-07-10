@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
@@ -5,6 +6,26 @@ import ShareButton from '@/components/ShareButton'
 import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Konverter - Advanced SVG to CSS/JSX Converter | Free Online Tool',
+  description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio. Professional SVG tools for developers.',
+  keywords: 'SVG converter, SVG to CSS, SVG to React, SVG to JSX, SVG optimizer, CSS background generator, React component generator, SVG tools, online converter',
+  openGraph: {
+    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
+    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
+    type: 'website',
+    url: 'https://konverter.online',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
+    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more.',
+  },
+  alternates: {
+    canonical: 'https://konverter.online',
+  },
+}
 
 export default function Home() {
   return (
