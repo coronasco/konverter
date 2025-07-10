@@ -4,18 +4,18 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'CSS Minifier - Compress & Optimize CSS Online | Konverter',
-  description: 'Free online CSS minifier and compressor. Reduce CSS file size, add vendor prefixes, and optimize CSS for better performance. Professional CSS optimization tools.',
-  keywords: 'CSS minifier, CSS compressor, CSS optimizer, CSS minification, vendor prefixes, CSS optimization, online CSS tools',
+  title: 'CSS Minifier Online Free | Compress & Optimize CSS for Better Performance',
+  description: 'Free online CSS minifier and compressor. Reduce CSS file size by up to 80%, add vendor prefixes automatically, and optimize CSS for better website performance. No signup required, trusted by web developers worldwide.',
+  keywords: 'CSS minifier, CSS compressor, CSS optimizer, CSS minification, vendor prefixes, CSS optimization, online CSS tools, free CSS minifier',
   openGraph: {
-    title: 'CSS Minifier - Compress & Optimize CSS Online',
+    title: 'CSS Minifier Online Free | Compress & Optimize CSS',
     description: 'Free online CSS minifier and compressor. Reduce CSS file size, add vendor prefixes, and optimize CSS for better performance.',
     type: 'website',
     url: 'https://konverter.online/css-minifier',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CSS Minifier - Compress & Optimize CSS Online',
+    title: 'CSS Minifier Online Free | Compress & Optimize CSS',
     description: 'Free online CSS minifier and compressor. Professional CSS optimization tools for developers.',
   },
   alternates: {

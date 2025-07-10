@@ -4,18 +4,18 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'JSON Formatter - Beautify, Minify & Convert JSON Online | Konverter',
-  description: 'Free online JSON formatter, validator, and converter. Beautify JSON, minify JSON, validate JSON syntax, and convert JSON to YAML. Professional JSON tools for developers.',
-  keywords: 'JSON formatter, JSON beautifier, JSON minifier, JSON validator, JSON to YAML, JSON converter, online JSON tools',
+  title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON Instantly',
+  description: 'Free online JSON formatter, validator, and converter. Beautify JSON with proper indentation, minify JSON for production, validate JSON syntax errors, and convert JSON to YAML. No signup required, trusted by developers worldwide.',
+  keywords: 'JSON formatter, JSON beautifier, JSON minifier, JSON validator, JSON to YAML, JSON converter, online JSON tools, free JSON formatter',
   openGraph: {
-    title: 'JSON Formatter - Beautify, Minify & Convert JSON Online',
+    title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON',
     description: 'Free online JSON formatter, validator, and converter. Beautify JSON, minify JSON, validate JSON syntax, and convert JSON to YAML.',
     type: 'website',
     url: 'https://konverter.online/json-formatter',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'JSON Formatter - Beautify, Minify & Convert JSON Online',
+    title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON',
     description: 'Free online JSON formatter, validator, and converter. Professional JSON tools for developers.',
   },
   alternates: {

@@ -4,18 +4,18 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Color Generator - Extract Color Palettes from Images | Konverter',
-  description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs. Generate CSS color variables and hex codes.',
-  keywords: 'color generator, color palette, color extractor, image color picker, CSS color variables, hex colors, color scheme generator',
+  title: 'Color Generator Online Free | Extract Color Palettes from Images Instantly',
+  description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs. Generate CSS color variables, hex codes, and RGB values. No signup required, perfect for designers and developers.',
+  keywords: 'color generator, color palette, color extractor, image color picker, CSS color variables, hex colors, color scheme generator, free color palette',
   openGraph: {
-    title: 'Color Generator - Extract Color Palettes from Images',
+    title: 'Color Generator Online Free | Extract Color Palettes from Images',
     description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs.',
     type: 'website',
     url: 'https://konverter.online/color-generator',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Color Generator - Extract Color Palettes from Images',
+    title: 'Color Generator Online Free | Extract Color Palettes from Images',
     description: 'Free online color palette generator. Extract beautiful color schemes from images.',
   },
   alternates: {

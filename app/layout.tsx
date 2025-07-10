@@ -1,67 +1,28 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import StructuredData from "@/components/StructuredData";
-import Script from "next/script";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-import { Analytics } from "@vercel/analytics/next"
-
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Advanced SVG to CSS & JSX Converter | Live Color Editor & PDF Export",
-  description: "Instantly convert SVG to optimized URL-encoded CSS, Base64, or React JSX components. Now with live color editing and PDF export! Free, fast, and developer-friendly tool.",
-  keywords: ["svg to css", "url encode svg", "svg to base64", "svg to react component", "optimize svg", "svgo", "developer tool", "svg converter", "svg optimizer", "react svg component", "live color editor", "pdf export", "svg color picker"],
-  authors: [{ name: "Daniel Zaharia" }],
-  creator: "Daniel Zaharia",
-  publisher: "Daniel Zaharia",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://www.konverter-online.com"),
-  alternates: {
-    canonical: "/",
-  },
+  title: 'Konverter - Advanced SVG to CSS/JSX Converter | Free Online Tool',
+  description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio. Professional SVG tools for developers.',
+  keywords: 'SVG converter, SVG to CSS, SVG to React, SVG to JSX, SVG optimizer, CSS background generator, React component generator, SVG tools, online converter',
   openGraph: {
-    title: "Advanced SVG to CSS & JSX Converter | Live Color Editor & PDF Export",
-    description: "Instantly convert SVG to optimized URL-encoded CSS, Base64, or React JSX components. Now with live color editing and PDF export! Free, fast, and developer-friendly tool.",
-    url: "https://www.konverter-online.com",
-    siteName: "Konverter",
-    images: [
-      {
-        url: "https://www.konverter-online.com/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "Konverter - SVG to CSS/JSX Converter with Live Color Editor",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
+    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
+    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
+    type: 'website',
+    url: 'https://konverter.online',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Advanced SVG to CSS & JSX Converter | Live Color Editor & PDF Export",
-    description: "Instantly convert SVG to optimized URL-encoded CSS, Base64, or React JSX components. Now with live color editing and PDF export!",
-    images: ["https://www.konverter-online.com/og-image.svg"],
-    creator: "@coronasco",
+    card: 'summary_large_image',
+    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
+    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more.',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+  alternates: {
+    canonical: 'https://konverter.online',
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
-};
+}
 
 export default function RootLayout({
   children,
@@ -69,26 +30,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
-        <StructuredData />
-      </head>
-      <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
-        {children}
-        <Analytics />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-X53DYH5BFR"
-          strategy="afterInteractive"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Konverter Online",
+              "url": "https://konverter.online/",
+              "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, and color palette generation.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://konverter.online/?q={search_term}",
+                "query-input": "required name=search_term"
+              },
+              "sameAs": [
+                "https://github.com/coronasco/konverter"
+              ]
+            })
+          }}
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-X53DYH5BFR');
-          `}
-        </Script>
-      </body>
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
-  );
+  )
 }
