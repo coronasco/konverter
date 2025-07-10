@@ -21,36 +21,14 @@ export default function ColorGenerator() {
   const [copied, setCopied] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const result = e.target?.result as string
-        setImageSrc(result)
-        extractColorsFromImage(result)
-      }
-      reader.readAsDataURL(file)
-    }
+  const rgbToHex = useCallback((r: number, g: number, b: number): string => {
+    return '#' + [r, g, b].map(x => {
+      const hex = x.toString(16)
+      return hex.length === 1 ? '0' + hex : hex
+    }).join('')
   }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
-    },
-    multiple: false
-  })
-
-  const loadImageFromUrl = () => {
-    if (!imageUrl.trim()) return
-    
-    setIsLoading(true)
-    setImageSrc(imageUrl)
-    extractColorsFromImage(imageUrl)
-  }
-
-  const extractColorsFromImage = (src: string) => {
+  const extractColorsFromImage = useCallback((src: string) => {
     const img = new window.Image()
     img.crossOrigin = 'anonymous'
     
@@ -113,16 +91,38 @@ export default function ColorGenerator() {
     }
     
     img.src = src
-  }
+  }, [rgbToHex])
 
-  const rgbToHex = (r: number, g: number, b: number): string => {
-    return '#' + [r, g, b].map(x => {
-      const hex = x.toString(16)
-      return hex.length === 1 ? '0' + hex : hex
-    }).join('')
-  }
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const file = acceptedFiles[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const result = e.target?.result as string
+        setImageSrc(result)
+        extractColorsFromImage(result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }, [extractColorsFromImage])
 
-  const copyPalette = async () => {
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
+    },
+    multiple: false
+  })
+
+  const loadImageFromUrl = useCallback(() => {
+    if (!imageUrl.trim()) return
+    
+    setIsLoading(true)
+    setImageSrc(imageUrl)
+    extractColorsFromImage(imageUrl)
+  }, [imageUrl, extractColorsFromImage])
+
+  const copyPalette = useCallback(async () => {
     if (colors.length === 0) return
     
     const cssVariables = colors.map((color, index) => 
@@ -138,14 +138,14 @@ export default function ColorGenerator() {
     } catch (err) {
       console.error('Failed to copy palette: ', err)
     }
-  }
+  }, [colors])
 
-  const clearAll = () => {
+  const clearAll = useCallback(() => {
     setColors([])
     setImageUrl('')
     setImageSrc('')
     setCopied(false)
-  }
+  }, [])
 
   return (
     <div className="container mx-auto p-6 space-y-6">

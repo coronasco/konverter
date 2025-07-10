@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -35,7 +35,7 @@ export default function QrCodeGenerator() {
   })
   const [copied, setCopied] = useState(false)
 
-  const generateQR = async () => {
+  const generateQR = useCallback(async () => {
     let hasContent = false
     let qrContent = ''
     
@@ -77,11 +77,11 @@ export default function QrCodeGenerator() {
     } catch (err) {
       console.error('Error generating QR code:', err)
     }
-  }
+  }, [qrData, customization])
 
   useEffect(() => {
     generateQR()
-  }, [qrData, customization])
+  }, [generateQR])
 
   const copyToClipboard = async () => {
     if (!qrImage) return

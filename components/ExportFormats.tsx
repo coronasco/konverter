@@ -123,7 +123,7 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
         <Tabs defaultValue="images" className="w-full">
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="images" className="flex items-center gap-2">
-              <Image className="h-4 w-4" />
+              <Image className="h-4 w-4" aria-hidden="true" />
               Images
             </TabsTrigger>
             <TabsTrigger value="icons" className="flex items-center gap-2">
@@ -202,7 +202,7 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
                   className="w-full justify-start"
                   variant="outline"
                 >
-                  <Image className="h-4 w-4 mr-2" />
+                  <Image className="h-4 w-4 mr-2" aria-hidden="true" />
                   Export as PNG
                 </Button>
                 
@@ -211,7 +211,7 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
                   className="w-full justify-start"
                   variant="outline"
                 >
-                  <Image className="h-4 w-4 mr-2" />
+                  <Image className="h-4 w-4 mr-2" aria-hidden="true" />
                   Export as JPG
                 </Button>
                 

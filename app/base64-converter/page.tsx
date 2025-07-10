@@ -45,7 +45,7 @@ export default function Base64ConverterPage() {
             <h2 className="text-3xl font-bold mb-6">What is Base64 Encoding?</h2>
             <p className="text-lg mb-6">
               Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. 
-              It's widely used in web development, email systems, and data transmission where binary data needs 
+              It&apos;s widely used in web development, email systems, and data transmission where binary data needs 
               to be stored or transferred as text.
             </p>
 
