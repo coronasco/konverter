@@ -16,7 +16,8 @@ import {
   Tablet,
   Palette,
   Zap,
-  Upload
+  Upload,
+  FileCode
 } from 'lucide-react'
 
 interface ExportOptions {
@@ -30,9 +31,10 @@ interface ExportOptions {
 interface ExportFormatsProps {
   onExport: (format: string, options: ExportOptions) => void
   hasSvg?: boolean
+  onOpenJsxModal?: () => void
 }
 
-export default function ExportFormats({ onExport, hasSvg = false }: ExportFormatsProps) {
+export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal }: ExportFormatsProps) {
   const [imageSize, setImageSize] = useState(512)
   const [backgroundColor, setBackgroundColor] = useState('#ffffff')
   const [transparent, setTransparent] = useState(false)
@@ -119,7 +121,7 @@ export default function ExportFormats({ onExport, hasSvg = false }: ExportFormat
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="images" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="images" className="flex items-center gap-2">
               <Image className="h-4 w-4" />
               Images
@@ -135,6 +137,10 @@ export default function ExportFormats({ onExport, hasSvg = false }: ExportFormat
             <TabsTrigger value="documents" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Documents
+            </TabsTrigger>
+            <TabsTrigger value="jsx" className="flex items-center gap-2">
+              <FileCode className="h-4 w-4" />
+              JSX
             </TabsTrigger>
           </TabsList>
 
@@ -289,6 +295,25 @@ export default function ExportFormats({ onExport, hasSvg = false }: ExportFormat
               
               <div className="text-sm text-muted-foreground">
                 PDF export includes the SVG as a vector graphic, maintaining quality at any scale.
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* JSX Tab */}
+          <TabsContent value="jsx" className="space-y-4">
+            <div className="space-y-4">
+              <Button 
+                onClick={onOpenJsxModal}
+                className="w-full justify-start"
+                variant="outline"
+                size="lg"
+              >
+                <FileCode className="h-4 w-4 mr-2" />
+                Export React Component
+              </Button>
+              
+              <div className="text-sm text-muted-foreground">
+                Generate TypeScript React components with configurable props and color customization.
               </div>
             </div>
           </TabsContent>

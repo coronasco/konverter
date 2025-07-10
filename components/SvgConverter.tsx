@@ -8,6 +8,7 @@ import OutputTabs from './OutputTabs'
 import ExportFormats from './ExportFormats'
 import ResponsiveSvgBuilder from './ResponsiveSvgBuilder'
 import SvgAnimationEditor from './SvgAnimationEditor'
+import JsxExportModal from './JsxExportModal'
 import { optimizeSvg, urlEncodeSvg, base64EncodeSvg, convertToJsx, validateSvg } from '@/lib/svg-utils'
 import { exportToImage, exportToPdf } from '@/lib/export-utils'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -25,8 +26,8 @@ const formatFileSize = (bytes: number): string => {
 export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
   const [optimizedSvg, setOptimizedSvg] = useState<string>('')
-  const [modifiedSvg, setModifiedSvg] = useState<string>('')
   const [isOptimized, setIsOptimized] = useState<boolean>(false)
+  const [optimizationLevel, setOptimizationLevel] = useState<'conservative' | 'balanced' | 'aggressive' | 'maximum'>('balanced')
   const [isOptimizing, setIsOptimizing] = useState<boolean>(false)
   const [fileStats, setFileStats] = useState<{
     originalSize: number
@@ -40,6 +41,7 @@ export default function SvgConverter() {
   })
   const [error, setError] = useState<string | null>(null)
   const [isExporting, setIsExporting] = useState(false)
+  const [showJsxExport, setShowJsxExport] = useState(false)
 
   const handleSvgChange = (newSvg: string) => {
     setInputSvg(newSvg)
@@ -63,7 +65,7 @@ export default function SvgConverter() {
       } else if (format.startsWith('responsive-')) {
         await exportToImage(optimizedSvg, { ...options, format: 'png' })
       } else if (format === 'pdf') {
-        await exportToPdf()
+        await exportToPdf(optimizedSvg, options)
       }
     } catch (error) {
       setError(`Export failed: ${error}`)
@@ -72,9 +74,21 @@ export default function SvgConverter() {
     }
   }
 
+  const handleOpenJsxModal = () => {
+    setShowJsxExport(true)
+  }
+
+  // Process SVG when input, optimization settings, or optimized SVG changes
   useEffect(() => {
     const processSvg = async () => {
+      console.log('🔄 useEffect triggered - Processing SVG...', { 
+        inputSvgLength: inputSvg.length, 
+        isOptimized, 
+        hasInputSvg: !!inputSvg.trim() 
+      })
+      
       if (!inputSvg.trim()) {
+        console.log('❌ No input SVG, clearing everything')
         setOutput({ urlEncoded: '', base64: '', jsx: '' })
         setOptimizedSvg('')
         setFileStats(null)
@@ -85,6 +99,7 @@ export default function SvgConverter() {
       // Validează SVG-ul
       const validation = validateSvg(inputSvg)
       if (!validation.isValid) {
+        console.log('❌ SVG validation failed:', validation.error)
         setError(validation.error || 'Input is not a valid SVG')
         setOutput({ urlEncoded: '', base64: '', jsx: '' })
         setOptimizedSvg('')
@@ -95,28 +110,31 @@ export default function SvgConverter() {
       try {
         let svgToProcess = inputSvg
         const originalSize = new Blob([inputSvg]).size
+        console.log('📊 Original size:', originalSize, 'bytes')
 
         if (isOptimized) {
+          console.log('🚀 Starting optimization with level:', optimizationLevel)
           setIsOptimizing(true)
           try {
-            const optimized = await optimizeSvg(inputSvg)
+            const optimized = await optimizeSvg(inputSvg, optimizationLevel)
+            console.log('✅ Optimization completed, result length:', optimized.length)
             svgToProcess = optimized
             setOptimizedSvg(optimized)
-            setModifiedSvg(optimized)
             
             const optimizedSize = new Blob([optimized]).size
             const reduction = ((originalSize - optimizedSize) / originalSize) * 100
+            console.log('📊 Optimized size:', optimizedSize, 'bytes, Reduction:', reduction.toFixed(1) + '%')
             
             setFileStats({
               originalSize,
               optimizedSize,
               reduction
             })
+            console.log('📈 File stats updated')
           } catch (optimizeError) {
-            console.warn('Optimization failed, using original SVG:', optimizeError)
+            console.warn('⚠️ Optimization failed, using original SVG:', optimizeError)
             svgToProcess = inputSvg
             setOptimizedSvg(inputSvg)
-            setModifiedSvg(inputSvg)
             setFileStats({
               originalSize,
               optimizedSize: originalSize,
@@ -124,10 +142,11 @@ export default function SvgConverter() {
             })
           } finally {
             setIsOptimizing(false)
+            console.log('🏁 Optimization process finished')
           }
         } else {
+          console.log('⏭️ Optimization disabled, using original SVG')
           setOptimizedSvg(inputSvg)
-          setModifiedSvg(inputSvg)
           setFileStats({
             originalSize,
             optimizedSize: originalSize,
@@ -144,8 +163,10 @@ export default function SvgConverter() {
           base64,
           jsx,
         })
+        console.log('✅ Output updated with processed SVG')
         setError(null)
-      } catch {
+      } catch (error) {
+        console.error('❌ Failed to process SVG:', error)
         setError('Failed to process SVG. Please check your input.')
         setOutput({ urlEncoded: '', base64: '', jsx: '' })
         setFileStats(null)
@@ -153,7 +174,41 @@ export default function SvgConverter() {
     }
 
     processSvg()
-  }, [inputSvg, isOptimized])
+  }, [inputSvg, isOptimized, optimizationLevel])
+
+  // Update output when optimizedSvg changes (e.g., from color editor)
+  useEffect(() => {
+    if (!optimizedSvg.trim()) return
+    
+    console.log('🎨 Color change detected, updating output...')
+    
+    const svgToProcess = isOptimized ? optimizedSvg : inputSvg
+    
+    const urlEncoded = urlEncodeSvg(svgToProcess)
+    const base64 = base64EncodeSvg(svgToProcess)
+    const jsx = convertToJsx(svgToProcess)
+
+    setOutput({
+      urlEncoded,
+      base64,
+      jsx,
+    })
+    console.log('✅ Output updated after color change')
+  }, [optimizedSvg, isOptimized, inputSvg])
+
+  // Listen for JSX export events
+  useEffect(() => {
+    const handleJsxExport = (event: CustomEvent) => {
+      console.log('🎨 JSX Export triggered with SVG:', event.detail?.svgString?.substring(0, 100) + '...')
+      setShowJsxExport(true)
+    }
+
+    window.addEventListener('openJsxExport', handleJsxExport as EventListener)
+    
+    return () => {
+      window.removeEventListener('openJsxExport', handleJsxExport as EventListener)
+    }
+  }, [])
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -169,20 +224,25 @@ export default function SvgConverter() {
           <SvgInputArea value={inputSvg} onChange={handleSvgChange} />
           <OptionsPanel 
             isOptimized={isOptimized} 
-            onOptimizedChange={setIsOptimized} 
+            optimizationLevel={optimizationLevel}
+            onOptimizedChange={setIsOptimized}
+            onOptimizationLevelChange={setOptimizationLevel}
+            isOptimizing={isOptimizing}
           />
         </div>
 
         <div className="space-y-6">
           <SvgPreview 
-            svgString={modifiedSvg || optimizedSvg} 
-            onSvgChange={(newModifiedSvg) => {
-              setModifiedSvg(newModifiedSvg)
-              // Update output with modified SVG
-              const urlEncoded = urlEncodeSvg(newModifiedSvg)
-              const base64 = base64EncodeSvg(newModifiedSvg)
-              const jsx = convertToJsx(newModifiedSvg)
-              setOutput({ urlEncoded, base64, jsx })
+            svgString={isOptimized ? optimizedSvg : inputSvg} 
+            originalSvg={inputSvg}
+            isOptimized={isOptimized}
+            onSvgChange={(modifiedSvg) => {
+              // Update the SVG that's being used for processing
+              if (isOptimized) {
+                setOptimizedSvg(modifiedSvg)
+              } else {
+                handleSvgChange(modifiedSvg)
+              }
             }}
           />
           {isOptimizing && (
@@ -223,18 +283,20 @@ export default function SvgConverter() {
           urlEncoded={output.urlEncoded}
           base64={output.base64}
           jsx={output.jsx}
+          svgString={isOptimized ? optimizedSvg : inputSvg}
         />
         
         <ExportFormats 
           onExport={handleExport}
           hasSvg={!!optimizedSvg}
+          onOpenJsxModal={handleOpenJsxModal}
         />
       </div>
 
-      {(modifiedSvg || optimizedSvg) && (
+      {(isOptimized ? optimizedSvg : inputSvg) && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ResponsiveSvgBuilder svgContent={modifiedSvg || optimizedSvg} />
-          <SvgAnimationEditor svgContent={modifiedSvg || optimizedSvg} />
+          <ResponsiveSvgBuilder svgContent={isOptimized ? optimizedSvg : inputSvg} />
+          <SvgAnimationEditor svgContent={isOptimized ? optimizedSvg : inputSvg} />
         </div>
       )}
 
@@ -242,6 +304,14 @@ export default function SvgConverter() {
         <div className="text-sm text-muted-foreground text-center">
           Exporting...
         </div>
+      )}
+
+      {/* JSX Export Modal */}
+      {showJsxExport && (
+        <JsxExportModal 
+          svgString={isOptimized ? optimizedSvg : inputSvg}
+          onClose={() => setShowJsxExport(false)}
+        />
       )}
     </div>
   )

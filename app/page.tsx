@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
 import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -199,11 +200,11 @@ export default function Home() {
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-pink-600" />
                     CSS & JS export
-                  </li>
+          </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-pink-600" />
                     Real-time preview
-                  </li>
+          </li>
                 </ul>
               </CardContent>
             </Card>
@@ -287,6 +288,10 @@ export default function Home() {
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     Props ready for customization
                   </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <Link href="/#converter" className="text-blue-600 hover:underline">Try our SVG to JSX converter →</Link>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -311,6 +316,10 @@ export default function Home() {
                   <li className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     Optimized for speed
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <Link href="/#converter" className="text-purple-600 hover:underline">Convert SVGs to CSS backgrounds →</Link>
                   </li>
                 </ul>
               </CardContent>
@@ -397,6 +406,62 @@ export default function Home() {
               <div className="text-3xl font-bold text-pink-600 mb-2">Animations</div>
               <div className="text-muted-foreground">Timeline Editor</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="py-20 px-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Learn More About SVG & Web Development</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Tips, tricks, and guides to help you master SVG conversion and web development
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-lg">SVG to JSX: The Ultimate Guide</CardTitle>
+                <CardDescription>
+                  Learn how to transform your SVG icons into reusable React components with TypeScript support and color customization.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Link href="/blog/svg-to-jsx-guide" className="text-blue-600 hover:underline font-medium">
+                  Read the guide →
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-lg">SVG Optimization Guide</CardTitle>
+                <CardDescription>
+                  Discover techniques to reduce SVG file sizes while maintaining quality and performance.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Link href="/blog/svg-optimization-guide" className="text-blue-600 hover:underline font-medium">
+                  Read the guide →
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-lg">CSS Background Techniques</CardTitle>
+                <CardDescription>
+                  Master the art of using SVGs as CSS backgrounds for stunning visual effects.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Link href="/blog/css-background-techniques" className="text-blue-600 hover:underline font-medium">
+                  Read the guide →
+                </Link>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

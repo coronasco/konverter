@@ -69,6 +69,8 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
   }, [originalSvg, svgContent])
 
   const handleColorChange = (id: string, newColor: string) => {
+    console.log('🎨 Color change:', id, '->', newColor)
+    
     const updatedElements = colorElements.map(el => 
       el.id === id ? { ...el, currentColor: newColor } : el
     )
@@ -79,14 +81,21 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
     const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml')
     const svgElement = svgDoc.querySelector('svg')
     
-    if (!svgElement) return
+    if (!svgElement) {
+      console.warn('No SVG element found')
+      return
+    }
 
     // Find and update the specific element that was changed
     const changedElement = updatedElements.find(el => el.id === id)
-    if (!changedElement) return
+    if (!changedElement) {
+      console.warn('Changed element not found')
+      return
+    }
 
     // Find the element in the current SVG by matching its original color
     const allElements = svgElement.querySelectorAll('*')
+    let found = false
     
     for (let i = 0; i < allElements.length; i++) {
       const element = allElements[i]
@@ -95,14 +104,23 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
       
       if (changedElement.type === 'fill' && elementFill === changedElement.originalColor) {
         element.setAttribute('fill', changedElement.currentColor)
+        found = true
+        console.log('✅ Updated fill color for element:', element.tagName)
         break
       } else if (changedElement.type === 'stroke' && elementStroke === changedElement.originalColor) {
         element.setAttribute('stroke', changedElement.currentColor)
+        found = true
+        console.log('✅ Updated stroke color for element:', element.tagName)
         break
       }
     }
 
+    if (!found) {
+      console.warn('⚠️ Element with original color not found')
+    }
+
     const modifiedSvg = new XMLSerializer().serializeToString(svgElement)
+    console.log('🎨 Calling onColorChange with modified SVG')
     onColorChange(modifiedSvg)
   }
 

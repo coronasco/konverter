@@ -4,15 +4,16 @@ import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Copy, Check, Info, Code, FileCode, Palette } from 'lucide-react'
+import { Copy, Check, Info, Code, FileCode, Palette, Download } from 'lucide-react'
 
 interface OutputTabsProps {
   urlEncoded: string
   base64: string
   jsx: string
+  svgString: string
 }
 
-export default function OutputTabs({ urlEncoded, base64, jsx }: OutputTabsProps) {
+export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: OutputTabsProps) {
   const [copiedTab, setCopiedTab] = useState<string | null>(null)
 
   const copyToClipboard = async (text: string, tabName: string) => {
@@ -77,18 +78,34 @@ export default function OutputTabs({ urlEncoded, base64, jsx }: OutputTabsProps)
         <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm font-mono border">
           <code>{content || 'No output available'}</code>
         </pre>
-        <Button
-          variant="outline"
-          size="sm"
-          className="absolute top-2 right-2 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm"
-          onClick={() => copyToClipboard(content, label)}
-        >
-          {copiedTab === label ? (
-            <Check className="h-4 w-4 text-green-500" />
-          ) : (
-            <Copy className="h-4 w-4" />
+        <div className="absolute top-2 right-2 flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm"
+            onClick={() => copyToClipboard(content, label)}
+          >
+            {copiedTab === label ? (
+              <Check className="h-4 w-4 text-green-500" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+          </Button>
+          {label === 'jsx' && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm"
+              onClick={() => {
+                // Trigger JSX export modal
+                const event = new CustomEvent('openJsxExport', { detail: { svgString } })
+                window.dispatchEvent(event)
+              }}
+            >
+              <Download className="h-4 w-4" />
+            </Button>
           )}
-        </Button>
+        </div>
       </div>
     </div>
   )
