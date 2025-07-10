@@ -1,6 +1,6 @@
 ---
 title: "Base64 Converter: How to Encode and Decode Files, Images, and Text"
-description: "Learn how to use Base64 encoding with our free online tool. Convert text, images, and files to Base64 format for web development and data transmission."
+description: "Learn how to use Base64 encoding with this free online tool. Convert text, images, and files to Base64 format for web development and data transmission."
 excerpt: "Base64 encoding is one of those things that sounds complicated but is actually pretty simple once you understand it. I built the Base64 Converter because I was tired of dealing with broken online tools that couldn't handle the files I needed to encode."
 category: "Web Development"
 readTime: "7 min read"

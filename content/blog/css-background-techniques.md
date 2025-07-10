@@ -18,7 +18,7 @@ Today, I'm going to share some of my favorite techniques for using SVG in CSS ba
 
 ## Why SVG Backgrounds Are Awesome
 
-Before we get into the techniques, let me tell you why I'm so passionate about SVG backgrounds:
+Before I get into the techniques, let me tell you why I'm so passionate about SVG backgrounds:
 
 - **Infinite scalability** - They look crisp at any size
 - **Tiny file sizes** - Perfect for performance

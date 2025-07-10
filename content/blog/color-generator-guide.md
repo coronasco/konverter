@@ -1,6 +1,6 @@
 ---
 title: "Color Generator: How to Extract Beautiful Color Palettes from Images"
-description: "Learn how to extract color palettes from images with our free online tool. Generate CSS variables and find the perfect colors for your design projects."
+description: "Learn how to extract color palettes from images with this free online tool. Generate CSS variables and find the perfect colors for your design projects."
 excerpt: "Finding the perfect color palette for a design project can be frustrating. I remember spending hours trying to match colors from inspiration images, manually picking colors pixel by pixel. That's why I built the Color Generator - to make color extraction as simple as uploading an image."
 category: "Design"
 readTime: "6 min read"

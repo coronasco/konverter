@@ -1,6 +1,6 @@
 ---
 title: "SVG to React Converter: The Complete Guide to Converting SVGs to React Components"
-description: "Learn how to convert SVG files to React components with our free online tool. Optimize SVGs, extract colors, and generate TypeScript components instantly."
+description: "Learn how to convert SVG files to React components with this free online tool. Optimize SVGs, extract colors, and generate TypeScript components instantly."
 excerpt: "Converting SVG files to React components used to be a pain. I remember spending hours manually converting SVGs, dealing with broken online tools, and getting frustrated with the whole process. That's exactly why I built the SVG to React converter - to make this process as smooth as possible."
 category: "React"
 readTime: "8 min read"

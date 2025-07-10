@@ -86,7 +86,7 @@ Here's a before/after example:
 </svg>
 ```
 
-See the difference? We went from 6 lines to 2 lines, and the file is much cleaner!
+See the difference? The file went from 6 lines to 2 lines, and it's much cleaner!
 
 ### 2. Optimize Path Data (The Precision Game)
 
@@ -290,7 +290,7 @@ Remember: **Optimization is an art, not a science**. What works for one SVG migh
 
 The key is finding the right balance between file size and visual fidelity. Start with the basics, then gradually apply more advanced techniques as you become comfortable with them.
 
-Ready to optimize your SVGs? Head over to [Konverter Online](https://www.konverter-online.com) and try our free SVG converter with built-in optimization features. I've made sure it includes all the techniques I've shared in this guide!
+Ready to optimize your SVGs? Head over to [Konverter Online](https://www.konverter-online.com) and try the free SVG converter with built-in optimization features. I've made sure it includes all the techniques I've shared in this guide!
 
 Got questions or want to share your own optimization tips? Drop a comment below - I'd love to hear from you! 🚀
 

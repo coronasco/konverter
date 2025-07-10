@@ -1,6 +1,6 @@
 ---
 title: "Secure Password Generation: How to Create Strong Passwords That You Can Actually Remember"
-description: "Learn how to generate secure passwords with our free online tool. Create strong, memorable passwords with strength indicators and best practices."
+description: "Learn how to generate secure passwords with this free online tool. Create strong, memorable passwords with strength indicators and best practices."
 excerpt: "Let's be honest - most of us are terrible at creating passwords. 'password123' and '123456' are still among the most common passwords in the world, and that's just asking for trouble. I built the Password Generator because I was tired of trying to come up with secure passwords on the spot."
 category: "Security"
 readTime: "6 min read"

@@ -1,6 +1,6 @@
 ---
 title: "CSS Minifier: How to Optimize and Compress Your CSS Files"
-description: "Learn how to minify CSS with our free online tool. Reduce file size, improve loading speed, and optimize your stylesheets for production."
+description: "Learn how to minify CSS with this free online tool. Reduce file size, improve loading speed, and optimize your stylesheets for production."
 excerpt: "CSS files can get pretty bloated during development. I remember working on a project where the CSS file was over 500KB - that's like trying to load a small image every time someone visited the site. That's exactly why I built the CSS Minifier - to make CSS optimization as simple as pasting your code."
 category: "Web Development"
 readTime: "6 min read"
