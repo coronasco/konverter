@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import UrlShortener from '@/components/UrlShortener'
+import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -127,6 +128,11 @@ export default function UrlShortenerPage() {
             </div>
           </div>
         </section>
+        
+        {/* Related Tools */}
+        <div className="container mx-auto px-6 pb-12 max-w-4xl">
+          <RelatedTools currentPath="/url-shortener" />
+        </div>
       </main>
       <Footer />
     </div>

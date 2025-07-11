@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import PasswordGenerator from '@/components/PasswordGenerator'
+import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -116,6 +117,11 @@ export default function PasswordGeneratorPage() {
             </div>
           </div>
         </section>
+        
+        {/* Related Tools */}
+        <div className="container mx-auto px-6 pb-12 max-w-4xl">
+          <RelatedTools currentPath="/password-generator" />
+        </div>
       </main>
       <Footer />
     </div>

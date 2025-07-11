@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import ColorGenerator from '@/components/ColorGenerator'
+import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -52,6 +53,11 @@ export default function ColorGeneratorPage() {
           </p>
         </div>
       </section>
+      
+      {/* Related Tools */}
+      <div className="container mx-auto px-6 pb-12 max-w-4xl">
+        <RelatedTools currentPath="/color-generator" />
+      </div>
       <Footer />
     </div>
   )
