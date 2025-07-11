@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'CSS Minifier Online Free | Compress & Optimize CSS',
     description: 'Free online CSS minifier and compressor. Reduce CSS file size, add vendor prefixes, and optimize CSS for better performance.',
     type: 'website',
-    url: 'https://konverter.online/css-minifier',
+    url: 'https://www.konverter-online.com/css-minifier',
   },
   twitter: {
     card: 'summary_large_image',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Free online CSS minifier and compressor. Professional CSS optimization tools for developers.',
   },
   alternates: {
-    canonical: 'https://konverter.online/css-minifier',
+    canonical: 'https://www.konverter-online.com/css-minifier',
   },
 }
 

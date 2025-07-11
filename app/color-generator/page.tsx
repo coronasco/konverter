@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Color Generator Online Free | Extract Color Palettes from Images',
     description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs.',
     type: 'website',
-    url: 'https://konverter.online/color-generator',
+    url: 'https://www.konverter-online.com/color-generator',
   },
   twitter: {
     card: 'summary_large_image',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Free online color palette generator. Extract beautiful color schemes from images.',
   },
   alternates: {
-    canonical: 'https://konverter.online/color-generator',
+    canonical: 'https://www.konverter-online.com/color-generator',
   },
 }
 

@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     title: 'Base64 Encoder/Decoder - Free Online Tool',
     description: 'Free online Base64 encoder and decoder. Convert text, files, and images to Base64 format instantly. Perfect for embedding data in HTML, CSS, JSON, and API requests.',
     type: 'website',
-    url: 'https://konverter.online/base64-converter',
+    url: 'https://www.konverter-online.com/base64-converter',
     images: [
       {
-        url: 'https://konverter.online/og-image.svg',
+        url: 'https://www.konverter-online.com/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Base64 Encoder/Decoder Tool',
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Base64 Encoder/Decoder - Free Online Tool',
     description: 'Free online Base64 encoder and decoder. Convert text, files, and images to Base64 format instantly.',
-    images: ['https://konverter.online/og-image.svg'],
+    images: ['https://www.konverter-online.com/og-image.svg'],
   },
   alternates: {
-    canonical: 'https://konverter.online/base64-converter',
+    canonical: 'https://www.konverter-online.com/base64-converter',
   },
 }
 

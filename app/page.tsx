@@ -8,22 +8,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Konverter - Advanced SVG to CSS/JSX Converter | Free Online Tool',
-  description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio. Professional SVG tools for developers.',
-  keywords: 'SVG converter, SVG to CSS, SVG to React, SVG to JSX, SVG optimizer, CSS background generator, React component generator, SVG tools, online converter',
+  title: 'Konverter - Free Online Developer Tools | SVG Converter, JSON Formatter, CSS Minifier',
+  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, and QR code generator. No registration required.',
+  keywords: 'developer tools, SVG converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR generator, free online tools',
   openGraph: {
-    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
-    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
+    title: 'Konverter - Free Online Developer Tools',
+    description: 'Free online developer tools: SVG converter, JSON formatter, CSS minifier, password generator, and more. No registration required.',
     type: 'website',
-    url: 'https://konverter.online',
+    url: 'https://www.konverter-online.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
-    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more.',
+    title: 'Konverter - Free Online Developer Tools',
+    description: 'Free online developer tools: SVG converter, JSON formatter, CSS minifier, and more.',
   },
   alternates: {
-    canonical: 'https://konverter.online',
+    canonical: 'https://www.konverter-online.com',
   },
 }
 

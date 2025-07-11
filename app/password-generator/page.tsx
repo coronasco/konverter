@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     title: 'Password Generator - Create Strong Secure Passwords',
     description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, and strength.',
     type: 'website',
-    url: 'https://konverter.online/password-generator',
+    url: 'https://www.konverter-online.com/password-generator',
     images: [
       {
-        url: 'https://konverter.online/og-image.svg',
+        url: 'https://www.konverter-online.com/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Password Generator Tool',
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Password Generator - Create Strong Secure Passwords',
     description: 'Generate strong, secure passwords with our free online password generator.',
-    images: ['https://konverter.online/og-image.svg'],
+    images: ['https://www.konverter-online.com/og-image.svg'],
   },
   alternates: {
-    canonical: 'https://konverter.online/password-generator',
+    canonical: 'https://www.konverter-online.com/password-generator',
   },
 }
 

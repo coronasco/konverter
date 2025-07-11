@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: 'Konverter - Advanced SVG to CSS/JSX Converter',
     description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
     type: 'website',
-    url: 'https://konverter.online',
+    url: 'https://www.konverter-online.com',
   },
   twitter: {
     card: 'summary_large_image',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more.',
   },
   alternates: {
-    canonical: 'https://konverter.online',
+    canonical: 'https://www.konverter-online.com',
   },
 }
 
@@ -40,11 +40,11 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Konverter Online",
-              "url": "https://konverter.online/",
+              "url": "https://www.konverter-online.com/",
               "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, and color palette generation.",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://konverter.online/?q={search_term}",
+                "target": "https://www.konverter-online.com/?q={search_term}",
                 "query-input": "required name=search_term"
               },
               "sameAs": [

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON',
     description: 'Free online JSON formatter, validator, and converter. Beautify JSON, minify JSON, validate JSON syntax, and convert JSON to YAML.',
     type: 'website',
-    url: 'https://konverter.online/json-formatter',
+    url: 'https://www.konverter-online.com/json-formatter',
   },
   twitter: {
     card: 'summary_large_image',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Free online JSON formatter, validator, and converter. Professional JSON tools for developers.',
   },
   alternates: {
-    canonical: 'https://konverter.online/json-formatter',
+    canonical: 'https://www.konverter-online.com/json-formatter',
   },
 }
 
