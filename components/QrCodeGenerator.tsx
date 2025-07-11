@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Copy, Download, QrCode, Palette } from 'lucide-react'
+import { Copy, Download, QrCode, Palette, Upload, X } from 'lucide-react'
 import QRCode from 'qrcode'
 
 interface QrData {
@@ -19,6 +19,12 @@ interface QrData {
   ssid?: string
   password?: string
   encryption?: 'WPA' | 'WEP' | 'nopass'
+}
+
+interface LogoConfig {
+  image: string | null
+  shape: 'round' | 'square' | 'original'
+  size: number
 }
 
 export default function QrCodeGenerator() {
@@ -33,9 +39,15 @@ export default function QrCodeGenerator() {
     size: 256,
     margin: 4
   })
+  const [logoConfig, setLogoConfig] = useState<LogoConfig>({
+    image: null,
+    shape: 'round',
+    size: 20
+  })
   const [copied, setCopied] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const generateQR = useCallback(async () => {
+    const generateQRWithLogo = useCallback(async () => {
     let hasContent = false
     let qrContent = ''
     
@@ -65,23 +77,126 @@ export default function QrCodeGenerator() {
     if (!hasContent) return
 
     try {
+      // Calculăm dimensiunea logo-ului
+      const logoSize = logoConfig.image ? (customization.size * logoConfig.size) / 100 : 0
+      
+      // Generăm QR code-ul de bază cu nivelul de corectare erori potrivit
       const qrImageData = await QRCode.toDataURL(qrContent, {
         width: customization.size,
         margin: customization.margin,
         color: {
           dark: customization.foreground,
           light: customization.background
-        }
+        },
+        errorCorrectionLevel: logoConfig.image ? 'H' : 'M' // Nivel mai înalt de corectare erori când avem logo
       })
-      setQrImage(qrImageData)
+
+      // Dacă nu avem logo, folosim QR code-ul de bază
+      if (!logoConfig.image) {
+        setQrImage(qrImageData)
+        return
+      }
+
+      // Creăm canvas pentru a combina QR code-ul cu logo-ul
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+
+      canvas.width = customization.size
+      canvas.height = customization.size
+
+      // Desenăm QR code-ul
+      const qrImg = new Image()
+      qrImg.onload = () => {
+        ctx.drawImage(qrImg, 0, 0, customization.size, customization.size)
+
+        // Adăugăm logo-ul în centru
+        const logoImg = new Image()
+        logoImg.onload = () => {
+          const logoX = (customization.size - logoSize) / 2
+          const logoY = (customization.size - logoSize) / 2
+
+          // Creăm path pentru forma logo-ului
+          ctx.save()
+          ctx.beginPath()
+
+          if (logoConfig.shape === 'round') {
+            ctx.arc(logoX + logoSize / 2, logoY + logoSize / 2, logoSize / 2, 0, 2 * Math.PI)
+          } else if (logoConfig.shape === 'square') {
+            ctx.rect(logoX, logoY, logoSize, logoSize)
+          } else {
+            // original - nu facem clipping
+          }
+
+          if (logoConfig.shape !== 'original') {
+            ctx.clip()
+          }
+
+          ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize)
+          ctx.restore()
+
+          setQrImage(canvas.toDataURL('image/png'))
+        }
+        logoImg.src = logoConfig.image!
+      }
+      qrImg.src = qrImageData
+
     } catch (err) {
       console.error('Error generating QR code:', err)
     }
-  }, [qrData, customization])
+  }, [qrData, customization, logoConfig])
 
   useEffect(() => {
-    generateQR()
-  }, [generateQR])
+    generateQRWithLogo()
+  }, [generateQRWithLogo])
+
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setLogoConfig(prev => ({
+          ...prev,
+          image: e.target?.result as string
+        }))
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleLogoSizeChange = (size: number) => {
+    // Permite orice valoare între 15-35%, limitează doar valorile din afara intervalului
+    let finalSize = size
+    if (size < 15) {
+      finalSize = 15
+    } else if (size > 35) {
+      finalSize = 35
+    } else {
+      // Dacă este în intervalul valid, păstrează valoarea exactă
+      finalSize = size
+    }
+    setLogoConfig(prev => ({
+      ...prev,
+      size: finalSize
+    }))
+  }
+
+  const handleLogoShapeChange = (shape: 'round' | 'square' | 'original') => {
+    setLogoConfig(prev => ({
+      ...prev,
+      shape: shape
+    }))
+  }
+
+  const removeLogo = () => {
+    setLogoConfig(prev => ({
+      ...prev,
+      image: null
+    }))
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
 
   const copyToClipboard = async () => {
     if (!qrImage) return
@@ -118,6 +233,14 @@ export default function QrCodeGenerator() {
       size: 256,
       margin: 4
     })
+    setLogoConfig({
+      image: null,
+      shape: 'round',
+      size: 20
+    })
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   return (
@@ -127,7 +250,7 @@ export default function QrCodeGenerator() {
           QR Code Generator
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Create custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Download as PNG or copy to clipboard instantly.
+          Create custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Add your logo in the center and download as PNG or copy to clipboard instantly.
         </p>
       </div>
 
@@ -256,6 +379,92 @@ export default function QrCodeGenerator() {
                 </div>
               </div>
             )}
+
+            {/* Logo Upload Section */}
+            <div className="space-y-4 pt-4 border-t">
+              <Label className="text-base font-semibold">Logo Settings</Label>
+              
+              <div className="space-y-2">
+                <Label htmlFor="logo-upload">Upload Logo</Label>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex items-center gap-2"
+                  >
+                    <Upload className="h-4 w-4" />
+                    Choose File
+                  </Button>
+                  {logoConfig.image && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={removeLogo}
+                      className="flex items-center gap-2"
+                    >
+                      <X className="h-4 w-4" />
+                      Remove
+                    </Button>
+                  )}
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="hidden"
+                />
+                {logoConfig.image && (
+                  <div className="mt-2">
+                    <img
+                      src={logoConfig.image}
+                      alt="Logo preview"
+                      className="w-16 h-16 object-cover rounded border"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {logoConfig.image && (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="logo-shape">Logo Shape</Label>
+                    <Select value={logoConfig.shape} onValueChange={handleLogoShapeChange}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="round">Round</SelectItem>
+                        <SelectItem value="square">Square</SelectItem>
+                        <SelectItem value="original">Original</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="logo-size">Logo Size (%)</Label>
+                    <Input
+                      id="logo-size"
+                      type="number"
+                      value={logoConfig.size}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value) || 0
+                        setLogoConfig(prev => ({ ...prev, size: value }))
+                      }}
+                      onBlur={(e) => {
+                        const value = parseInt(e.target.value) || 0
+                        handleLogoSizeChange(value)
+                      }}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Range: 15-35% | Recommended: 20-25% for better QR code detection
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
 
             <Button onClick={clearAll} variant="ghost" size="sm" className="w-full">
               Clear All
@@ -400,7 +609,7 @@ export default function QrCodeGenerator() {
               <h3 className="font-semibold">Customizable</h3>
             </div>
             <p className="text-sm text-muted-foreground">
-              Customize colors, size, and margins to match your brand or design preferences.
+              Customize colors, size, margins, and add your logo with different shapes (round, square, original).
             </p>
           </CardContent>
         </Card>
