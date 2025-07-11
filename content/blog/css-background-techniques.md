@@ -1,11 +1,12 @@
 ---
 title: "CSS Background Techniques: From Basic to Advanced"
-description: "Master CSS background techniques with this comprehensive guide. Learn gradients, patterns, animations, and creative effects for modern web design."
-excerpt: "CSS backgrounds are more powerful than you might think. From simple color fills to complex animated patterns, the possibilities are endless. Let me show you how to create stunning backgrounds that will make your websites stand out."
+description: "Learn advanced CSS background techniques including gradients, patterns, and SVG backgrounds. Plus, discover my free online SVG to CSS converter tool."
+date: "2025-07-08"
+author: "Daniel"
+excerpt: "Master advanced CSS background techniques including gradients, patterns, and SVG backgrounds for creating stunning web designs."
 category: "CSS"
-readTime: "10 min read"
-date: "2024-11-05"
-tags: ["css", "backgrounds", "gradients", "patterns", "animations", "web design"]
+readTime: "14 min read"
+tags: ["css", "background", "gradients", "patterns", "svg"]
 featured: false
 ---
 

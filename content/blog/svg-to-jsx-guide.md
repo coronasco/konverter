@@ -1,7 +1,7 @@
 ---
 title: "SVG to JSX: The Ultimate Guide to Converting Icons into React Components"
 description: "Learn how to transform your SVG icons into reusable React components with TypeScript support, color customization, and best practices. Plus, discover my free online tool that makes this process effortless."
-date: "2024-12-19"
+date: "2025-06-23"
 author: "Daniel"
 excerpt: "Master the art of converting SVG icons into reusable React components with TypeScript support, dynamic color customization, and best practices. Learn both manual conversion techniques and how to use my free online tool for effortless SVG to JSX transformation."
 category: "React"

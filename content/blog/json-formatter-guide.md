@@ -1,10 +1,12 @@
 ---
-title: "JSON Formatter: How to Format, Validate, and Convert JSON Data"
-description: "Learn how to format and validate JSON with this free online tool. Beautify, minify, and convert JSON to YAML with syntax highlighting."
-excerpt: "Working with JSON data can be a nightmare when it's all squished into one line. I remember trying to debug API responses that looked like they were written by a cat walking on a keyboard. That's exactly why I built the JSON Formatter - to make JSON readable and manageable."
-category: "Web Development"
-readTime: "6 min read"
-date: "2024-12-10"
+title: "JSON Formatter: Beautify, Validate, and Convert JSON Data"
+description: "Learn how to format, validate, and convert JSON data for better readability and debugging. Plus, discover my free online JSON formatter tool with syntax highlighting."
+date: "2025-07-05"
+author: "Daniel"
+excerpt: "Master JSON formatting, validation, and conversion techniques for better code readability and debugging. Learn best practices for working with JSON data in web development."
+category: "Development"
+readTime: "7 min read"
+tags: ["json", "formatter", "validation", "beautify", "converter"]
 ---
 
 Working with JSON data can be a nightmare when it's all squished into one line. I remember trying to debug API responses that looked like they were written by a cat walking on a keyboard. That's exactly why I built the [JSON Formatter](https://www.konverter-online.com/json-formatter) - to make JSON readable and manageable.

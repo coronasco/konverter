@@ -1,10 +1,12 @@
 ---
-title: "QR Code Generator: How to Create Custom QR Codes for Any Purpose"
-description: "Learn how to create custom QR codes with this free online tool. Generate QR codes for websites, contact info, WiFi, and more with custom colors and styles."
-excerpt: "QR codes are everywhere these days - on business cards, restaurant menus, product packaging, and even in museums. I remember trying to create a QR code for my business card and getting frustrated with complicated online tools that required registration or had limited customization. That's exactly why I built the QR Code Generator - to make QR code creation simple and accessible."
-category: "Marketing"
-readTime: "6 min read"
-date: "2024-12-20"
+title: "QR Code Generator: Create Custom QR Codes for Any Purpose"
+description: "Learn how QR codes work, their applications, and how to generate custom QR codes with different styles and colors. Plus, discover my free online QR code generator tool."
+date: "2025-05-25"
+author: "Daniel"
+excerpt: "Master QR code generation for marketing, contact sharing, and digital content. Learn how to create custom, branded QR codes that stand out and work reliably."
+category: "Tools"
+readTime: "10 min read"
+tags: ["qr", "code", "generator", "marketing", "contact"]
 ---
 
 QR codes are everywhere these days - on business cards, restaurant menus, product packaging, and even in museums. I remember trying to create a QR code for my business card and getting frustrated with complicated online tools that required registration or had limited customization. That's exactly why I built the [QR Code Generator](https://www.konverter-online.com/qr-generator) - to make QR code creation simple and accessible.
