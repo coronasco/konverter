@@ -47,32 +47,38 @@ export default function ColorGenerator() {
       
       const colorMap = new Map<string, number>()
       
-      // Sample pixels (every 10th pixel for performance)
-      for (let i = 0; i < pixels.length; i += 40) {
+      // Sample every 4th pixel for better coverage (RGB + Alpha)
+      for (let i = 0; i < pixels.length; i += 4) {
         const r = pixels[i]
         const g = pixels[i + 1]
         const b = pixels[i + 2]
+        const a = pixels[i + 3]
         
-        // Round to reduce color variations
-        const roundedR = Math.round(r / 10) * 10
-        const roundedG = Math.round(g / 10) * 10
-        const roundedB = Math.round(b / 10) * 10
+        // Skip transparent pixels
+        if (a < 128) continue
+        
+        // Group similar colors by rounding to reduce noise
+        // Use smaller rounding for more precision
+        const roundedR = Math.round(r / 5) * 5
+        const roundedG = Math.round(g / 5) * 5
+        const roundedB = Math.round(b / 5) * 5
         
         const key = `${roundedR},${roundedG},${roundedB}`
         colorMap.set(key, (colorMap.get(key) || 0) + 1)
       }
       
-      // Sort by frequency and get top 5 colors
+      // Sort by frequency and get top 8 colors
       const sortedColors = Array.from(colorMap.entries())
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
+        .slice(0, 8)
       
-      const totalPixels = sortedColors.reduce((sum, [, count]) => sum + count, 0)
+      const totalSampledPixels = sortedColors.reduce((sum, [, count]) => sum + count, 0)
       
       const extractedColors: Color[] = sortedColors.map(([rgb, count]) => {
         const [r, g, b] = rgb.split(',').map(Number)
         const hex = rgbToHex(r, g, b)
-        const percentage = Math.round((count / totalPixels) * 100)
+        // Calculate percentage based on actual pixel count
+        const percentage = Math.round((count / totalSampledPixels) * 100)
         
         return {
           hex,

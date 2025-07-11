@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { Copy, RefreshCw, Eye, EyeOff, Shield, Zap, Lock } from 'lucide-react'
+import { Copy, RefreshCw, Eye, EyeOff, Shield, Zap, Lock, Clock, BarChart3, AlertTriangle } from 'lucide-react'
 
 interface PasswordOptions {
   length: number
@@ -16,6 +16,14 @@ interface PasswordOptions {
   includeSymbols: boolean
   excludeSimilar: boolean
   excludeAmbiguous: boolean
+}
+
+interface PasswordAnalysis {
+  entropy: number
+  crackTime: string
+  crackTimeSeconds: number
+  patterns: string[]
+  suggestions: string[]
 }
 
 export default function PasswordGenerator() {
@@ -33,7 +41,7 @@ export default function PasswordGenerator() {
   })
 
   const generatePassword = useCallback(() => {
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    const uppercase = 'ABCDEFGHIJKL MNOPQRSTUVWXYZ'
     const lowercase = 'abcdefghijklmnopqrstuvwxyz'
     const numbers = '0123456789'
     const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?'
@@ -67,6 +75,119 @@ export default function PasswordGenerator() {
     setPassword(generatedPassword)
   }, [options])
 
+  const analyzePassword = useCallback((pass: string): PasswordAnalysis => {
+    if (!pass) {
+      return {
+        entropy: 0,
+        crackTime: 'Instant',
+        crackTimeSeconds: 0,
+        patterns: [],
+        suggestions: []
+      }
+    }
+
+    // Calculăm entropia
+    let charsetSize = 0
+    if (/[a-z]/.test(pass)) charsetSize += 26
+    if (/[A-Z]/.test(pass)) charsetSize += 26
+    if (/[0-9]/.test(pass)) charsetSize += 10
+    if (/[^A-Za-z0-9]/.test(pass)) charsetSize += 32
+
+    const entropy = Math.log2(Math.pow(charsetSize, pass.length))
+
+    // Estimăm timpul pentru crack (presupunând 1 miliard de încercări pe secundă)
+    const combinations = Math.pow(charsetSize, pass.length)
+    const crackTimeSeconds = combinations / (1e9 * 2) // Împărțim la 2 pentru că în medie găsim parola la jumătatea încercărilor
+
+    // Formatăm timpul pentru crack
+    let crackTime = 'Instant'
+    if (crackTimeSeconds < 1) {
+      crackTime = 'Less than a second'
+    } else if (crackTimeSeconds < 60) {
+      crackTime = `${Math.round(crackTimeSeconds)} seconds`
+    } else if (crackTimeSeconds < 3600) {
+      crackTime = `${Math.round(crackTimeSeconds / 60)} minutes`
+    } else if (crackTimeSeconds < 86400) {
+      crackTime = `${Math.round(crackTimeSeconds / 3600)} hours`
+    } else if (crackTimeSeconds < 31536000) {
+      crackTime = `${Math.round(crackTimeSeconds / 86400)} days`
+    } else if (crackTimeSeconds < 31536000000) {
+      crackTime = `${Math.round(crackTimeSeconds / 31536000)} years`
+    } else {
+      // Formatăm numerele mari în format prietenos
+      const years = crackTimeSeconds / 31536000
+      if (years >= 1e12) {
+        crackTime = `${(years / 1e12).toFixed(1)} trillion years`
+      } else if (years >= 1e9) {
+        crackTime = `${(years / 1e9).toFixed(1)} billion years`
+      } else if (years >= 1e6) {
+        crackTime = `${(years / 1e6).toFixed(1)} million years`
+      } else if (years >= 1e3) {
+        crackTime = `${(years / 1e3).toFixed(1)} thousand years`
+      } else {
+        crackTime = `${Math.round(years)} years`
+      }
+    }
+
+    // Detectăm pattern-uri
+    const patterns: string[] = []
+    const suggestions: string[] = []
+
+    // Verificăm pentru caractere repetate
+    if (/(.)\1{2,}/.test(pass)) {
+      patterns.push('Repeated characters detected')
+      suggestions.push('Avoid repeating the same character multiple times')
+    }
+
+    // Verificăm pentru secvențe
+    if (/123|234|345|456|567|678|789|012/.test(pass) || /abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz/.test(pass)) {
+      patterns.push('Sequential characters detected')
+      suggestions.push('Avoid sequential characters like "123" or "abc"')
+    }
+
+    // Verificăm pentru cuvinte comune
+    const commonWords = ['password', '123456', 'qwerty', 'admin', 'letmein', 'welcome', 'monkey', 'dragon']
+    const lowerPass = pass.toLowerCase()
+    if (commonWords.some(word => lowerPass.includes(word))) {
+      patterns.push('Common words detected')
+      suggestions.push('Avoid common words and phrases')
+    }
+
+    // Verificăm pentru pattern-uri de tastatură
+    const keyboardPatterns = ['qwerty', 'asdfgh', 'zxcvbn', '123456', '654321']
+    if (keyboardPatterns.some(pattern => lowerPass.includes(pattern))) {
+      patterns.push('Keyboard patterns detected')
+      suggestions.push('Avoid keyboard patterns like "qwerty"')
+    }
+
+    // Verificăm pentru prea puține tipuri de caractere
+    const charTypes = [
+      /[a-z]/.test(pass),
+      /[A-Z]/.test(pass),
+      /[0-9]/.test(pass),
+      /[^A-Za-z0-9]/.test(pass)
+    ].filter(Boolean).length
+
+    if (charTypes < 3) {
+      patterns.push('Limited character variety')
+      suggestions.push('Use a mix of uppercase, lowercase, numbers, and symbols')
+    }
+
+    // Verificăm pentru prea scurtă
+    if (pass.length < 12) {
+      patterns.push('Password is relatively short')
+      suggestions.push('Consider using at least 12 characters')
+    }
+
+    return {
+      entropy: Math.round(entropy * 100) / 100,
+      crackTime,
+      crackTimeSeconds,
+      patterns,
+      suggestions
+    }
+  }, [])
+
   const copyToClipboard = async () => {
     if (!password) return
     
@@ -98,6 +219,7 @@ export default function PasswordGenerator() {
   }
 
   const strength = getPasswordStrength(password)
+  const analysis = analyzePassword(password)
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -281,6 +403,90 @@ export default function PasswordGenerator() {
         </Card>
       </div>
 
+      {/* Advanced Analysis */}
+      {password && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Advanced Password Analysis
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Entropia */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4 text-blue-600" />
+                  <span className="font-semibold">Entropy</span>
+                </div>
+                <p className="text-2xl font-bold text-blue-600">{analysis.entropy}</p>
+                <p className="text-xs text-muted-foreground">
+                  Higher entropy = more random and secure
+                </p>
+              </div>
+
+              {/* Timpul pentru crack */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-orange-600" />
+                  <span className="font-semibold">Crack Time</span>
+                </div>
+                <p className="text-2xl font-bold text-orange-600">{analysis.crackTime}</p>
+                <p className="text-xs text-muted-foreground">
+                  Estimated time to crack at 1 billion attempts/second
+                </p>
+              </div>
+
+              {/* Pattern-uri detectate */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                  <span className="font-semibold">Patterns Detected</span>
+                </div>
+                <p className="text-2xl font-bold text-red-600">{analysis.patterns.length}</p>
+                <p className="text-xs text-muted-foreground">
+                  Security issues found in password
+                </p>
+              </div>
+            </div>
+
+            {/* Pattern-uri și sugestii */}
+            {(analysis.patterns.length > 0 || analysis.suggestions.length > 0) && (
+              <div className="mt-6 space-y-4">
+                {analysis.patterns.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-red-600 mb-2">Detected Issues:</h4>
+                    <ul className="space-y-1">
+                      {analysis.patterns.map((pattern, index) => (
+                        <li key={index} className="text-sm text-red-600 flex items-center gap-2">
+                          <AlertTriangle className="h-3 w-3" />
+                          {pattern}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {analysis.suggestions.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-green-600 mb-2">Suggestions:</h4>
+                    <ul className="space-y-1">
+                      {analysis.suggestions.map((suggestion, index) => (
+                        <li key={index} className="text-sm text-green-600 flex items-center gap-2">
+                          <Shield className="h-3 w-3" />
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Password Tips */}
       <Card>
         <CardHeader>
@@ -332,11 +538,11 @@ export default function PasswordGenerator() {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center gap-3 mb-3">
-              <Zap className="h-6 w-6 text-blue-600" />
-              <h3 className="font-semibold">Customizable Options</h3>
+              <BarChart3 className="h-6 w-6 text-blue-600" />
+              <h3 className="font-semibold">Advanced Analysis</h3>
             </div>
             <p className="text-sm text-muted-foreground">
-              Choose length, character types, and exclude similar or ambiguous characters for better readability.
+              Get detailed analysis including entropy, crack time estimation, and pattern detection for better security.
             </p>
           </CardContent>
         </Card>

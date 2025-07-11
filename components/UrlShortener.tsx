@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Copy, Link2, ExternalLink, Loader2 } from 'lucide-react'
+import { Copy, Link2, ExternalLink, Loader2, QrCode, Twitter, Facebook, Linkedin, MessageCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function UrlShortener() {
   const [inputUrl, setInputUrl] = useState('')
@@ -13,6 +14,7 @@ export default function UrlShortener() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const router = useRouter()
 
   const handleShorten = async () => {
     setError('')
@@ -50,6 +52,39 @@ export default function UrlShortener() {
     }
   }
 
+  const handleShare = (platform: string) => {
+    if (!shortUrl) return
+    
+    const text = `Check out this link: ${shortUrl}`
+    let shareUrl = ''
+    
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`
+        break
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shortUrl)}`
+        break
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shortUrl)}`
+        break
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${encodeURIComponent(text)}`
+        break
+    }
+    
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400')
+    }
+  }
+
+  const handleQrCodeRedirect = () => {
+    if (!shortUrl) return
+    // Redirecționează către pagina QR Code Generator cu URL-ul pre-completat
+    const qrUrl = `/qr-generator?url=${encodeURIComponent(shortUrl)}`
+    router.push(qrUrl)
+  }
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="text-center mb-8">
@@ -61,7 +96,7 @@ export default function UrlShortener() {
         </p>
       </div>
 
-      <Card className="max-w-xl mx-auto">
+            <Card className="max-w-xl mx-auto">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Link2 className="h-5 w-5" />
@@ -85,20 +120,116 @@ export default function UrlShortener() {
             Shorten URL
           </Button>
           {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+          
           {shortUrl && (
-            <div className="flex flex-col items-center gap-2 mt-4">
-              <a href={shortUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline flex items-center gap-1">
-                {shortUrl}
-                <ExternalLink className="h-4 w-4" />
-              </a>
-              <Button onClick={handleCopy} variant="outline" size="sm" className="flex items-center gap-2">
-                {copied ? 'Copied!' : <Copy className="h-4 w-4" />}
-                {copied ? 'Copied!' : 'Copy URL'}
-              </Button>
+            <div className="space-y-4 mt-4 p-4 bg-muted/50 rounded-lg">
+              <div className="flex flex-col items-center gap-2">
+                <a 
+                  href={shortUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-blue-600 underline flex items-center gap-1"
+                >
+                  {shortUrl}
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+                <Button onClick={handleCopy} variant="outline" size="sm" className="flex items-center gap-2">
+                  {copied ? 'Copied!' : <Copy className="h-4 w-4" />}
+                  {copied ? 'Copied!' : 'Copy URL'}
+                </Button>
+              </div>
+
+              {/* QR Code Button */}
+              <div className="flex justify-center">
+                <Button 
+                  onClick={handleQrCodeRedirect} 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-2"
+                >
+                  <QrCode className="h-4 w-4" />
+                  Generate QR Code
+                </Button>
+              </div>
+
+              {/* Share Buttons */}
+              <div className="flex justify-center gap-2">
+                <Button
+                  onClick={() => handleShare('twitter')}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1"
+                >
+                  <Twitter className="h-3 w-3" />
+                </Button>
+                <Button
+                  onClick={() => handleShare('facebook')}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1"
+                >
+                  <Facebook className="h-3 w-3" />
+                </Button>
+                <Button
+                  onClick={() => handleShare('linkedin')}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1"
+                >
+                  <Linkedin className="h-3 w-3" />
+                </Button>
+                <Button
+                  onClick={() => handleShare('whatsapp')}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1"
+                >
+                  <MessageCircle className="h-3 w-3" />
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>
       </Card>
+
+      {/* Features */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <Link2 className="h-6 w-6 text-pink-600" />
+              <h3 className="font-semibold">Quick Shortening</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Shorten any URL instantly with our reliable TinyURL integration. No registration required.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <QrCode className="h-6 w-6 text-blue-600" />
+              <h3 className="font-semibold">QR Code Generation</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Generate QR codes for your shortened URLs with our advanced QR code generator tool.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <MessageCircle className="h-6 w-6 text-green-600" />
+              <h3 className="font-semibold">Easy Sharing</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Share your shortened URLs directly on social media platforms with one click.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 } 
