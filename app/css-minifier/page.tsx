@@ -5,21 +5,43 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'CSS Minifier Online Free | Compress & Optimize CSS for Better Performance',
-  description: 'Free online CSS minifier and compressor. Reduce CSS file size by up to 80%, add vendor prefixes automatically, and optimize CSS for better website performance. No signup required, trusted by web developers worldwide.',
-  keywords: 'CSS minifier, CSS compressor, CSS optimizer, CSS minification, vendor prefixes, CSS optimization, online CSS tools, free CSS minifier',
+  description: 'Free online CSS minifier and compressor. Reduce CSS file size by up to 80%, add vendor prefixes automatically, remove comments and whitespace, and optimize CSS for better website performance. No registration required, trusted by web developers worldwide.',
+  keywords: 'CSS minifier, CSS compressor, CSS optimizer, CSS minification, vendor prefixes, CSS optimization, online CSS tools, free CSS minifier, CSS beautifier, CSS formatter, CSS cleaner, CSS optimizer online, CSS minifier online, CSS compressor online, CSS optimization tool, CSS performance, CSS file size reduction, CSS vendor prefixes, CSS autoprefixer',
   openGraph: {
     title: 'CSS Minifier Online Free | Compress & Optimize CSS',
     description: 'Free online CSS minifier and compressor. Reduce CSS file size, add vendor prefixes, and optimize CSS for better performance.',
     type: 'website',
     url: 'https://www.konverter-online.com/css-minifier',
+    images: [
+      {
+        url: 'https://www.konverter-online.com/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'CSS Minifier Tool',
+      },
+    ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CSS Minifier Online Free | Compress & Optimize CSS',
     description: 'Free online CSS minifier and compressor. Professional CSS optimization tools for developers.',
+    images: ['https://www.konverter-online.com/og-image.svg'],
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/css-minifier',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

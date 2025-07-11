@@ -5,8 +5,8 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Password Generator - Create Strong Secure Passwords | Free Online Tool',
-  description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, and strength. Perfect for developers, security professionals, and anyone who needs secure passwords.',
-  keywords: 'password generator, strong password, secure password, random password, password creator, password maker, online password generator, free password generator, secure password generator, password strength checker',
+  description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, exclude similar characters, and get real-time strength analysis. Perfect for developers, security professionals, and anyone who needs secure passwords.',
+  keywords: 'password generator, strong password, secure password, random password, password creator, password maker, online password generator, free password generator, secure password generator, password strength checker, password generator online, random password generator, strong password generator, secure password creator, password maker online, password strength analyzer, password entropy calculator, password security tool, password generator free, password strength meter',
   openGraph: {
     title: 'Password Generator - Create Strong Secure Passwords',
     description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, and strength.',
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
         alt: 'Password Generator Tool',
       },
     ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -29,6 +31,17 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/password-generator',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

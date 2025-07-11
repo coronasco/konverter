@@ -5,8 +5,8 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'URL Shortener - Shorten Links with TinyURL | Free Online Tool',
-  description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging. Free online URL shortener with instant results.',
-  keywords: 'url shortener, link shortener, tinyurl, shorten url, short links, url shortener free, online url shortener, link shortener tool, url shortener online, free link shortener',
+  description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging. Generate QR codes for your shortened URLs. Free online URL shortener with instant results.',
+  keywords: 'url shortener, link shortener, tinyurl, shorten url, short links, url shortener free, online url shortener, link shortener tool, url shortener online, free link shortener, url shortener tool, url shortener online free, link shortener online, url shortener with qr code, short url generator, url shortener for social media, url shortener for twitter, url shortener for instagram, url shortener for facebook, url shortener for marketing, url shortener for campaigns',
   openGraph: {
     title: 'URL Shortener - Shorten Links with TinyURL',
     description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging.',
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
         alt: 'URL Shortener Tool',
       },
     ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -29,6 +31,17 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/url-shortener',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
@@ -81,21 +94,21 @@ export default function UrlShortenerPage() {
               <div>
                 <h4 className="text-xl font-semibold mb-3 text-blue-600">Marketing & Social Media</h4>
                 <ul className="space-y-2 text-sm">
-                  <li>• Social media posts and campaigns</li>
-                  <li>• Email marketing links</li>
-                  <li>• Digital advertising</li>
-                  <li>• Influencer collaborations</li>
-                  <li>• Content marketing</li>
+                  <li> Social media posts and campaigns</li>
+                  <li> Email marketing links</li>
+                  <li> Digital advertising</li>
+                  <li> Influencer collaborations</li>
+                  <li> Content marketing</li>
                 </ul>
               </div>
               <div>
                 <h4 className="text-xl font-semibold mb-3 text-green-600">Personal & Business</h4>
                 <ul className="space-y-2 text-sm">
-                  <li>• Messaging apps and SMS</li>
-                  <li>• Business presentations</li>
-                  <li>• QR code generation</li>
-                  <li>• Document sharing</li>
-                  <li>• Event invitations</li>
+                  <li> Messaging apps and SMS</li>
+                  <li> Business presentations</li>
+                  <li> QR code generation</li>
+                  <li> Document sharing</li>
+                  <li> Event invitations</li>
                 </ul>
               </div>
             </div>
@@ -119,11 +132,11 @@ export default function UrlShortenerPage() {
             <div className="bg-muted/50 rounded-lg p-6 mt-8">
               <h4 className="text-xl font-semibold mb-3">About TinyURL</h4>
               <ul className="space-y-2 text-sm">
-                <li>• One of the oldest and most reliable URL shortening services</li>
-                <li>• Permanent links that don&apos;t expire</li>
-                <li>• No registration or account required</li>
-                <li>• High uptime and reliability</li>
-                <li>• Trusted by millions of users worldwide</li>
+                <li> One of the oldest and most reliable URL shortening services</li>
+                <li> Permanent links that don&apos;t expire</li>
+                <li> No registration or account required</li>
+                <li> High uptime and reliability</li>
+                <li> Trusted by millions of users worldwide</li>
               </ul>
             </div>
           </div>

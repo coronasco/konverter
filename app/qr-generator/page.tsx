@@ -5,8 +5,8 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'QR Code Generator - Create Custom QR Codes Online | Free Tool',
-  description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Download as PNG or copy to clipboard. Free online QR code generator with customization options.',
-  keywords: 'qr code generator, qr code creator, custom qr codes, wifi qr code, email qr code, phone qr code, qr code download, online qr generator, free qr code maker, qr code customizer',
+  description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Add custom logos, choose colors, and download as PNG. Free online QR code generator with advanced customization options.',
+  keywords: 'qr code generator, qr code creator, custom qr codes, wifi qr code, email qr code, phone qr code, qr code download, online qr generator, free qr code maker, qr code customizer, qr code generator online, qr code maker, qr code creator online, qr code with logo, custom qr code generator, qr code for wifi, qr code for email, qr code for phone, qr code for url, qr code generator free, qr code maker online, qr code customizer online',
   openGraph: {
     title: 'QR Code Generator - Create Custom QR Codes Online',
     description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Download as PNG or copy to clipboard.',
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
         alt: 'QR Code Generator Tool',
       },
     ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -29,6 +31,17 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/qr-generator',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

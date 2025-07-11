@@ -5,21 +5,43 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Color Generator Online Free | Extract Color Palettes from Images Instantly',
-  description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs. Generate CSS color variables, hex codes, and RGB values. No signup required, perfect for designers and developers.',
-  keywords: 'color generator, color palette, color extractor, image color picker, CSS color variables, hex colors, color scheme generator, free color palette',
+  description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs. Generate CSS color variables, hex codes, RGB values, and HSL colors. No registration required, perfect for designers and developers.',
+  keywords: 'color generator, color palette, color extractor, image color picker, CSS color variables, hex colors, color scheme generator, free color palette, color palette generator, color extractor from image, image color picker online, color scheme generator online, color palette from image, color picker from image, color extractor tool, color palette generator online, color scheme generator free, color palette extractor, image to color palette, color palette from photo, color scheme from image, color palette generator free',
   openGraph: {
     title: 'Color Generator Online Free | Extract Color Palettes from Images',
     description: 'Free online color palette generator. Extract beautiful color schemes from images, upload photos or use URLs.',
     type: 'website',
     url: 'https://www.konverter-online.com/color-generator',
+    images: [
+      {
+        url: 'https://www.konverter-online.com/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Color Generator Tool',
+      },
+    ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Color Generator Online Free | Extract Color Palettes from Images',
     description: 'Free online color palette generator. Extract beautiful color schemes from images.',
+    images: ['https://www.konverter-online.com/og-image.svg'],
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/color-generator',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

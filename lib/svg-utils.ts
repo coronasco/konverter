@@ -141,7 +141,8 @@ export function base64EncodeSvg(svgString: string): string {
     }
   }
   
-  const base64 = btoa(svg)
+  // Use a safe base64 encoding that handles Unicode characters
+  const base64 = btoa(unescape(encodeURIComponent(svg)))
   return `background-image: url("data:image/svg+xml;base64,${base64}");`
 }
 

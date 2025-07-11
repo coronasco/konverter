@@ -5,27 +5,134 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON Instantly',
-  description: 'Free online JSON formatter, validator, and converter. Beautify JSON with proper indentation, minify JSON for production, validate JSON syntax errors, and convert JSON to YAML. No signup required, trusted by developers worldwide.',
-  keywords: 'JSON formatter, JSON beautifier, JSON minifier, JSON validator, JSON to YAML, JSON converter, online JSON tools, free JSON formatter',
+  description: 'Free online JSON formatter, beautifier, minifier, and validator. Format JSON with proper indentation, compress JSON for production, validate JSON syntax errors, and convert JSON to YAML. No registration required, trusted by developers worldwide.',
+  keywords: 'JSON formatter, JSON beautifier, JSON minifier, JSON validator, JSON to YAML, JSON converter, online JSON tools, free JSON formatter, JSON prettifier, JSON syntax checker, JSON compressor, JSON parser, JSON editor, JSON viewer, JSON linter, JSON validator online, JSON formatter online, JSON beautifier online, JSON minifier online',
   openGraph: {
     title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON',
     description: 'Free online JSON formatter, validator, and converter. Beautify JSON, minify JSON, validate JSON syntax, and convert JSON to YAML.',
     type: 'website',
     url: 'https://www.konverter-online.com/json-formatter',
+    images: [
+      {
+        url: 'https://www.konverter-online.com/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'JSON Formatter Tool',
+      },
+    ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON',
     description: 'Free online JSON formatter, validator, and converter. Professional JSON tools for developers.',
+    images: ['https://www.konverter-online.com/og-image.svg'],
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/json-formatter',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
 export default function JsonFormatterPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "JSON Formatter Online",
+            "description": "Free online JSON formatter, beautifier, minifier, and validator. Format JSON with proper indentation, compress JSON for production, validate JSON syntax errors, and convert JSON to YAML.",
+            "url": "https://www.konverter-online.com/json-formatter",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "JSON Beautifier",
+              "JSON Minifier",
+              "JSON Validator",
+              "JSON to YAML Converter",
+              "Syntax Error Detection",
+              "Real-time Formatting"
+            ],
+            "author": {
+              "@type": "Person",
+              "name": "Daniel Zahav"
+            },
+            "creator": {
+              "@type": "Person",
+              "name": "Daniel Zahav"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Konverter Online"
+            },
+            "inLanguage": "en-US",
+            "isAccessibleForFree": true
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is JSON formatting?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "JSON formatting is the process of adding proper indentation, spacing, and structure to JSON data to make it more readable and organized."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why should I minify JSON?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Minifying JSON removes unnecessary whitespace and comments to reduce file size, which improves loading times and reduces bandwidth usage."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I validate JSON?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "JSON validation checks if your JSON data follows the correct syntax rules. Our tool automatically detects and highlights syntax errors."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I convert JSON to YAML?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, our tool can convert JSON data to YAML format, which is often more readable and commonly used in configuration files."
+                }
+              }
+            ]
+          })
+        }}
+      />
+      <div className="min-h-screen flex flex-col">
       <JsonFormatter />
       {/* Personal story & SEO context in English */}
       <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
@@ -60,5 +167,6 @@ export default function JsonFormatterPage() {
       </div>
       <Footer />
     </div>
+    </>
   )
 } 

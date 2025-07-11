@@ -7,28 +7,96 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Konverter - Free Online Developer Tools | SVG Converter, JSON Formatter, CSS Minifier',
-  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, and QR code generator. No registration required.',
-  keywords: 'developer tools, SVG converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR generator, free online tools',
+  title: 'Konverter - Free Online Developer Tools | SVG to React Converter, JSON Formatter, CSS Minifier',
+  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR code generator. No registration required, trusted by developers worldwide.',
+  keywords: 'developer tools, SVG converter, SVG to React, SVG to JSX, JSON formatter, JSON beautifier, CSS minifier, CSS compressor, password generator, URL shortener, Base64 converter, color generator, QR code generator, free online tools, web development tools, frontend tools, coding tools',
   openGraph: {
-    title: 'Konverter - Free Online Developer Tools',
-    description: 'Free online developer tools: SVG converter, JSON formatter, CSS minifier, password generator, and more. No registration required.',
+    title: 'Konverter - Free Online Developer Tools | SVG to React Converter',
+    description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, and more. No registration required.',
     type: 'website',
     url: 'https://www.konverter-online.com',
+    images: [
+      {
+        url: 'https://www.konverter-online.com/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Konverter - Free Online Developer Tools',
+      },
+    ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Konverter - Free Online Developer Tools',
-    description: 'Free online developer tools: SVG converter, JSON formatter, CSS minifier, and more.',
+    title: 'Konverter - Free Online Developer Tools | SVG to React Converter',
+    description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, and more.',
+    images: ['https://www.konverter-online.com/og-image.svg'],
+    creator: '@konverter_online',
   },
   alternates: {
     canonical: 'https://www.konverter-online.com',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  }
 }
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Konverter Online",
+            "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, password generation, URL shortening, Base64 encoding, color palette extraction, and QR code generation.",
+            "url": "https://www.konverter-online.com",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "SVG to React Converter",
+              "JSON Formatter and Validator",
+              "CSS Minifier and Optimizer",
+              "Password Generator",
+              "URL Shortener",
+              "Base64 Encoder/Decoder",
+              "Color Palette Generator",
+              "QR Code Generator"
+            ],
+            "author": {
+              "@type": "Person",
+              "name": "Daniel Zahav"
+            },
+            "creator": {
+              "@type": "Person",
+              "name": "Daniel Zahav"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Konverter Online"
+            },
+            "inLanguage": "en-US",
+            "isAccessibleForFree": true,
+            "softwareVersion": "1.0.0"
+          })
+        }}
+      />
+      <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto text-center">
@@ -486,5 +554,6 @@ export default function Home() {
 
       <Footer />
     </div>
+    </>
   )
 }

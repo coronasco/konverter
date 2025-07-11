@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'Base64 Encoder/Decoder - Free Online Tool | Convert Text & Files to Base64',
   description: 'Free online Base64 encoder and decoder. Convert text, files, and images to Base64 format instantly. Perfect for embedding data in HTML, CSS, JSON, and API requests. No registration required.',
-  keywords: 'base64 encoder, base64 decoder, base64 converter, encode base64, decode base64, file to base64, text to base64, image to base64, base64 encoding, base64 decoding, online base64 tool, free base64 converter',
+  keywords: 'base64 encoder, base64 decoder, base64 converter, encode base64, decode base64, file to base64, text to base64, image to base64, base64 encoding, base64 decoding, online base64 tool, free base64 converter, base64 encoder online, base64 decoder online, base64 converter online, base64 encoder decoder, base64 to text, text to base64, image to base64 converter, file to base64 converter, base64 encoder free, base64 decoder free, base64 converter free, base64 encoding tool, base64 decoding tool',
   openGraph: {
     title: 'Base64 Encoder/Decoder - Free Online Tool',
     description: 'Free online Base64 encoder and decoder. Convert text, files, and images to Base64 format instantly. Perfect for embedding data in HTML, CSS, JSON, and API requests.',
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
         alt: 'Base64 Encoder/Decoder Tool',
       },
     ],
+    siteName: 'Konverter Online',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -29,6 +31,17 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://www.konverter-online.com/base64-converter',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
