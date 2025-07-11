@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Copy, Check, FileText, Minus, CheckCircle, ArrowRight } from 'lucide-react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import RelatedTools from '@/components/RelatedTools'
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
@@ -280,6 +281,8 @@ export default function JsonFormatter() {
           </CardContent>
         </Card>
       </div>
+
+      <RelatedTools currentPath="/json-formatter" />
     </div>
   )
 } 

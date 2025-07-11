@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import ColorGenerator from '@/components/ColorGenerator'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export const metadata: Metadata = {
 export default function ColorGeneratorPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <ColorGenerator />
       {/* Personal story & SEO context in English */}
       <section className="py-20 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/20 dark:via-background dark:to-pink-950/20">

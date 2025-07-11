@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Calendar, Clock, ArrowRight, Code, Palette, Zap, Tag } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/blog'
@@ -38,8 +37,6 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
       <main className="flex-1 bg-white dark:bg-gray-900">
         <div className="container mx-auto py-12 px-4 md:px-6">
           {/* Header */}

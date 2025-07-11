@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import QrCodeGenerator from '@/components/QrCodeGenerator'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -35,7 +34,6 @@ export const metadata: Metadata = {
 export default function QrGeneratorPage() {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <main className="pt-16">
         <QrCodeGenerator />
         

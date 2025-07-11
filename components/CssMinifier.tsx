@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Copy, Check, Download, Minus, ArrowRight } from 'lucide-react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import RelatedTools from '@/components/RelatedTools'
 
 export default function CssMinifier() {
   const [input, setInput] = useState('')
@@ -332,6 +333,8 @@ export default function CssMinifier() {
           </CardContent>
         </Card>
       </div>
+
+      <RelatedTools currentPath="/css-minifier" />
     </div>
   )
 } 

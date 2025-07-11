@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Header from '@/components/Header'
 import SvgConverter from '@/components/SvgConverter'
 import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
@@ -30,8 +29,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
       {/* Hero Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
         <div className="container mx-auto text-center">

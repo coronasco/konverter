@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Shield, Eye, Lock, Database, Cookie, Users } from 'lucide-react'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -13,8 +12,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
       <main className="flex-1 bg-background">
         <div className="container mx-auto py-12 px-4 md:px-6">
           <div className="max-w-4xl mx-auto space-y-8">

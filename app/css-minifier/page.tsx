@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import CssMinifier from '@/components/CssMinifier'
-import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export const metadata: Metadata = {
 export default function CssMinifierPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <CssMinifier />
       {/* Personal story & SEO context in English */}
       <section className="py-20 px-6 bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-green-950/20 dark:via-background dark:to-blue-950/20">

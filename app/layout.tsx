@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
+import Header from '@/components/Header'
+import Breadcrumbs from '@/components/Breadcrumbs'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -70,7 +72,13 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {children}
+        <Header />
+        <main className="min-h-screen">
+          <div className="container mx-auto px-4 md:px-6 py-4">
+            <Breadcrumbs />
+            {children}
+          </div>
+        </main>
         <Analytics />
       </body>
     </html>
