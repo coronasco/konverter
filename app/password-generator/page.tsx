@@ -2,52 +2,20 @@ import { Metadata } from 'next'
 import PasswordGenerator from '@/components/PasswordGenerator'
 import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
+import { generateMetadata, generateStructuredData } from '@/components/SEOHead'
 
-export const metadata: Metadata = {
-  title: 'Password Generator - Create Strong Secure Passwords | Free Online Tool',
-  description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, exclude similar characters, and get real-time strength analysis. Perfect for developers, security professionals, and anyone who needs secure passwords.',
-  keywords: 'password generator, strong password, secure password, random password, password creator, password maker, online password generator, free password generator, secure password generator, password strength checker, password generator online, random password generator, strong password generator, secure password creator, password maker online, password strength analyzer, password entropy calculator, password security tool, password generator free, password strength meter',
-  openGraph: {
-    title: 'Password Generator - Create Strong Secure Passwords',
-    description: 'Generate strong, secure passwords with our free online password generator. Customize length, character types, and strength.',
-    type: 'website',
-    url: 'https://www.konverter-online.com/password-generator',
-    images: [
-      {
-        url: 'https://www.konverter-online.com/og-image.svg',
-        width: 1200,
-        height: 630,
-        alt: 'Password Generator Tool',
-      },
-    ],
-    siteName: 'Konverter Online',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Password Generator - Create Strong Secure Passwords',
-    description: 'Generate strong, secure passwords with our free online password generator.',
-    images: ['https://www.konverter-online.com/og-image.svg'],
-  },
-  alternates: {
-    canonical: 'https://www.konverter-online.com/password-generator',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-}
+export const metadata: Metadata = generateMetadata('/password-generator')
 
 export default function PasswordGeneratorPage() {
+  const structuredData = generateStructuredData('/password-generator')
+  
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-background">
       <main className="pt-16">
         <PasswordGenerator />
         
@@ -138,5 +106,6 @@ export default function PasswordGeneratorPage() {
       </main>
       <Footer />
     </div>
+    </>
   )
 } 

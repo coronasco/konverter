@@ -2,52 +2,20 @@ import { Metadata } from 'next'
 import QrCodeGenerator from '@/components/QrCodeGenerator'
 import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
+import { generateMetadata, generateStructuredData } from '@/components/SEOHead'
 
-export const metadata: Metadata = {
-  title: 'QR Code Generator - Create Custom QR Codes Online | Free Tool',
-  description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Add custom logos, choose colors, and download as PNG. Free online QR code generator with advanced customization options.',
-  keywords: 'qr code generator, qr code creator, custom qr codes, wifi qr code, email qr code, phone qr code, qr code download, online qr generator, free qr code maker, qr code customizer, qr code generator online, qr code maker, qr code creator online, qr code with logo, custom qr code generator, qr code for wifi, qr code for email, qr code for phone, qr code for url, qr code generator free, qr code maker online, qr code customizer online',
-  openGraph: {
-    title: 'QR Code Generator - Create Custom QR Codes Online',
-    description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Download as PNG or copy to clipboard.',
-    type: 'website',
-    url: 'https://www.konverter-online.com/qr-generator',
-    images: [
-      {
-        url: 'https://www.konverter-online.com/og-image.svg',
-        width: 1200,
-        height: 630,
-        alt: 'QR Code Generator Tool',
-      },
-    ],
-    siteName: 'Konverter Online',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'QR Code Generator - Create Custom QR Codes Online',
-    description: 'Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks.',
-    images: ['https://www.konverter-online.com/og-image.svg'],
-  },
-  alternates: {
-    canonical: 'https://www.konverter-online.com/qr-generator',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-}
+export const metadata: Metadata = generateMetadata('/qr-generator')
 
 export default function QrGeneratorPage() {
+  const structuredData = generateStructuredData('/qr-generator')
+  
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-background">
       <main className="pt-16">
         <QrCodeGenerator />
         
@@ -149,5 +117,6 @@ export default function QrGeneratorPage() {
       </main>
       <Footer />
     </div>
+    </>
   )
 } 
