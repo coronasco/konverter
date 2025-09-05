@@ -1,7 +1,7 @@
 ---
 title: "CSS Minifier: Optimize Your Stylesheets for Production"
 description: "Learn how to minify CSS files, understand the benefits of CSS optimization, and implement best practices for faster loading websites. Plus, discover my free online CSS minifier tool."
-date: "2025-06-01"
+date: "2025-09-01"
 author: "Daniel"
 excerpt: "Master CSS minification techniques to reduce file sizes, improve loading speeds, and optimize your stylesheets for production environments."
 category: "CSS"

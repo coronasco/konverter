@@ -1,10 +1,36 @@
+import { logger } from './logger'
+import { validateSvg as validateSvgAdvanced, sanitizeSvg, SVGValidationResult } from './svg-validator'
+
 export async function optimizeSvg(svgString: string, level: 'conservative' | 'balanced' | 'aggressive' | 'maximum' = 'balanced'): Promise<string> {
   try {
-    console.log(`Starting SVG optimization with level: ${level}`)
-    console.log('Input SVG length:', svgString.length)
+    // Validează și sanitizează SVG-ul înainte de optimizare
+    const validation = validateSvgAdvanced(svgString)
+    if (!validation.isValid) {
+      throw new Error(validation.error || 'Invalid SVG')
+    }
+    
+    // Sanitizează SVG-ul pentru securitate
+    const sanitizedSvg = sanitizeSvg(svgString, {
+      removeScripts: true,
+      removeEventHandlers: true,
+      removeComments: level !== 'conservative',
+      removeMetadata: level !== 'conservative',
+      removeExternalReferences: false
+    })
+    
+    logger.debug('Starting SVG optimization', { 
+      level, 
+      inputLength: svgString.length,
+      sanitizedLength: sanitizedSvg.length,
+      warnings: validation.warnings?.length || 0
+    }, 'SVG_OPTIMIZER')
+    
+    if (validation.warnings && validation.warnings.length > 0) {
+      logger.warn('SVG validation warnings', { warnings: validation.warnings }, 'SVG_OPTIMIZER')
+    }
     
     // Simple fallback optimization that always works
-    let optimized = svgString
+    let optimized = sanitizedSvg
     
     // Conservative optimizations (all levels)
     optimized = optimized.replace(/<!--[\s\S]*?-->/g, '') // Remove comments
@@ -81,18 +107,19 @@ export async function optimizeSvg(svgString: string, level: 'conservative' | 'ba
     
     // Ensure we still have a valid SVG structure
     if (!optimized.includes('<svg') || !optimized.includes('</svg>')) {
-      console.warn('SVG structure compromised, returning original')
+      logger.warn('SVG structure compromised, returning original', undefined, 'SVG_OPTIMIZER')
       return svgString
     }
     
-    console.log('SVG optimization completed')
-    console.log('Output SVG length:', optimized.length)
-    console.log('Reduction:', ((svgString.length - optimized.length) / svgString.length * 100).toFixed(1) + '%')
+    const reduction = ((svgString.length - optimized.length) / svgString.length * 100).toFixed(1)
+    logger.debug('SVG optimization completed', {
+      outputLength: optimized.length,
+      reduction: `${reduction}%`
+    }, 'SVG_OPTIMIZER')
     
     return optimized
   } catch (error) {
-    console.error('SVG optimization failed:', error)
-    console.error('Error details:', error)
+    logger.error('SVG optimization failed', error, 'SVG_OPTIMIZER')
     return svgString
   }
 }
@@ -366,43 +393,16 @@ export default ${componentName}
   return componentCode
 }
 
-export function validateSvg(svgString: string): { isValid: boolean; error?: string } {
-  if (!svgString.trim()) {
-    return { isValid: false, error: 'SVG input is empty' }
+// Backward compatibility wrapper
+export function validateSvg(svgString: string): { isValid: boolean; error?: string; warnings?: string[] } {
+  const result = validateSvgAdvanced(svgString, false)
+  return {
+    isValid: result.isValid,
+    error: result.error,
+    warnings: result.warnings
   }
+}
 
-  // Verifică dacă conține tag-ul SVG
-  if (!svgString.includes('<svg')) {
-    return { isValid: false, error: 'Input is not a valid SVG' }
-  }
-
-  // Verifică dacă are tag-ul de închidere
-  if (!svgString.includes('</svg>')) {
-    return { isValid: false, error: 'SVG is missing closing tag' }
-  }
-
-  // Verifică dacă are atributele de bază
-  const hasViewBox = svgString.includes('viewBox') || svgString.includes('width') || svgString.includes('height')
-  if (!hasViewBox) {
-    return { isValid: false, error: 'SVG is missing required attributes (viewBox, width, or height)' }
-  }
-
-  // Verifică dacă conține elemente SVG valide
-  const hasValidElements = svgString.includes('<path') || 
-                          svgString.includes('<rect') || 
-                          svgString.includes('<circle') || 
-                          svgString.includes('<ellipse') || 
-                          svgString.includes('<line') || 
-                          svgString.includes('<polyline') || 
-                          svgString.includes('<polygon') || 
-                          svgString.includes('<text') || 
-                          svgString.includes('<image') || 
-                          svgString.includes('<g>') ||
-                          svgString.includes('<use')
-  
-  if (!hasValidElements) {
-    return { isValid: false, error: 'SVG must contain valid elements (path, rect, circle, etc.)' }
-  }
-
-  return { isValid: true }
-} 
+// Export advanced validation
+export { validateSvgAdvanced, sanitizeSvg }
+export type { SVGValidationResult } 

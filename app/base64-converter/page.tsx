@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Base64Converter from '@/components/Base64Converter'
 import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
+import { AdSenseNavigation, AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
 
 export const metadata: Metadata = {
   title: 'Base64 Encoder/Decoder - Free Online Tool | Convert Text & Files to Base64',
@@ -49,10 +50,21 @@ export default function Base64ConverterPage() {
   return (
     <div className="min-h-screen bg-background">
       <main className="pt-16">
+        {/* Navigation Ad */}
+        <AdSenseNavigation />
+        
         <Base64Converter />
+        
+        {/* Banner Ad */}
+        <div className="container mx-auto px-4 py-8">
+          <AdSenseBanner className="max-w-4xl mx-auto" />
+        </div>
         
         {/* SEO Content Section */}
         <section className="container mx-auto px-6 py-12 max-w-4xl">
+          {/* In-Article Ad */}
+          <AdSenseInArticle className="mb-8" />
+          
           <div className="prose prose-invert max-w-none">
             <h2 className="text-3xl font-bold mb-6">What is Base64 Encoding?</h2>
             <p className="text-lg mb-6">

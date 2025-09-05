@@ -1,7 +1,7 @@
 ---
 title: "CSS Background Techniques: From Basic to Advanced"
 description: "Learn advanced CSS background techniques including gradients, patterns, and SVG backgrounds. Plus, discover my free online SVG to CSS converter tool."
-date: "2025-07-08"
+date: "2025-08-08"
 author: "Daniel"
 excerpt: "Master advanced CSS background techniques including gradients, patterns, and SVG backgrounds for creating stunning web designs."
 category: "CSS"

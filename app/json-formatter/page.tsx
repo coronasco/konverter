@@ -2,6 +2,11 @@ import { Metadata } from 'next'
 import JsonFormatter from '@/components/JsonFormatter'
 import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
+import BreadcrumbSchema, { generateBreadcrumbs } from '@/components/BreadcrumbSchema'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { CheckCircle, FileText, Zap, ArrowRight } from 'lucide-react'
+import { AdSenseNavigation, AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'JSON Formatter Online Free | Beautify, Minify & Validate JSON Instantly',
@@ -46,8 +51,11 @@ export const metadata: Metadata = {
 }
 
 export default function JsonFormatterPage() {
+  const breadcrumbs = generateBreadcrumbs('/json-formatter')
+  
   return (
     <>
+      <BreadcrumbSchema items={breadcrumbs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -133,40 +141,158 @@ export default function JsonFormatterPage() {
         }}
       />
       <div className="min-h-screen flex flex-col">
-      <JsonFormatter />
-      {/* Personal story & SEO context in English */}
-      <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
-        <div className="container mx-auto max-w-3xl text-center space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent mb-4">
-            The JSON debugging tool I always wanted
-          </h2>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-              Ever spent 30 minutes debugging a JSON parsing error only to find it was a missing comma? Yeah, me too. That&apos;s why I built this JSON Formatter. It&apos;s not just another online tool—it&apos;s the debugging companion I wish I had when I was knee-deep in API integrations and microservice configs.
-            </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            My daily workflow with this tool:
-          </p>
-          <ul className="text-left mx-auto max-w-xl text-base text-muted-foreground list-disc list-inside space-y-2">
-            <li>Validating webhook payloads before processing them in production</li>
-            <li>Converting API responses to YAML for Kubernetes deployments</li>
-            <li>Minifying large JSON datasets for faster API responses</li>
-            <li>Beautifying legacy config files that look like they were written by a cat</li>
-          </ul>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-              <b>Pro tip:</b> Use the validator before deploying any JSON-based config. A single syntax error can bring down your entire service. And always convert to YAML for Kubernetes—it&apos;s just more readable than JSON for configs.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Built this because I was tired of context-switching between different tools. Now everything happens in one place, client-side, with zero privacy concerns. If you&apos;re dealing with JSON daily, this should save you hours.
-            </p>
+        {/* Navigation Ad */}
+        <AdSenseNavigation />
+        
+        <JsonFormatter />
+        
+        {/* AdSense Banner */}
+        <div className="container mx-auto px-4 py-8">
+          <AdSenseBanner className="max-w-4xl mx-auto" />
         </div>
-      </section>
-      
-      {/* Related Tools */}
-      <div className="container mx-auto px-6 pb-12 max-w-4xl">
-        <RelatedTools currentPath="/json-formatter" />
+        
+        
+        <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                Why Choose Our JSON Formatter?
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Built by developers, for developers. Experience the difference with our advanced JSON processing engine.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className="hover:shadow-lg transition-shadow border-0 bg-white dark:bg-gray-800">
+                <CardHeader>
+                  <div className="h-12 w-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <CardTitle className="text-xl">Advanced Validation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">
+                    Detects syntax errors, missing commas, unclosed brackets, and invalid escape sequences. 
+                    Shows exact line and character position for quick debugging.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow border-0 bg-white dark:bg-gray-800">
+                <CardHeader>
+                  <div className="h-12 w-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                    <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <CardTitle className="text-xl">Smart Formatting</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">
+                    Intelligent indentation with customizable spacing. 
+                    Preserves data structure while making it human-readable.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow border-0 bg-white dark:bg-gray-800">
+                <CardHeader>
+                  <div className="h-12 w-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                    <Zap className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <CardTitle className="text-xl">Lightning Fast</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">
+                    Process large JSON files instantly. 
+                    Optimized algorithms handle complex nested structures without breaking a sweat.
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+        
+        {/* Personal Story Section */}
+        <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
+          <div className="container mx-auto max-w-4xl">
+            {/* AdSense In-Article */}
+            <AdSenseInArticle className="mb-12" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-700 to-purple-600 bg-clip-text text-transparent mb-6">
+                  The JSON debugging tool I always wanted
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                  Ever spent 30 minutes debugging a JSON parsing error only to find it was a missing comma? 
+                  Yeah, me too. That&apos;s why I built this JSON Formatter.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                  It&apos;s not just another online tool—it&apos;s the debugging companion I wish I had when I was 
+                  knee-deep in API integrations and microservice configs.
+                </p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  My daily workflow:
+                </h3>
+                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Validating webhook payloads before processing</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Converting API responses to YAML for Kubernetes</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Minifying large datasets for faster responses</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Beautifying legacy config files</span>
+                  </li>
+                </ul>
+                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <strong>Pro tip:</strong> Always validate JSON configs before deploying. 
+                    A single syntax error can bring down your entire service.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* CTA Section */}
+        <section className="py-16 px-6">
+          <div className="container mx-auto text-center">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+              <h2 className="text-2xl font-bold mb-4">
+                Ready to Format Your JSON?
+              </h2>
+              <p className="text-lg mb-6 opacity-90">
+                Join thousands of developers who trust our JSON formatter for their daily workflow.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                
+                <Link href="/blog/json-formatter-guide" className="border border-white/30 px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center gap-2">
+                  Read Our Guide
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Related Tools */}
+        <div className="container mx-auto px-6 pb-12 max-w-4xl">
+          <RelatedTools currentPath="/json-formatter" />
+        </div>
+        
+        <Footer />
       </div>
-      <Footer />
-    </div>
     </>
   )
 } 

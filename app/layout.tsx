@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import Header from '@/components/Header'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import { ToastContainer } from '@/components/Toast'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
   title: 'Konverter - Advanced SVG to CSS/JSX Converter | Free Online Tool',
   description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio. Professional SVG tools for developers.',
   keywords: 'SVG converter, SVG to CSS, SVG to React, SVG to JSX, SVG optimizer, CSS background generator, React component generator, SVG tools, online converter',
+  other: {
+    'google-adsense-account': 'ca-pub-7278381785440044'
+  },
   openGraph: {
     title: 'Konverter - Advanced SVG to CSS/JSX Converter',
     description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
@@ -36,6 +40,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        {/* Google AdSense */}
+        <meta name="google-adsense-account" content="ca-pub-7278381785440044" />
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7278381785440044"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+        <Script id="adsense-init" strategy="afterInteractive">
+          {`
+            if (typeof window !== 'undefined' && !window.adsbygoogle) {
+              window.adsbygoogle = [];
+            }
+          `}
+        </Script>
+        
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-X53DYH5BFR"
@@ -79,6 +98,7 @@ export default function RootLayout({
             {children}
           </div>
         </main>
+        <ToastContainer />
         <Analytics />
       </body>
     </html>

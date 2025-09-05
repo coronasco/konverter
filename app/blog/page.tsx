@@ -2,14 +2,21 @@ import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Calendar, Clock, ArrowRight, Code, Palette, Zap, Tag } from 'lucide-react'
+import { AdSenseBanner } from '@/components/AdSense'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'Blog | Konverter - SVG to CSS/JSX Converter',
-  description: 'Learn about SVG optimization, CSS techniques, React components, and web development best practices. Tips and tutorials for developers.',
-  keywords: ['svg blog', 'css tutorials', 'react components', 'web development', 'svg optimization', 'frontend tips'],
+  title: 'Developer Blog | Konverter - SVG, CSS, React Tutorials & Guides',
+  description: '📚 Master SVG optimization, CSS techniques, React components & web development. Free tutorials, guides & best practices for developers. Updated weekly!',
+  keywords: ['svg optimization guide', 'css minification tutorial', 'react component conversion', 'web development blog', 'frontend developer tips', 'svg to jsx converter guide', 'json formatter tutorial', 'password generator best practices', 'qr code generation guide', 'base64 encoding tutorial', 'developer productivity tips 2024'],
+  openGraph: {
+    title: 'Developer Blog | Konverter Tools',
+    description: 'Free tutorials and guides for SVG optimization, CSS techniques, and React development',
+    images: ['/og-blog.svg'],
+    type: 'website'
+  }
 }
 
 const categoryIcons = {
@@ -90,6 +97,11 @@ export default function BlogPage() {
               </Card>
             </div>
           )}
+
+          {/* AdSense Banner */}
+          <div className="mb-12">
+            <AdSenseBanner className="max-w-4xl mx-auto" />
+          </div>
 
           {/* Blog Posts Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

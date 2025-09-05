@@ -1,8 +1,10 @@
 'use client'
 
+import { useCallback } from 'react'
 import { Switch } from '@/components/ui/switch'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Settings, Zap, Info, AlertCircle, Gauge } from 'lucide-react'
+import { logger } from '@/lib/logger'
 
 interface OptionsPanelProps {
   isOptimized: boolean
@@ -19,10 +21,15 @@ export default function OptionsPanel({
   onOptimizationLevelChange,
   isOptimizing = false 
 }: OptionsPanelProps) {
-  const handleToggle = (value: boolean) => {
-    console.log('Optimization toggle clicked:', value)
+  const handleToggle = useCallback((value: boolean) => {
+    logger.debug('Optimization toggle changed', { enabled: value }, 'OPTIONS_PANEL')
     onOptimizedChange(value)
-  }
+  }, [onOptimizedChange])
+
+  const handleLevelChange = useCallback((level: 'conservative' | 'balanced' | 'aggressive' | 'maximum') => {
+    logger.debug('Optimization level changed', { level }, 'OPTIONS_PANEL')
+    onOptimizationLevelChange(level)
+  }, [onOptimizationLevelChange])
 
   const optimizationLevels = [
     {
@@ -131,7 +138,7 @@ export default function OptionsPanel({
                     return (
                       <button
                         key={level.id}
-                        onClick={() => onOptimizationLevelChange(level.id as 'conservative' | 'balanced' | 'aggressive' | 'maximum')}
+                        onClick={() => handleLevelChange(level.id as 'conservative' | 'balanced' | 'aggressive' | 'maximum')}
                         className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${
                           isActive
                             ? 'bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 shadow-sm'

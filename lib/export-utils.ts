@@ -1,3 +1,5 @@
+import { logger } from './logger'
+
 interface ExportOptions {
   format: string
   width: number
@@ -116,7 +118,7 @@ export const exportToPdf = async (svgString: string, options?: { width?: number;
     // Dynamic import of jsPDF to avoid SSR issues
     const { jsPDF } = await import('jspdf')
     
-    console.log('📄 Starting PDF export...')
+    logger.debug('Starting PDF export', undefined, 'EXPORT_UTILS')
     
     // Create a temporary canvas to get SVG dimensions
     const canvas = document.createElement('canvas')
@@ -138,7 +140,7 @@ export const exportToPdf = async (svgString: string, options?: { width?: number;
           const svgWidth = img.width
           const svgHeight = img.height
           
-          console.log('📐 SVG dimensions:', svgWidth, 'x', svgHeight)
+          logger.debug('SVG dimensions detected', { width: svgWidth, height: svgHeight }, 'EXPORT_UTILS')
           
           // Create PDF with A4 size
           const pdf = new jsPDF({
@@ -151,7 +153,7 @@ export const exportToPdf = async (svgString: string, options?: { width?: number;
           const pageWidth = pdf.internal.pageSize.getWidth()
           const pageHeight = pdf.internal.pageSize.getHeight()
           
-          console.log('📄 Page dimensions:', pageWidth, 'x', pageHeight, 'mm')
+          logger.debug('PDF page dimensions', { width: pageWidth, height: pageHeight, unit: 'mm' }, 'EXPORT_UTILS')
           
           // Set margins (10mm on all sides)
           const margin = 10
@@ -179,8 +181,13 @@ export const exportToPdf = async (svgString: string, options?: { width?: number;
           const x = margin + (maxWidth - finalWidth) / 2
           const y = margin + (maxHeight - finalHeight) / 2
           
-          console.log('🎯 Final dimensions:', finalWidth, 'x', finalHeight, 'mm')
-          console.log('📍 Position:', x, ',', y, 'mm')
+          logger.debug('PDF final layout', { 
+            width: finalWidth, 
+            height: finalHeight, 
+            x, 
+            y, 
+            unit: 'mm' 
+          }, 'EXPORT_UTILS')
 
           // Set background if specified
           if (options?.backgroundColor && options.backgroundColor !== 'transparent') {
@@ -218,7 +225,7 @@ export const exportToPdf = async (svgString: string, options?: { width?: number;
           // Save PDF
           pdf.save(filename)
           
-          console.log('✅ PDF exported successfully:', filename)
+          logger.debug('PDF exported successfully', { filename }, 'EXPORT_UTILS')
           resolve()
           
         } catch (error) {

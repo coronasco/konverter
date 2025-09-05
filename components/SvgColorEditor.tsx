@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 import { Palette, RotateCcw, Eye, EyeOff } from 'lucide-react'
+import { logger } from '@/lib/logger'
 
 interface ColorElement {
   id: string
@@ -69,7 +70,7 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
   }, [originalSvg, svgContent])
 
   const handleColorChange = (id: string, newColor: string) => {
-    console.log('🎨 Color change:', id, '->', newColor)
+    logger.debug('Color change requested', { id, newColor }, 'SVG_COLOR_EDITOR')
     
     const updatedElements = colorElements.map(el => 
       el.id === id ? { ...el, currentColor: newColor } : el
@@ -105,12 +106,12 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
       if (changedElement.type === 'fill' && elementFill === changedElement.originalColor) {
         element.setAttribute('fill', changedElement.currentColor)
         found = true
-        console.log('✅ Updated fill color for element:', element.tagName)
+        logger.debug('Updated fill color', { element: element.tagName, color: newColor }, 'SVG_COLOR_EDITOR')
         break
       } else if (changedElement.type === 'stroke' && elementStroke === changedElement.originalColor) {
         element.setAttribute('stroke', changedElement.currentColor)
         found = true
-        console.log('✅ Updated stroke color for element:', element.tagName)
+        logger.debug('Updated stroke color', { element: element.tagName, color: newColor }, 'SVG_COLOR_EDITOR')
         break
       }
     }
@@ -120,7 +121,7 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
     }
 
     const modifiedSvg = new XMLSerializer().serializeToString(svgElement)
-    console.log('🎨 Calling onColorChange with modified SVG')
+    logger.debug('Applying color changes to SVG', undefined, 'SVG_COLOR_EDITOR')
     onColorChange(modifiedSvg)
   }
 

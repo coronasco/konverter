@@ -1,7 +1,11 @@
 import { Metadata } from 'next'
 import SvgConverter from '@/components/SvgConverter'
+// import SvgConverterSimple from '@/components/SvgConverterSimple'
 import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
+import FAQSchema, { svgConverterFAQs } from '@/components/FAQSchema'
+import ReviewSchema from '@/components/ReviewSchema'
+import { AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
 import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
@@ -52,6 +56,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <FAQSchema faqs={svgConverterFAQs} />
+      <ReviewSchema />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -548,6 +554,41 @@ export default function Home() {
                 </Link>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* AdSense Banner */}
+      <section className="py-8 px-6">
+        <div className="container mx-auto">
+          <AdSenseBanner className="max-w-4xl mx-auto" />
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get answers to common questions about our SVG converter and other developer tools
+            </p>
+          </div>
+          
+          {/* AdSense In-Article */}
+          <AdSenseInArticle className="mb-12" />
+          
+          <div className="max-w-3xl mx-auto space-y-6">
+            {svgConverterFAQs.map((faq, index) => (
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg text-left">{faq.question}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

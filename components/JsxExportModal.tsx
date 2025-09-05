@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Copy, Check, Download, FileCode, Palette, Settings, ChevronUp } from 'lucide-react'
 import { generateReactComponent } from '@/lib/svg-utils'
+import { showToast } from '@/components/Toast'
+import { logger } from '@/lib/logger'
 
 interface JsxExportModalProps {
   svgString: string
@@ -25,7 +27,8 @@ export default function JsxExportModal({ svgString, onClose }: JsxExportModalPro
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      console.error('Failed to copy text: ', err)
+      logger.error('Failed to copy text', err, 'JSX_EXPORT')
+      showToast.error('Failed to copy to clipboard')
     }
   }
 
@@ -155,8 +158,7 @@ function App() {
                         type="button"
                         className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
                         onClick={() => {
-                          console.log('🚀 Download button clicked!')
-                          console.log('📄 Component length:', advancedComponent?.length)
+                          logger.debug('Download button clicked', { componentLength: advancedComponent?.length }, 'JSX_EXPORT')
                           handleDownload(advancedComponent, `${componentName}.tsx`)
                         }}
                       >

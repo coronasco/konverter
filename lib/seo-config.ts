@@ -15,8 +15,8 @@ export interface SEOConfig {
 export const seoConfig: Record<string, SEOConfig> = {
   home: {
     title: "Konverter Online - Free Developer Tools for SVG, JSON, CSS & More",
-    description: "Free online developer tools for SVG conversion, JSON formatting, CSS minification, color palette generation, password generation, QR codes, and more. Professional tools for developers.",
-    keywords: "developer tools, svg converter, json formatter, css minifier, color generator, password generator, qr code generator, url shortener, base64 converter, online tools, free tools, web development tools, coding tools, programming utilities",
+    description: "🚀 Convert SVG to React/CSS instantly! Free developer tools: JSON formatter, CSS minifier, password generator, QR codes & more. No signup required. Try now!",
+    keywords: "developer tools, svg converter, json formatter, css minifier, color generator, password generator, qr code generator, url shortener, base64 converter, online tools, free tools, web development tools, coding tools, programming utilities, svg to react converter online free, json beautifier validator online, css compressor optimizer tool, how to convert svg to jsx component, free password generator strong secure, online qr code maker custom logo, developer productivity tools 2024, web development utilities free online, svg optimization tool reduce file size, json formatter with syntax highlighting",
     canonical: "https://www.konverter-online.com/",
     ogTitle: "Konverter Online - Free Developer Tools",
     ogDescription: "Professional developer tools for SVG, JSON, CSS, and more. Free online utilities for web developers.",
@@ -55,7 +55,7 @@ export const seoConfig: Record<string, SEOConfig> = {
   },
   "password-generator": {
     title: "Password Generator - Create Strong Secure Passwords | Free Online Tool",
-    description: "Generate strong, secure passwords with our free online password generator. Customize length, character types, exclude similar characters, and get real-time strength analysis. Perfect for developers, security professionals, and anyone who needs secure passwords.",
+    description: "🔒 Generate unbreakable passwords instantly! Customizable length, symbols & strength analysis. Military-grade security. Copy with one click!",
     keywords: "password generator, strong password, secure password, random password, password creator, password maker, online password generator, free password generator, secure password generator, password strength checker, password generator online, random password generator, strong password generator, secure password creator, password maker online, password strength analyzer, password entropy calculator, password security tool, password generator free, password strength meter",
     canonical: "https://www.konverter-online.com/password-generator",
     ogTitle: "Password Generator - Create Strong Secure Passwords",
@@ -95,7 +95,7 @@ export const seoConfig: Record<string, SEOConfig> = {
   },
   "qr-generator": {
     title: "QR Code Generator - Create Custom QR Codes Online | Free Tool",
-    description: "Generate custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Add custom logos, choose colors, and download as PNG. Free online QR code generator with advanced customization options.",
+    description: "📱 Create custom QR codes in seconds! URLs, WiFi, email, phone numbers. Add logos, colors & download PNG/SVG. Free & unlimited!",
     keywords: "qr code generator, qr code creator, custom qr codes, wifi qr code, email qr code, phone qr code, qr code download, online qr generator, free qr code maker, qr code customizer, qr code generator online, qr code maker, qr code creator online, qr code with logo, custom qr code generator, qr code for wifi, qr code for email, qr code for phone, qr code for url, qr code generator free, qr code maker online, qr code customizer online",
     canonical: "https://www.konverter-online.com/qr-generator",
     ogTitle: "QR Code Generator - Create Custom QR Codes Online",
@@ -135,7 +135,7 @@ export const seoConfig: Record<string, SEOConfig> = {
   },
   "color-generator": {
     title: "Color Generator - Extract Color Palettes from Images | Free Online Tool",
-    description: "Extract beautiful color palettes from images with our free online color generator. Get hex codes, RGB values, and create stunning color schemes. Perfect for designers, developers, and anyone who works with colors.",
+    description: "🎨 Extract perfect color palettes from any image! Get HEX, RGB, HSL codes instantly. Create stunning color schemes for design projects. Free & unlimited!",
     keywords: "color generator, color palette, color extractor, image color picker, color scheme generator, hex color codes, rgb color values, color palette from image, online color tool, free color generator, color picker tool, color scheme creator, color palette generator, image color analysis, color extraction tool, color palette maker, color scheme builder, color tool online, color generator free",
     canonical: "https://www.konverter-online.com/color-generator",
     ogTitle: "Color Generator - Extract Color Palettes from Images",
@@ -175,7 +175,7 @@ export const seoConfig: Record<string, SEOConfig> = {
   },
   "json-formatter": {
     title: "JSON Formatter - Format, Validate & Beautify JSON Online | Free Tool",
-    description: "Format, validate, and beautify JSON data with our free online JSON formatter. Syntax highlighting, error detection, and multiple output formats. Perfect for developers working with JSON APIs and data.",
+    description: "✨ Format messy JSON in seconds! Free JSON beautifier with syntax highlighting, validation & error detection. Copy, download & share instantly. No limits!",
     keywords: "json formatter, json beautifier, json validator, json prettifier, json syntax checker, json formatter online, free json tool, json beautifier online, json validator online, json syntax highlighter, json formatter tool, json beautifier tool, json validator tool, json prettifier online, json syntax checker online, json formatter free, json beautifier free, json validator free",
     canonical: "https://www.konverter-online.com/json-formatter",
     ogTitle: "JSON Formatter - Format, Validate & Beautify JSON Online",

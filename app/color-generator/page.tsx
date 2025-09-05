@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import ColorGenerator from '@/components/ColorGenerator'
 import RelatedTools from '@/components/RelatedTools'
 import Footer from '@/components/Footer'
+import { AdSenseNavigation, AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
 
 export const metadata: Metadata = {
   title: 'Color Generator Online Free | Extract Color Palettes from Images Instantly',
@@ -48,10 +49,20 @@ export const metadata: Metadata = {
 export default function ColorGeneratorPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Navigation Ad */}
+      <AdSenseNavigation />
+      
       <ColorGenerator />
+      
+      {/* Banner Ad */}
+      <div className="container mx-auto px-4 py-8">
+        <AdSenseBanner className="max-w-4xl mx-auto" />
+      </div>
       {/* Personal story & SEO context in English */}
       <section className="py-20 px-6 bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/20 dark:via-background dark:to-pink-950/20">
         <div className="container mx-auto max-w-3xl text-center space-y-8">
+          {/* In-Article Ad */}
+          <AdSenseInArticle className="mb-8" />
           <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent mb-4">
             Turn inspiration into code instantly
           </h2>
