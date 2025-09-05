@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
 import FAQSchema, { svgConverterFAQs } from '@/components/FAQSchema'
 import ReviewSchema from '@/components/ReviewSchema'
-import { AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
+import { AdSenseBanner, AdSenseInArticle, AdSenseNavigation } from '@/components/AdSense'
 import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
@@ -125,12 +125,16 @@ export default function Home() {
         </div>
       </section>
 
+      <AdSenseNavigation />
+
       {/* Main Converter */}
       <section className="pb-16 px-2 md:px-6" id="converter">
         <div className="container mx-auto">
           <SvgConverter />
         </div>
       </section>
+
+      <AdSenseInArticle />
 
       {/* Story Section */}
       <section className="py-20 px-6 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20">
