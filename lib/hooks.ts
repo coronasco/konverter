@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 /**
  * Hook pentru debouncing - previne apelurile frecvente
@@ -46,7 +46,7 @@ export function useThrottle<T>(value: T, delay: number): T {
 /**
  * Hook pentru operații async cu status
  */
-export function useAsyncOperation<T, P extends any[]>(
+export function useAsyncOperation<T, P extends unknown[]>(
   operation: (...args: P) => Promise<T>
 ) {
   const [isLoading, setIsLoading] = useState(false)
@@ -91,7 +91,7 @@ export function useStableMemo<T>(
   factory: () => T,
   deps: React.DependencyList
 ): T {
-  const ref = useRef<{ deps: React.DependencyList; value: T }>()
+  const ref = useRef<{ deps: React.DependencyList; value: T } | undefined>(undefined)
 
   if (!ref.current || !areEqual(ref.current.deps, deps)) {
     ref.current = { deps, value: factory() }
@@ -162,7 +162,7 @@ export function useCache<T>(key: string, ttl = 5 * 60 * 1000) {
  * Hook pentru previous value
  */
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>()
+  const ref = useRef<T | undefined>(undefined)
   useEffect(() => {
     ref.current = value
   })

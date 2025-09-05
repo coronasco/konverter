@@ -1,15 +1,27 @@
 import { MetadataRoute } from 'next'
-import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.konverter-online.com'
   const currentDate = new Date()
   
-  // Get all blog posts
-  const posts = getAllPosts()
-  const blogUrls = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.id}`,
-    lastModified: new Date(post.date),
+  // Static blog posts - add new ones manually
+  const blogPosts = [
+    'base64-converter-guide',
+    'color-generator-guide', 
+    'css-background-techniques',
+    'css-minifier-guide',
+    'json-formatter-guide',
+    'qr-code-generator-guide',
+    'secure-password-generation-guide',
+    'svg-optimization-guide',
+    'svg-to-jsx-guide',
+    'svg-to-react-converter-guide',
+    'url-shortener-guide'
+  ]
+  
+  const blogUrls = blogPosts.map((postId) => ({
+    url: `${baseUrl}/blog/${postId}`,
+    lastModified: currentDate,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))

@@ -122,10 +122,10 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
       <CardContent>
         <Tabs defaultValue="images" className="w-full">
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="images" className="flex items-center gap-2">
-              <Image className="h-4 w-4" aria-hidden="true" />
-              Images
-            </TabsTrigger>
+                          <TabsTrigger value="images" className="flex items-center gap-2">
+                <Image className="h-4 w-4" aria-hidden="true" />
+                Images
+              </TabsTrigger>
             <TabsTrigger value="icons" className="flex items-center gap-2">
               <Palette className="h-4 w-4" />
               Icons

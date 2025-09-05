@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle, Copy, Download, ExternalLink } from 'lucide-react'
+import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
@@ -68,7 +68,7 @@ export default function Toast({
   useEffect(() => {
     if (persistent || !visible) return
 
-    let startTime = Date.now()
+    const startTime = Date.now()
     let animationFrame: number
 
     const updateProgress = () => {
@@ -238,7 +238,9 @@ export function ToastContainer() {
     const unsubscribe = toast.subscribe(updateToasts)
     updateToasts() // Initial load
 
-    return unsubscribe
+    return () => {
+      unsubscribe()
+    }
   }, [])
 
   return (

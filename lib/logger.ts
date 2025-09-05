@@ -3,7 +3,7 @@ type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 interface LogEntry {
   level: LogLevel
   message: string
-  data?: any
+  data?: unknown
   timestamp: Date
   context?: string
 }
@@ -12,7 +12,7 @@ class Logger {
   private isDevelopment = process.env.NODE_ENV === 'development'
   private isClient = typeof window !== 'undefined'
 
-  private formatMessage(level: LogLevel, message: string, data?: any, context?: string): string {
+  private formatMessage(level: LogLevel, message: string, data?: unknown, context?: string): string {
     const timestamp = new Date().toISOString()
     const contextStr = context ? `[${context}]` : ''
     const dataStr = data ? ` ${JSON.stringify(data, null, 2)}` : ''
@@ -27,25 +27,25 @@ class Logger {
     return true
   }
 
-  debug(message: string, data?: any, context?: string): void {
+  debug(message: string, data?: unknown, context?: string): void {
     if (this.shouldLog('debug')) {
       console.debug(this.formatMessage('debug', message, data, context))
     }
   }
 
-  info(message: string, data?: any, context?: string): void {
+  info(message: string, data?: unknown, context?: string): void {
     if (this.shouldLog('info')) {
       console.info(this.formatMessage('info', message, data, context))
     }
   }
 
-  warn(message: string, data?: any, context?: string): void {
+  warn(message: string, data?: unknown, context?: string): void {
     if (this.shouldLog('warn')) {
       console.warn(this.formatMessage('warn', message, data, context))
     }
   }
 
-  error(message: string, error?: Error | any, context?: string): void {
+  error(message: string, error?: Error | unknown, context?: string): void {
     if (this.shouldLog('error')) {
       const errorData = error instanceof Error 
         ? { message: error.message, stack: error.stack }
@@ -76,13 +76,13 @@ class Logger {
         logs.splice(0, logs.length - 50)
       }
       localStorage.setItem('app_errors', JSON.stringify(logs))
-    } catch (e) {
+    } catch {
       // Ignore localStorage errors
     }
   }
 
   // Metodă pentru debugging în dezvoltare
-  performance(operation: string, fn: () => any, context?: string): any {
+  performance<T>(operation: string, fn: () => T, context?: string): T {
     if (!this.isDevelopment) {
       return fn()
     }
@@ -121,8 +121,8 @@ export const logger = new Logger()
 
 // Convenience exports pentru backward compatibility
 export const log = {
-  debug: (message: string, data?: any, context?: string) => logger.debug(message, data, context),
-  info: (message: string, data?: any, context?: string) => logger.info(message, data, context),
-  warn: (message: string, data?: any, context?: string) => logger.warn(message, data, context),
-  error: (message: string, error?: Error | any, context?: string) => logger.error(message, error, context),
+  debug: (message: string, data?: unknown, context?: string) => logger.debug(message, data, context),
+  info: (message: string, data?: unknown, context?: string) => logger.info(message, data, context),
+  warn: (message: string, data?: unknown, context?: string) => logger.warn(message, data, context),
+  error: (message: string, error?: Error | unknown, context?: string) => logger.error(message, error, context),
 }
