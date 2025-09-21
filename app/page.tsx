@@ -12,8 +12,8 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Konverter - Free Online Developer Tools | SVG to React Converter, JSON Formatter, CSS Minifier',
-  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR code generator. No registration required, trusted by developers worldwide.',
-  keywords: 'developer tools, SVG converter, SVG to React, SVG to JSX, JSON formatter, JSON beautifier, CSS minifier, CSS compressor, password generator, URL shortener, Base64 converter, color generator, QR code generator, free online tools, web development tools, frontend tools, coding tools',
+  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR code generator, time tracker. No registration required, trusted by developers worldwide.',
+  keywords: 'developer tools, SVG converter, SVG to React, SVG to JSX, JSON formatter, JSON beautifier, CSS minifier, CSS compressor, password generator, URL shortener, Base64 converter, color generator, QR code generator, time tracker, time tracking, free online tools, web development tools, frontend tools, coding tools',
   openGraph: {
     title: 'Konverter - Free Online Developer Tools | SVG to React Converter',
     description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, and more. No registration required.',
@@ -65,7 +65,7 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Konverter Online",
-            "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, password generation, URL shortening, Base64 encoding, color palette extraction, and QR code generation.",
+            "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, password generation, URL shortening, Base64 encoding, color palette extraction, QR code generation, and time tracking.",
             "url": "https://www.konverter-online.com",
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "Web Browser",
@@ -82,7 +82,8 @@ export default function Home() {
               "URL Shortener",
               "Base64 Encoder/Decoder",
               "Color Palette Generator",
-              "QR Code Generator"
+              "QR Code Generator",
+              "TimeTracker Pro"
             ],
             "author": {
               "@type": "Person",

@@ -1,6 +1,6 @@
 'use client'
 
-import { QrCode, Lock, FileText, PaintBucket, Link2, Code2, KeyRound, Palette } from 'lucide-react'
+import { QrCode, Lock, FileText, PaintBucket, Link2, Code2, KeyRound, Palette, Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 
@@ -68,6 +68,13 @@ const allTools: Tool[] = [
     description: 'Shorten URLs and generate QR codes',
     icon: Link2,
     category: 'utility'
+  },
+  { 
+    href: '/time-tracker', 
+    label: 'TimeTracker Pro', 
+    description: 'Free time tracking for freelancers and professionals',
+    icon: Clock,
+    category: 'productivity'
   },
 ]
 

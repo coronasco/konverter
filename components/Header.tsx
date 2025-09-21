@@ -1,4 +1,4 @@
-import { Coffee, ChevronDown, QrCode, Lock, FileText, PaintBucket, Link2, Code2, KeyRound } from 'lucide-react'
+import { Coffee, ChevronDown, QrCode, Lock, FileText, PaintBucket, Link2, Code2, KeyRound, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { 
   DropdownMenu, 
@@ -18,6 +18,7 @@ const tools = [
   { href: '/password-generator', label: 'Password', icon: Lock },
   { href: '/qr-generator', label: 'QR Code', icon: QrCode },
   { href: '/url-shortener', label: 'URL Shortener', icon: Link2 },
+  { href: '/time-tracker', label: 'TimeTracker', icon: Clock },
 ]
 
 export default function Header() {

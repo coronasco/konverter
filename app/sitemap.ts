@@ -16,7 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'svg-optimization-guide',
     'svg-to-jsx-guide',
     'svg-to-react-converter-guide',
-    'url-shortener-guide'
+    'url-shortener-guide',
+    'time-tracker-guide'
+
   ]
   
   const blogUrls = blogPosts.map((postId) => ({
@@ -78,7 +80,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    
+    {
+      url: `${baseUrl}/time-tracker`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     // Blog section
     {
       url: `${baseUrl}/blog`,
