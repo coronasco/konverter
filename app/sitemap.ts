@@ -1,45 +1,55 @@
 import { MetadataRoute } from 'next'
+import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.konverter-online.com'
   const currentDate = new Date()
-  
-  // Static blog posts - add new ones manually
-  const blogPosts = [
-    'base64-converter-guide',
-    'color-generator-guide', 
-    'css-background-techniques',
-    'css-minifier-guide',
-    'json-formatter-guide',
-    'qr-code-generator-guide',
-    'secure-password-generation-guide',
-    'svg-optimization-guide',
-    'svg-to-jsx-guide',
-    'svg-to-react-converter-guide',
-    'url-shortener-guide',
-    'time-tracker-guide'
-
-  ]
-  
-  const blogUrls = blogPosts.map((postId) => ({
-    url: `${baseUrl}/blog/${postId}`,
-    lastModified: currentDate,
+  const blogUrls = getAllPosts().map((post) => ({
+    url: `${baseUrl}/blog/${post.id}`,
+    lastModified: post.date,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
   return [
-    // Homepage - highest priority
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
-    
-    // Main tools - high priority
+    {
+      url: `${baseUrl}/svg-tools`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/frontend-tools`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/json-formatter`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/favicon-generator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/svg-icon-pack-generator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/design-token-generator`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -86,18 +96,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    // Blog section
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    
-    // Blog posts
+    {
+      url: `${baseUrl}/support`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     ...blogUrls,
-    
-    // Legal pages - lower priority
     {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,

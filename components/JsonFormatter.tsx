@@ -8,7 +8,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Copy, Check, FileText, Minus, CheckCircle, ArrowRight } from 'lucide-react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import RelatedTools from '@/components/RelatedTools'
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
@@ -138,15 +137,6 @@ export default function JsonFormatter() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          JSON Formatter
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Format, validate, and convert your JSON data with ease. Beautify, minify, validate, and convert to YAML.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Section */}
         <Card>
@@ -281,8 +271,6 @@ export default function JsonFormatter() {
           </CardContent>
         </Card>
       </div>
-
-      <RelatedTools currentPath="/json-formatter" />
     </div>
   )
-} 
+}

@@ -1,238 +1,122 @@
 import { Metadata } from 'next'
+import { Cookie, Database, Eye, Lock, Shield, Users } from 'lucide-react'
+import SectionIntro from '@/components/SectionIntro'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Shield, Eye, Lock, Database, Cookie, Users } from 'lucide-react'
-import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Konverter - SVG to CSS/JSX Converter',
-  description: 'Learn how Konverter protects your privacy and handles your data. I am committed to transparency and data protection.',
-  keywords: ['privacy policy', 'data protection', 'svg converter privacy', 'user data'],
+  title: 'Privacy Policy | Konverter',
+  description:
+    'How Konverter handles browser-side processing, analytics, local storage, and third-party services such as Google Analytics and AdSense.',
+  alternates: {
+    canonical: 'https://www.konverter-online.com/privacy',
+  },
 }
+
+const sections = [
+  {
+    title: 'What is processed locally',
+    icon: Eye,
+    description:
+      'Many Konverter tools are designed to work directly in the browser. SVG conversion, formatting, encoding, local previews, and similar utility work are generally handled client-side rather than uploaded as part of an account flow.',
+  },
+  {
+    title: 'Analytics and ads',
+    icon: Database,
+    description:
+      'The site includes Google Analytics and Google AdSense scripts. Those services may collect usage and ad-related information according to their own policies and browser settings.',
+  },
+  {
+    title: 'Local storage',
+    icon: Cookie,
+    description:
+      'Some tools use local browser storage for convenience. For example, time-tracking sessions and error logs can be saved locally on your device so the page remains usable across reloads.',
+  },
+  {
+    title: 'Security',
+    icon: Lock,
+    description:
+      'Konverter is served over HTTPS. Keeping more routine utility work in the browser reduces the need for server-side file handling in many flows, though you should still avoid treating any public website as a place for highly sensitive secrets.',
+  },
+  {
+    title: 'Your control',
+    icon: Users,
+    description:
+      'Because much of the workflow is browser-based, clearing local storage, cookies, or site data in your browser removes locally saved state. You can also use normal browser controls to limit cookies and tracking scripts.',
+  },
+]
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 bg-background">
-        <div className="container mx-auto py-12 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-8">
-            {/* Header */}
-            <div className="text-center space-y-4">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <Shield className="h-12 w-12 text-blue-600" />
-                <h1 className="text-4xl font-bold">Privacy Policy</h1>
-              </div>
-              <p className="text-xl text-muted-foreground">
-                Your privacy is important to me. Learn how I protect your data.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
-              </p>
-            </div>
-
-            {/* Main Content */}
-            <div className="space-y-8">
-              {/* Data Collection */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Eye className="h-5 w-5 text-blue-600" />
-                    Data Collection
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    Konverter is designed with privacy in mind. I collect minimal data to provide you with the best service.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>SVG Files:</strong> Your SVG files are processed locally in your browser. I do not store, transmit, or access your SVG content.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Analytics:</strong> I use Google Analytics to understand how my service is used. This helps me improve the tool.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>No Registration:</strong> I don&apos;t require accounts or personal information to use my service.
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Data Processing */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Database className="h-5 w-5 text-green-600" />
-                    Data Processing
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    All SVG processing happens locally in your browser using client-side JavaScript.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Local Processing:</strong> Your SVG files never leave your device during conversion.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>No Server Storage:</strong> I don&apos;t store your files on my servers.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Real-time Conversion:</strong> All conversions happen instantly in your browser.
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Cookies */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Cookie className="h-5 w-5 text-orange-600" />
-                    Cookies & Tracking
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    I use minimal cookies and tracking to improve your experience.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Google Analytics:</strong> Tracks usage patterns to help me improve the service.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Local Storage:</strong> Stores your preferences (like optimization settings) locally.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>No Third-party Tracking:</strong> I don&apos;t use advertising or third-party tracking cookies.
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Data Security */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Lock className="h-5 w-5 text-red-600" />
-                    Data Security
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    I implement security measures to protect your data and privacy.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>HTTPS Encryption:</strong> All data transmission is encrypted using SSL/TLS.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>No Data Storage:</strong> Since I don&apos;t store your files, there&apos;s no risk of data breaches.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Regular Updates:</strong> I keep my security practices up to date with industry standards.
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Your Rights */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-purple-600" />
-                    Your Rights
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
-                    You have full control over your data and privacy.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>No Data Collection:</strong> Since I don&apos;t collect personal data, there&apos;s nothing to request or delete.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Clear Local Storage:</strong> You can clear your browser&apos;s local storage to remove any saved preferences.
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <strong>Contact Me:</strong> If you have any privacy concerns, feel free to reach out.
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Contact */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
-                    If you have any questions about this Privacy Policy, please contact me:
-                  </p>
-                  <div className="space-y-2">
-                    <p><strong>Developer:</strong> Daniel Zaharia</p>
-                    <p><strong>Website:</strong> <a href="https://www.konverter-online.com" className="text-blue-600 hover:underline">konverter-online.com</a></p>
-                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rolax" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">linkedin.com/in/rolax</a></p>
-                    
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+    <div className="space-y-16 md:space-y-20">
+      <section className="section-frame section-grid-background">
+        <div className="max-w-4xl space-y-6">
+          <div className="flex items-center gap-3">
+            <Shield className="h-10 w-10 text-[var(--brand-accent)]" />
+            <SectionIntro
+              eyebrow="Privacy"
+              title="Konverter keeps the privacy story straightforward."
+              description="This page reflects how the site is built today: browser-based processing where possible, no required accounts, plus third-party scripts for analytics and ads."
+            />
           </div>
+          <p className="text-sm text-muted-foreground">
+            Last updated:{' '}
+            {new Date().toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
         </div>
-      </main>
+      </section>
 
-      <Footer />
+      <section className="grid gap-4">
+        {sections.map((section) => {
+          const Icon = section.icon
+          return (
+            <Card key={section.title} className="border-border/70">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <Icon className="h-5 w-5 text-[var(--brand-accent)]" />
+                  {section.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm leading-7 text-muted-foreground">{section.description}</p>
+              </CardContent>
+            </Card>
+          )
+        })}
+      </section>
+
+      <section className="section-frame">
+        <SectionIntro
+          eyebrow="Contact"
+          title="Questions about privacy or data handling?"
+          description="If you need to ask about how the site behaves, the best route is direct contact."
+        />
+        <div className="mt-6 space-y-2 text-sm leading-7 text-muted-foreground">
+          <p>
+            Developer: <span className="font-medium text-foreground">Daniel Zaharia</span>
+          </p>
+          <p>
+            Website:{' '}
+            <a href="https://www.konverter-online.com" className="font-medium text-foreground underline decoration-[var(--brand-accent)]/60 underline-offset-4">
+              konverter-online.com
+            </a>
+          </p>
+          <p>
+            LinkedIn:{' '}
+            <a
+              href="https://www.linkedin.com/in/rolax"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline decoration-[var(--brand-accent)]/60 underline-offset-4"
+            >
+              linkedin.com/in/rolax
+            </a>
+          </p>
+        </div>
+      </section>
     </div>
   )
-} 
+}

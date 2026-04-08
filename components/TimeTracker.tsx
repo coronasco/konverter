@@ -189,13 +189,6 @@ export default function TimeTracker() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto space-y-8">
-          
-          {/* Header */}
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-foreground mb-2">TimeTracker Pro</h1>
-            <p className="text-muted-foreground text-lg">Free time tracking for freelancers and professionals</p>
-          </div>
-
           {/* Main Timer Card */}
           <Card className="border-0 shadow-lg">
             <CardContent className="p-8">

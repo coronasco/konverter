@@ -1,3 +1,5 @@
+import { getRouteLabel } from '@/lib/tool-catalog'
+
 interface BreadcrumbItem {
   name: string
   url: string
@@ -35,21 +37,17 @@ export function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
   ]
 
   const pathSegments = pathname.split('/').filter(segment => segment)
-  
-  const toolNames: Record<string, string> = {
-    'json-formatter': 'JSON Formatter',
-    'css-minifier': 'CSS Minifier', 
-    'password-generator': 'Password Generator',
-    'qr-generator': 'QR Code Generator',
-    'color-generator': 'Color Generator',
-    'base64-converter': 'Base64 Converter',
-    'url-shortener': 'URL Shortener',
-    'blog': 'Blog'
-  }
+  let currentPath = ''
 
-  pathSegments.forEach((segment, index) => {
-    const url = baseUrl + '/' + pathSegments.slice(0, index + 1).join('/')
-    const name = toolNames[segment] || segment.charAt(0).toUpperCase() + segment.slice(1)
+  pathSegments.forEach((segment) => {
+    currentPath += `/${segment}`
+    const url = `${baseUrl}${currentPath}`
+    const name =
+      getRouteLabel(currentPath) ||
+      segment
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ')
     breadcrumbs.push({ name, url })
   })
 

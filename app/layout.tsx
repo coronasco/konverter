@@ -1,31 +1,29 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Script from 'next/script'
 import Header from '@/components/Header'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import Footer from '@/components/Footer'
 import { ToastContainer } from '@/components/Toast'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
-  title: 'Konverter - Advanced SVG to CSS/JSX Converter | Free Online Tool',
-  description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio. Professional SVG tools for developers.',
-  keywords: 'SVG converter, SVG to CSS, SVG to React, SVG to JSX, SVG optimizer, CSS background generator, React component generator, SVG tools, online converter',
+  title: 'Konverter | Frontend Tools for SVG, Assets, and Browser-Based Workflows',
+  description: 'Konverter is a browser-based frontend tools platform built around SVG workflows, asset prep, and code-ready utilities for developers and creators.',
+  keywords: 'frontend tools, svg tools, asset workflow tools, browser-based developer tools, svg converter, design token generator, favicon generator',
   other: {
     'google-adsense-account': 'ca-pub-7278381785440044'
   },
   openGraph: {
-    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
-    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more. Live color editor, PDF export, responsive builder, and animation studio.',
+    title: 'Konverter | Frontend Tools for SVG, Assets, and Browser-Based Workflows',
+    description: 'Work faster with practical SVG utilities, frontend asset tools, and browser-based developer workflows.',
     type: 'website',
     url: 'https://www.konverter-online.com',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Konverter - Advanced SVG to CSS/JSX Converter',
-    description: 'Free online SVG converter. Transform SVGs into CSS backgrounds, React components, and more.',
+    title: 'Konverter | Frontend Tools',
+    description: 'Browser-based SVG and frontend asset tools for developers.',
   },
   alternates: {
     canonical: 'https://www.konverter-online.com',
@@ -90,14 +88,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body>
         <Header />
-        <main className="min-h-screen">
-          <div className="container mx-auto px-4 md:px-6 py-4">
+        <main className="min-h-screen pt-6">
+          <div className="space-y-8 pb-10">
             <Breadcrumbs />
-            {children}
+            <div className="site-container">{children}</div>
           </div>
         </main>
+        <Footer />
         <ToastContainer />
         <Analytics />
       </body>

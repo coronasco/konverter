@@ -87,16 +87,7 @@ export default function UrlShortener() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-          URL Shortener
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Shorten any URL quickly with TinyURL. Copy, share, and track your shortened links easily. 100% free, no ads.
-        </p>
-      </div>
-
-            <Card className="max-w-xl mx-auto">
+      <Card className="max-w-xl mx-auto">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Link2 className="h-5 w-5" />

@@ -113,15 +113,6 @@ export default function Base64Converter() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Base64 Encoder/Decoder
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Encode text to Base64 or decode Base64 strings back to text. Upload files to encode them or decode Base64 data. Free online tool with instant results.
-        </p>
-      </div>
-
       <Tabs defaultValue="encode" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="encode" className="flex items-center gap-2">

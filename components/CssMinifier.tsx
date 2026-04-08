@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label'
 import { Copy, Check, Download, Minus, ArrowRight } from 'lucide-react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import RelatedTools from '@/components/RelatedTools'
 
 export default function CssMinifier() {
   const [input, setInput] = useState('')
@@ -114,15 +113,6 @@ export default function CssMinifier() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-          CSS Minifier
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Minify your CSS code to reduce file size and improve loading performance. Includes auto-prefixer for better browser compatibility.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Section */}
         <Card>
@@ -333,8 +323,6 @@ export default function CssMinifier() {
           </CardContent>
         </Card>
       </div>
-
-      <RelatedTools currentPath="/css-minifier" />
     </div>
   )
-} 
+}

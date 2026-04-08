@@ -1,22 +1,27 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
+import { ArrowRight, CheckCircle2, Globe, ShieldCheck, Sparkles } from 'lucide-react'
 import SvgConverter from '@/components/SvgConverter'
-// import SvgConverterSimple from '@/components/SvgConverterSimple'
-import Footer from '@/components/Footer'
-import ShareButton from '@/components/ShareButton'
 import FAQSchema, { svgConverterFAQs } from '@/components/FAQSchema'
 import ReviewSchema from '@/components/ReviewSchema'
-import { AdSenseBanner, AdSenseInArticle, AdSenseNavigation } from '@/components/AdSense'
-import { Code, Palette, CheckCircle, Droplets, FileText, Maximize2, PlayCircle } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import Link from 'next/link'
+import SectionIntro from '@/components/SectionIntro'
+import SupportCallout from '@/components/SupportCallout'
+import ToolCard from '@/components/ToolCard'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { getFeaturedTools, getToolsByCategory } from '@/lib/tool-catalog'
+import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'Konverter - Free Online Developer Tools | SVG to React Converter, JSON Formatter, CSS Minifier',
-  description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, URL shortener, Base64 converter, color generator, QR code generator, time tracker. No registration required, trusted by developers worldwide.',
-  keywords: 'developer tools, SVG converter, SVG to React, SVG to JSX, JSON formatter, JSON beautifier, CSS minifier, CSS compressor, password generator, URL shortener, Base64 converter, color generator, QR code generator, time tracker, time tracking, free online tools, web development tools, frontend tools, coding tools',
+  title: 'Konverter | Frontend Tools for SVG, Assets, and Browser-Based Workflows',
+  description:
+    'Konverter helps developers and creators work faster with browser-based SVG utilities, asset tools, and code-ready frontend helpers.',
+  keywords:
+    'frontend tools, svg tools, favicon generator, svg icon generator, design token generator, svg converter, browser based developer tools',
   openGraph: {
-    title: 'Konverter - Free Online Developer Tools | SVG to React Converter',
-    description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, password generator, and more. No registration required.',
+    title: 'Konverter | Frontend Tools for SVG, Assets, and Browser-Based Workflows',
+    description:
+      'Practical browser-based tools for SVG conversion, favicon packs, icon workflows, design tokens, and frontend asset prep.',
     type: 'website',
     url: 'https://www.konverter-online.com',
     images: [
@@ -24,36 +29,44 @@ export const metadata: Metadata = {
         url: 'https://www.konverter-online.com/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'Konverter - Free Online Developer Tools',
+        alt: 'Konverter frontend tools',
       },
     ],
-    siteName: 'Konverter Online',
-    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Konverter - Free Online Developer Tools | SVG to React Converter',
-    description: 'Free online developer tools: SVG to React converter, JSON formatter, CSS minifier, and more.',
+    title: 'Konverter | Frontend Tools',
+    description: 'SVG workflows, asset prep, and browser-based frontend utilities.',
     images: ['https://www.konverter-online.com/og-image.svg'],
-    creator: '@konverter_online',
   },
   alternates: {
     canonical: 'https://www.konverter-online.com',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  }
 }
 
+const platformNotes = [
+  {
+    title: 'SVG-first workflow',
+    description:
+      'Konverter is built around the sort of SVG cleanup, export, and code generation work that happens constantly in frontend projects.',
+  },
+  {
+    title: 'Browser-based and direct',
+    description:
+      'Most tools work locally in the browser, which keeps turnaround quick and avoids unnecessary upload flows for everyday tasks.',
+  },
+  {
+    title: 'Made for shipping',
+    description:
+      'The outputs are meant to drop into real codebases: JSX, CSS, token files, icon packs, asset exports, and plain-text snippets.',
+  },
+]
+
 export default function Home() {
+  const featuredTools = getFeaturedTools()
+  const svgTools = getToolsByCategory('svg')
+  const latestPosts = getAllPosts().slice(0, 3)
+
   return (
     <>
       <FAQSchema faqs={svgConverterFAQs} />
@@ -62,544 +75,203 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Konverter Online",
-            "description": "Free online developer tools for SVG conversion, JSON formatting, CSS minification, password generation, URL shortening, Base64 encoding, color palette extraction, QR code generation, and time tracking.",
-            "url": "https://www.konverter-online.com",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Web Browser",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: 'Konverter',
+            description:
+              'Browser-based frontend tools for SVG conversion, asset generation, design tokens, and practical developer workflows.',
+            url: 'https://www.konverter-online.com',
+            applicationCategory: 'DeveloperApplication',
+            operatingSystem: 'Web Browser',
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
             },
-            "featureList": [
-              "SVG to React Converter",
-              "JSON Formatter and Validator",
-              "CSS Minifier and Optimizer",
-              "Password Generator",
-              "URL Shortener",
-              "Base64 Encoder/Decoder",
-              "Color Palette Generator",
-              "QR Code Generator",
-              "TimeTracker Pro"
+            featureList: [
+              'SVG converter and optimizer',
+              'Favicon and PWA asset pack generator',
+              'SVG icon pack generator',
+              'Design token generator',
+              'JSON formatter',
+              'CSS minifier',
             ],
-            "author": {
-              "@type": "Person",
-              "name": "Daniel Zahav"
-            },
-            "creator": {
-              "@type": "Person",
-              "name": "Daniel Zahav"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Konverter Online"
-            },
-            "inLanguage": "en-US",
-            "isAccessibleForFree": true,
-            "softwareVersion": "1.0.0"
-          })
+          }),
         }}
       />
-      <div className="min-h-screen flex flex-col">
-      {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
-            Transform SVGs into Whatever You Need
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                         Tired of wrestling with SVG conversions? Drop your files here and get them back as CSS backgrounds, 
-             React components, or whatever format your project craves. Plus, edit colors live and export to PDF. 
-             Because life&apos;s too short for manual conversions! 
-          </p>
-          <div className='flex items-center justify-center gap-4 flex-wrap'>
-            <span className='text-xs text-black bg-amber-300 px-4 py-2 rounded-full font-bold'>Always Free</span>
-            <span className='text-xs text-white bg-green-600 px-4 py-2 rounded-full font-bold'>Live Color Editor</span>
-            <span className='text-xs text-white bg-purple-600 px-4 py-2 rounded-full font-bold'>PDF Export</span>
-            <span className='text-xs text-white bg-blue-600 px-4 py-2 rounded-full font-bold'>Responsive Builder</span>
-            <span className='text-xs text-white bg-pink-600 px-4 py-2 rounded-full font-bold'>Animation Studio</span>
-            <ShareButton />
-          </div>
-        </div>
-      </section>
 
-      <AdSenseNavigation />
-
-      {/* Main Converter */}
-      <section className="pb-16 px-2 md:px-6" id="converter">
-        <div className="container mx-auto">
-          <SvgConverter />
-        </div>
-      </section>
-
-      <AdSenseInArticle />
-
-      {/* Story Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20">
-        <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-cyan-600 bg-clip-text text-transparent">
-                  Why I built this thing
-                </h2>
-                <div className="w-20 h-1 bg-gradient-to-r from-white to-cyan-600 rounded-full mx-auto"></div>
+      <div className="space-y-16 md:space-y-20">
+        <section className="section-frame section-grid-background overflow-hidden">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+            <div className="space-y-8">
+              <div className="space-y-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-accent)]">
+                  Frontend tools for SVG work
+                </p>
+                <h1 className="font-display max-w-4xl text-4xl tracking-tight text-foreground md:text-6xl">
+                  Browser tools for SVG, icons, favicons, and the frontend asset jobs that should not take all afternoon.
+                </h1>
+                <p className="max-w-3xl text-lg leading-8 text-muted-foreground">
+                  Clean up SVG, package icons, generate favicons, shape tokens, and export code you can actually drop into a project. Fast to open, easy to use, no account nonsense.
+                </p>
               </div>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                                 Hey! 👋 I&apos;m Daniel, and I got fed up with the SVG conversion circus. You find this perfect icon, 
-                 but it&apos;s bloated with unnecessary junk, and you need it as a CSS background or React component yesterday.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                The existing tools were either painfully slow, clunky as a brick, or hidden behind paywalls. 
-                So I built Konverter - a lightning-fast, completely free tool that does exactly what we developers need. 
-                No more jumping between different converters or dealing with interfaces from the stone age.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                                 Just drag, drop, and boom - you&apos;ve got your optimized SVG in whatever format you want. 
-                 Because honestly, we have better things to do than wrestle with file conversions! 
-                 I&apos;ve just added live color editing and PDF export because... why not make it even more awesome?
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">What makes this tool special?</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Built by a developer who actually uses this stuff daily
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="border-green-200 dark:border-green-800">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Droplets className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle className="flex items-center gap-2">
-                  Live Color Editor
-                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">NEW</span>
-                </CardTitle>
-                <CardDescription>
-                  Change colors on the fly with intuitive color picker. Perfect when you need to match brand colors 
-                  or just want to experiment with different looks without opening another app.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Visual picker for each element
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    See changes instantly
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Reset with one click
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-purple-200 dark:border-purple-800">
-              <CardHeader>
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <FileText className="h-6 w-6 text-purple-600" />
-                </div>
-                <CardTitle className="flex items-center gap-2">
-                  PDF Export
-                  <span className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">NEW</span>
-                </CardTitle>
-                <CardDescription>
-                  Turn your SVGs into crisp PDFs for presentations, docs, or client handoffs. 
-                  Because sometimes you need something more than just code.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-purple-600" />
-                    High-res PDF output
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-purple-600" />
-                    Vector quality intact
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-purple-600" />
-                    Perfect for docs & presentations
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-blue-200 dark:border-blue-800">
-              <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <Maximize2 className="h-6 w-6 text-blue-600" />
-                </div>
-                <CardTitle className="flex items-center gap-2">
-                  Responsive Builder
-                  <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">NEW</span>
-                </CardTitle>
-                <CardDescription>
-                  Automatically generate responsive CSS for your graphics. Because your SVGs should look 
-                  great on everything from phones to giant monitors.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />
-                    Smart viewBox detection
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />
-                    Responsive CSS magic
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-blue-600" />
-                    Preview on all devices
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-pink-200 dark:border-pink-800">
-              <CardHeader>
-                <div className="w-12 h-12 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center mb-4">
-                  <PlayCircle className="h-6 w-6 text-pink-600" />
-                </div>
-                <CardTitle className="flex items-center gap-2">
-                  Animation Studio
-                  <span className="text-xs bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 px-2 py-1 rounded-full">NEW</span>
-                </CardTitle>
-                <CardDescription>
-                  Bring your SVGs to life with our visual timeline editor. Create smooth animations 
-                  without touching a single line of code.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-pink-600" />
-                    Visual timeline editor
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-pink-600" />
-                    CSS & JS export
-          </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-pink-600" />
-                    Real-time preview
-          </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-                         <h2 className="text-3xl font-bold mb-4">How it works (spoiler: it&apos;s super simple)</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-                             Three steps and you&apos;re done. No rocket science involved.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-blue-600">1</span>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild size="lg">
+                  <a href="#svg-workbench">
+                    Open the SVG converter
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/svg-tools">Browse all tools</Link>
+                </Button>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Drop your SVG</h3>
-              <p className="text-muted-foreground">
-                                 Drag and drop or paste the code. We&apos;re not picky about how you get it here.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-green-600">2</span>
+
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
+                <span>Works in the browser.</span>
+                <span>Code-ready output.</span>
+                <span>No sign-up.</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Tweak & transform</h3>
-              <p className="text-muted-foreground">
-                Change colors, optimize, and pick your output format. The fun part!
-              </p>
             </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-purple-600">3</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Grab & go</h3>
-              <p className="text-muted-foreground">
-                Copy the code, export as PDF, or download. Then get back to building awesome stuff.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Use Cases */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Built for people who build things</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-                             Whether you&apos;re crafting React apps, styling with CSS, or just trying to make things look good
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Code className="h-5 w-5 text-blue-600" />
-                  React Developers
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Turn SVGs into React components
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Clean, optimized JSX
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Props ready for customization
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <Link href="/#converter" className="text-blue-600 hover:underline">Try our SVG to JSX converter →</Link>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Palette className="h-5 w-5 text-purple-600" />
-                  CSS Wizards
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    URL-encoded CSS backgrounds
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Base64 encoded images
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Optimized for speed
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <Link href="/#converter" className="text-purple-600 hover:underline">Convert SVGs to CSS backgrounds →</Link>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Droplets className="h-5 w-5 text-green-600" />
-                  Design Folks
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Live color experimentation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    PDF export for presentations
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Brand color matching
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-orange-600" />
-                  Project Coordinators
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    PDF documentation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Client deliverables
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    Asset organization
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-              <div className="text-muted-foreground">Free Forever</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">3 Formats</div>
-              <div className="text-muted-foreground">Output Options</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">Live Editing</div>
-              <div className="text-muted-foreground">Color Picker</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">PDF Export</div>
-              <div className="text-muted-foreground">High Quality</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-indigo-600 mb-2">Responsive</div>
-              <div className="text-muted-foreground">Auto CSS</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-pink-600 mb-2">Animations</div>
-              <div className="text-muted-foreground">Timeline Editor</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Learn More About SVG & Web Development</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Tips, tricks, and guides to help you master SVG conversion and web development
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">SVG to JSX: The Ultimate Guide</CardTitle>
-                <CardDescription>
-                  Learn how to transform your SVG icons into reusable React components with TypeScript support and color customization.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Link href="/blog/svg-to-jsx-guide" className="text-blue-600 hover:underline font-medium">
-                  Read the guide →
-                </Link>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">SVG Optimization Guide</CardTitle>
-                <CardDescription>
-                  Discover techniques to reduce SVG file sizes while maintaining quality and performance.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Link href="/blog/svg-optimization-guide" className="text-blue-600 hover:underline font-medium">
-                  Read the guide →
-                </Link>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">CSS Background Techniques</CardTitle>
-                <CardDescription>
-                  Master the art of using SVGs as CSS backgrounds for stunning visual effects.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Link href="/blog/css-background-techniques" className="text-blue-600 hover:underline font-medium">
-                  Read the guide →
-                </Link>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* AdSense Banner */}
-      <section className="py-8 px-6">
-        <div className="container mx-auto">
-          <AdSenseBanner className="max-w-4xl mx-auto" />
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Get answers to common questions about our SVG converter and other developer tools
-            </p>
-          </div>
-          
-          {/* AdSense In-Article */}
-          <AdSenseInArticle className="mb-12" />
-          
-          <div className="max-w-3xl mx-auto space-y-6">
-            {svgConverterFAQs.map((faq, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
+          <div className="grid gap-4">
+            <Card className="border-border/70">
                 <CardHeader>
-                  <CardTitle className="text-lg text-left">{faq.question}</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Sparkles className="h-5 w-5 text-[var(--brand-accent)]" />
+                    What Konverter is for
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
+                  <p>Convert SVG into code, exports, and asset packages.</p>
+                  <p>Build frontend-ready files without leaving the browser.</p>
+                  <p>Move from raw input to production output with less friction.</p>
                 </CardContent>
-              </Card>
+            </Card>
+            <Card className="border-border/70 bg-[var(--surface-secondary)]/92">
+              <CardContent className="p-6 text-sm leading-6 text-muted-foreground">
+                  Built for quick frontend jobs: cleaner inputs, clearer outputs, and fewer steps between the raw file and something you can actually use.
+              </CardContent>
+            </Card>
+          </div>
+          </div>
+        </section>
+
+        <section className="space-y-8">
+          <SectionIntro
+            eyebrow="Featured tools"
+            title="Start with the core workflows"
+            description="These are the tools people reach for most when they need to clean up SVGs, prepare assets, or generate frontend-ready output."
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {featuredTools.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
-    </div>
+        <section className="space-y-8">
+          <SectionIntro
+            eyebrow="Why Konverter"
+            title="Clear utility beats noisy tooling"
+            description="Fast tools, readable output, and a workflow that makes sense matter more than flashy filler."
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {platformNotes.map((item) => (
+              <div key={item.title} className="rounded-[28px] border border-border/70 bg-white/78 p-6 shadow-sm">
+                <h2 className="font-display text-2xl tracking-tight text-foreground">{item.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="svg-workbench" className="space-y-6">
+          <SectionIntro
+            eyebrow="SVG workbench"
+            title="Convert, tweak, and export SVG in one pass"
+            description="Paste code or upload a file, clean it up, adjust colors, and export the format you need without bouncing between tools."
+          />
+          <div className="rounded-[32px] border border-border/70 bg-[var(--surface-secondary)]/72 p-2 shadow-[0_24px_70px_-40px_rgba(20,43,67,0.65)] md:p-4">
+            <SvgConverter />
+          </div>
+        </section>
+
+        <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="section-frame">
+            <SectionIntro
+              eyebrow="Trust"
+              title="Built around browser-friendly processing"
+              description="For utility work, the product should explain itself quickly and keep the output close to the interface."
+            />
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
+                <Globe className="h-5 w-5 text-[var(--brand-accent)]" />
+                <p className="mt-3 font-semibold text-foreground">Fast setup</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">Open the page and start. No account wall, no hidden dashboard.</p>
+              </div>
+              <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
+                <ShieldCheck className="h-5 w-5 text-[var(--brand-accent)]" />
+                <p className="mt-3 font-semibold text-foreground">Local-first where possible</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">Many workflows stay in the browser, which is useful for speed and privacy-sensitive asset work.</p>
+              </div>
+              <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
+                <CheckCircle2 className="h-5 w-5 text-[var(--brand-accent)]" />
+                <p className="mt-3 font-semibold text-foreground">Outputs you can use</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">The goal is not novelty. It is to give you code and assets you can drop into the next step immediately.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="section-frame">
+            <SectionIntro
+              eyebrow="SVG tools"
+              title="A stronger SVG path"
+              description="SVG remains the clearest strength of the platform."
+            />
+            <div className="mt-6 space-y-3">
+              {svgTools.map((tool) => (
+                <Link
+                  key={tool.id}
+                  href={tool.href}
+                  className="flex items-start justify-between gap-4 rounded-[22px] border border-border/70 bg-white/75 px-5 py-4 hover:border-[var(--brand-accent)]/40 hover:bg-white"
+                >
+                  <div>
+                    <p className="font-medium text-foreground">{tool.shortName}</p>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{tool.summary}</p>
+                  </div>
+                  <ArrowRight className="mt-1 h-4 w-4 text-muted-foreground" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-8">
+          <SectionIntro
+            eyebrow="From the blog"
+            title="Short guides for the same kind of work"
+            description="SVG cleanup, icon workflows, favicons, tokens, and the small frontend tasks that are easier with the right tool."
+          />
+          <div className="grid gap-4 md:grid-cols-3">
+            {latestPosts.map((post) => (
+              <Link
+                key={post.id}
+                href={`/blog/${post.id}`}
+                className="rounded-[28px] border border-border/70 bg-white/78 p-6 shadow-sm hover:border-[var(--brand-accent)]/40"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{post.category}</p>
+                <h2 className="mt-3 font-display text-2xl tracking-tight text-foreground">{post.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.excerpt}</p>
+                <p className="mt-4 text-sm font-medium text-foreground">Read article</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <SupportCallout />
+      </div>
     </>
   )
 }

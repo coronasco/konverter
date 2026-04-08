@@ -3,24 +3,7 @@
 import { ChevronRight, Home } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-interface BreadcrumbItem {
-  label: string
-  href: string
-  current?: boolean
-}
-
-const toolPaths: Record<string, string> = {
-  '/json-formatter': 'JSON Formatter',
-  '/css-minifier': 'CSS Minifier',
-  '/color-generator': 'Color Generator',
-  '/base64-converter': 'Base64 Converter',
-  '/password-generator': 'Password Generator',
-  '/qr-generator': 'QR Code Generator',
-  '/url-shortener': 'URL Shortener',
-  '/blog': 'Blog',
-  '/privacy': 'Privacy Policy',
-}
+import { getRouteLabel } from '@/lib/tool-catalog'
 
 export default function Breadcrumbs() {
   const pathname = usePathname()
@@ -28,22 +11,35 @@ export default function Breadcrumbs() {
   // Don't show breadcrumbs on homepage
   if (pathname === '/') return null
 
-  const generateBreadcrumbs = (): BreadcrumbItem[] => {
-    const breadcrumbs: BreadcrumbItem[] = [
+  const generateBreadcrumbs = () => {
+    const breadcrumbs: { label: string; href: string; current?: boolean }[] = [
       {
         label: 'Home',
         href: '/',
       }
     ]
 
-    // Add current page
-    const currentPageLabel = toolPaths[pathname]
-    if (currentPageLabel) {
+    const segments = pathname.split('/').filter(Boolean)
+    let currentPath = ''
+
+    segments.forEach((segment, index) => {
+      currentPath += `/${segment}`
+      const label =
+        getRouteLabel(currentPath) ??
+        segment
+          .split('-')
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(' ')
+
       breadcrumbs.push({
-        label: currentPageLabel,
-        href: pathname,
-        current: true
+        label,
+        href: currentPath,
+        current: index === segments.length - 1,
       })
+    })
+
+    if (breadcrumbs.length === 1) {
+      return null
     }
 
     return breadcrumbs
@@ -51,8 +47,10 @@ export default function Breadcrumbs() {
 
   const breadcrumbs = generateBreadcrumbs()
 
+  if (!breadcrumbs) return null
+
   return (
-    <nav className="flex items-center space-x-1 text-sm text-muted-foreground mb-4">
+    <nav className="site-container mb-6 flex items-center space-x-1 text-sm text-muted-foreground">
       {breadcrumbs.map((breadcrumb, index) => (
         <div key={breadcrumb.href} className="flex items-center">
           {index > 0 && <ChevronRight className="h-4 w-4 mx-1" />}
@@ -75,4 +73,4 @@ export default function Breadcrumbs() {
       ))}
     </nav>
   )
-} 
+}

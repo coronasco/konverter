@@ -223,15 +223,6 @@ export default function PasswordGenerator() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-          Password Generator
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Generate secure, random passwords with customizable options. Create strong passwords for your accounts with our free online tool.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Password Display */}
         <Card>

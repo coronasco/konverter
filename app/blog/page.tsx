@@ -1,164 +1,107 @@
 import { Metadata } from 'next'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Calendar, Clock, ArrowRight, Code, Palette, Zap, Tag } from 'lucide-react'
-import { AdSenseBanner } from '@/components/AdSense'
-import Footer from '@/components/Footer'
 import Link from 'next/link'
+import { ArrowRight, Calendar, Clock } from 'lucide-react'
+import SectionIntro from '@/components/SectionIntro'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
-  title: 'Developer Blog | Konverter - SVG, CSS, React Tutorials & Guides',
-  description: '📚 Master SVG optimization, CSS techniques, React components & web development. Free tutorials, guides & best practices for developers. Updated weekly!',
-  keywords: ['svg optimization guide', 'css minification tutorial', 'react component conversion', 'web development blog', 'frontend developer tips', 'svg to jsx converter guide', 'json formatter tutorial', 'password generator best practices', 'qr code generation guide', 'base64 encoding tutorial', 'developer productivity tips 2024'],
-  openGraph: {
-    title: 'Developer Blog | Konverter Tools',
-    description: 'Free tutorials and guides for SVG optimization, CSS techniques, and React development',
-    images: ['/og-blog.svg'],
-    type: 'website'
-  }
-}
-
-const categoryIcons = {
-  'Optimization': Zap,
-  'CSS': Palette,
-  'React': Code,
-  'Comparison': Tag,
-  'Technical': Code,
-  'Accessibility': Palette
-}
-
-const categoryColors = {
-  'Optimization': 'text-orange-600',
-  'CSS': 'text-blue-600',
-  'React': 'text-purple-600',
-  'Comparison': 'text-green-600',
-  'Technical': 'text-red-600',
-  'Accessibility': 'text-indigo-600'
+  title: 'Blog | Konverter',
+  description:
+    'Guides and articles about SVG workflows, frontend assets, browser-based utilities, and practical developer tooling.',
+  alternates: {
+    canonical: 'https://www.konverter-online.com/blog',
+  },
 }
 
 export default function BlogPage() {
   const posts = getAllPosts()
-  const featuredPost = posts.find(post => post.featured)
-  const regularPosts = posts.filter(post => !post.featured)
+  const featuredPost = posts.find((post) => post.featured) ?? posts[0]
+  const remainingPosts = posts.filter((post) => post.id !== featuredPost?.id)
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 bg-white dark:bg-gray-900">
-        <div className="container mx-auto py-12 px-4 md:px-6">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Konverter Blog
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Insights, tutorials, and best practices for SVG optimization, CSS techniques, and modern web development.
-            </p>
-          </div>
+    <div className="space-y-16 md:space-y-20">
+      <section className="section-frame section-grid-background">
+        <SectionIntro
+          eyebrow="Blog"
+          title="Writing about SVG, icons, favicons, tokens, and the frontend jobs people usually end up Googling at the last minute"
+          description="If you are trying to clean up an SVG, package an icon set, generate favicons, or make a token setup less messy, start here."
+          align="center"
+        />
+      </section>
 
-          {/* Featured Post */}
-          {featuredPost && (
-            <div className="mb-12">
-              <Card className="border-2 border-blue-200 dark:border-blue-800">
-                <CardHeader>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Zap className="h-5 w-5 text-orange-600" />
-                    <span className="text-sm font-medium text-orange-600">Featured</span>
-                  </div>
-                  <CardTitle className="text-2xl md:text-3xl">
-                    {featuredPost.title}
-                  </CardTitle>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>{new Date(featuredPost.date).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{featuredPost.readTime}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-6 text-lg">
-                    {featuredPost.excerpt}
-                  </p>
-                  <Button asChild className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-0">
-                    <Link href={`/blog/${featuredPost.id}`}>
-                      Read Full Article
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+      {featuredPost ? (
+        <section>
+          <Card className="border-border/70">
+            <CardHeader className="gap-5">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span className="rounded-full border border-border/70 bg-white/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
+                  Featured article
+                </span>
+                <span>{featuredPost.category}</span>
+              </div>
+              <CardTitle className="font-display text-4xl tracking-tight text-foreground">
+                {featuredPost.title}
+              </CardTitle>
+              <p className="max-w-3xl text-base leading-7 text-muted-foreground">{featuredPost.excerpt}</p>
+              <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+                <span className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  {new Date(featuredPost.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+                <span className="flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  {featuredPost.readTime}
+                </span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Button asChild>
+                <Link href={`/blog/${featuredPost.id}`}>
+                  Read article
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </section>
+      ) : null}
 
-          {/* AdSense Banner */}
-          <div className="mb-12">
-            <AdSenseBanner className="max-w-4xl mx-auto" />
-          </div>
-
-          {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {regularPosts.map((post) => {
-              const Icon = categoryIcons[post.category as keyof typeof categoryIcons] || Code
-              const color = categoryColors[post.category as keyof typeof categoryColors] || 'text-gray-600'
-              
-              return (
-                <Card key={post.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon className={`h-4 w-4 ${color}`} />
-                      <span className="text-xs font-medium text-muted-foreground">{post.category}</span>
-                    </div>
-                    <CardTitle className="text-lg line-clamp-2">
-                      <Link href={`/blog/${post.id}`} className="hover:text-blue-600 transition-colors">
-                        {post.title}
-                      </Link>
-                    </CardTitle>
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        <span>{new Date(post.date).toLocaleDateString('en-US', { 
-                          year: 'numeric', 
-                          month: 'short', 
-                          day: 'numeric' 
-                        })}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={`/blog/${post.id}`}>
-                        Read More
-                        <ArrowRight className="h-3 w-3 ml-1" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-
-          <div className='flex items-center justify-center mt-12 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg'>
-            <p>Thank you for visiting this website. If you have any questions, please <a href="https://www.linkedin.com/in/rolax" className="text-blue-600 hover:text-blue-800">contact me</a>. </p>
-          </div> 
+      <section className="space-y-8">
+        <SectionIntro
+          eyebrow="Latest posts"
+          title="Recent posts"
+          description="Pick the one that matches what you are working on and get what you need."
+        />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {remainingPosts.map((post) => (
+            <Link
+              key={post.id}
+              href={`/blog/${post.id}`}
+              className="rounded-[28px] border border-border/70 bg-white/78 p-6 shadow-sm hover:border-[var(--brand-accent)]/40"
+            >
+              <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                <span>{post.category}</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h2 className="mt-4 font-display text-2xl tracking-tight text-foreground">{post.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{post.excerpt}</p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {new Date(post.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </p>
+            </Link>
+          ))}
         </div>
-      </main>
-
-      <Footer />
+      </section>
     </div>
   )
-} 
+}

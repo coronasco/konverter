@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import NextImage from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -245,15 +246,6 @@ export default function QrCodeGenerator() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          QR Code Generator
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Create custom QR codes for URLs, text, email, phone numbers, and WiFi networks. Add your logo in the center and download as PNG or copy to clipboard instantly.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Section */}
         <Card>
@@ -418,9 +410,11 @@ export default function QrCodeGenerator() {
                 />
                 {logoConfig.image && (
                   <div className="mt-2">
-                    <img
+                    <NextImage
                       src={logoConfig.image}
                       alt="Logo preview"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 object-cover rounded border"
                     />
                   </div>
@@ -508,9 +502,11 @@ export default function QrCodeGenerator() {
             {qrImage ? (
               <div className="flex flex-col items-center space-y-4">
                 <div className="bg-white p-4 rounded-lg border">
-                  <img
+                  <NextImage
                     src={qrImage}
                     alt="Generated QR Code"
+                    width={customization.size}
+                    height={customization.size}
                     className="max-w-full h-auto"
                   />
                 </div>

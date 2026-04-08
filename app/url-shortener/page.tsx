@@ -1,165 +1,79 @@
 import { Metadata } from 'next'
 import UrlShortener from '@/components/UrlShortener'
-import RelatedTools from '@/components/RelatedTools'
-import Footer from '@/components/Footer'
-import { AdSenseNavigation, AdSenseBanner, AdSenseInArticle } from '@/components/AdSense'
+import BreadcrumbSchema, { generateBreadcrumbs } from '@/components/BreadcrumbSchema'
+import FAQSchema from '@/components/FAQSchema'
+import ToolPageLayout from '@/components/ToolPageLayout'
 
 export const metadata: Metadata = {
-  title: 'URL Shortener - Shorten Links with TinyURL | Free Online Tool',
-  description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging. Generate QR codes for your shortened URLs. Free online URL shortener with instant results.',
-  keywords: 'url shortener, link shortener, tinyurl, shorten url, short links, url shortener free, online url shortener, link shortener tool, url shortener online, free link shortener, url shortener tool, url shortener online free, link shortener online, url shortener with qr code, short url generator, url shortener for social media, url shortener for twitter, url shortener for instagram, url shortener for facebook, url shortener for marketing, url shortener for campaigns',
-  openGraph: {
-    title: 'URL Shortener - Shorten Links with TinyURL',
-    description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging.',
-    type: 'website',
-    url: 'https://www.konverter-online.com/url-shortener',
-    images: [
-      {
-        url: 'https://www.konverter-online.com/og-image.svg',
-        width: 1200,
-        height: 630,
-        alt: 'URL Shortener Tool',
-      },
-    ],
-    siteName: 'Konverter Online',
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'URL Shortener - Shorten Links with TinyURL',
-    description: 'Shorten any URL quickly with TinyURL. Create short, shareable links for social media, marketing campaigns, and messaging.',
-    images: ['https://www.konverter-online.com/og-image.svg'],
-  },
+  title: 'URL Shortener | Konverter',
+  description:
+    'Shorten links quickly, copy the result, and move directly into QR generation from the same workflow.',
   alternates: {
     canonical: 'https://www.konverter-online.com/url-shortener',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
 }
 
+const faqs = [
+  {
+    question: 'How does the shortener work?',
+    answer: 'The tool sends the entered URL to TinyURL and returns the shortened result in the page once the request succeeds.',
+  },
+  {
+    question: 'What happens after a link is shortened?',
+    answer: 'You can copy it, open it, share it to common platforms, or send it straight into the QR code generator.',
+  },
+  {
+    question: 'Why keep this inside Konverter?',
+    answer: 'Short links often feed into QR codes, printed materials, and frontend asset work, so it makes sense to keep that step connected to the rest of the platform.',
+  },
+]
+
 export default function UrlShortenerPage() {
+  const breadcrumbs = generateBreadcrumbs('/url-shortener')
+
   return (
-    <div className="min-h-screen bg-background">
-      <main className="pt-16">
-        {/* Navigation Ad */}
-        <AdSenseNavigation />
-        
+    <>
+      <BreadcrumbSchema items={breadcrumbs} />
+      <FAQSchema faqs={faqs} />
+      <ToolPageLayout
+        toolPath="/url-shortener"
+        eyebrow="Frontend tools"
+        title="Shorten links and move straight into sharing or QR generation"
+        description="Shorten a link, copy it, share it, or turn it into a QR code when the URL is only part of the job."
+        highlights={['TinyURL-backed', 'Share actions', 'QR generator handoff']}
+        toolNote="Best when you need a shorter link quickly and want the next step, like QR generation, close by."
+        useCases={[
+          {
+            title: 'Preparing links for printed materials',
+            description: 'Create a shorter URL before turning it into a QR code for a poster, presentation, slide, or handout.',
+          },
+          {
+            title: 'Cleaning up shared references',
+            description: 'Shorten a long project or documentation link when you need something easier to send in chat or show on screen.',
+          },
+          {
+            title: 'Keeping adjacent tools connected',
+            description: 'The handoff into QR generation makes more sense now that the navigation is organized around frontend asset workflows.',
+          },
+        ]}
+        helpfulPoints={[
+          {
+            title: 'Small job, clearer flow',
+            description: 'Shorten the link, copy it, share it, or jump into QR generation without getting dragged into a bigger workflow than you need.',
+          },
+          {
+            title: 'Useful for printed output',
+            description: 'Short links pair naturally with QR codes and physical materials, which makes this more than a generic utility page.',
+          },
+          {
+            title: 'Easy to scan on mobile',
+            description: 'The main form and actions stay readable on smaller screens, which matters for quick one-off link work.',
+          },
+        ]}
+        faqs={faqs}
+      >
         <UrlShortener />
-        
-        {/* Banner Ad */}
-        <div className="container mx-auto px-4 py-8">
-          <AdSenseBanner className="max-w-4xl mx-auto" />
-        </div>
-        
-        {/* SEO Content Section */}
-        <section className="container mx-auto px-6 py-12 max-w-4xl">
-          {/* In-Article Ad */}
-          <AdSenseInArticle className="mb-8" />
-          
-          <div className="prose prose-invert max-w-none">
-            <h2 className="text-3xl font-bold mb-6">Why Use URL Shorteners?</h2>
-            <p className="text-lg mb-6">
-              URL shorteners transform long, unwieldy web addresses into short, manageable links. 
-              They&apos;re essential for social media marketing, messaging platforms, and anywhere 
-              where character limits matter. Short URLs are easier to share, remember, and track.
-            </p>
-
-            <h3 className="text-2xl font-semibold mb-4">Benefits of Shortened URLs</h3>
-            <ul className="space-y-3 mb-8">
-              <li><strong>Social Media Friendly:</strong> Fit within character limits on Twitter, Instagram, and other platforms</li>
-              <li><strong>Professional Appearance:</strong> Clean, branded links look more trustworthy</li>
-              <li><strong>Easy Sharing:</strong> Short URLs are easier to copy, paste, and share</li>
-              <li><strong>Better User Experience:</strong> Less intimidating than long, complex URLs</li>
-              <li><strong>Tracking Capabilities:</strong> Monitor click-through rates and engagement</li>
-              <li><strong>Mobile Optimization:</strong> Better for mobile messaging and apps</li>
-            </ul>
-
-            <h3 className="text-2xl font-semibold mb-4">How Our URL Shortener Works</h3>
-            <p className="mb-6">
-              Our URL shortener uses TinyURL&apos;s reliable service to create short, permanent links. 
-              Simply paste your long URL, click shorten, and get an instant short link. The process 
-              is secure, fast, and completely free with no registration required.
-            </p>
-
-            <h3 className="text-2xl font-semibold mb-4">Key Features</h3>
-            <ul className="space-y-3 mb-8">
-              <li><strong>Instant Shortening:</strong> Get short URLs in seconds</li>
-              <li><strong>Permanent Links:</strong> Shortened URLs don&apos;t expire</li>
-              <li><strong>Copy to Clipboard:</strong> One-click copying with visual feedback</li>
-              <li><strong>Direct Links:</strong> No redirect pages or ads</li>
-              <li><strong>Mobile Compatible:</strong> Works perfectly on all devices</li>
-              <li><strong>No Registration:</strong> Use immediately without creating an account</li>
-              <li><strong>Secure Processing:</strong> Your URLs are processed securely</li>
-            </ul>
-
-            <h3 className="text-2xl font-semibold mb-4">Common Use Cases</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <h4 className="text-xl font-semibold mb-3 text-blue-600">Marketing & Social Media</h4>
-                <ul className="space-y-2 text-sm">
-                  <li> Social media posts and campaigns</li>
-                  <li> Email marketing links</li>
-                  <li> Digital advertising</li>
-                  <li> Influencer collaborations</li>
-                  <li> Content marketing</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-xl font-semibold mb-3 text-green-600">Personal & Business</h4>
-                <ul className="space-y-2 text-sm">
-                  <li> Messaging apps and SMS</li>
-                  <li> Business presentations</li>
-                  <li> QR code generation</li>
-                  <li> Document sharing</li>
-                  <li> Event invitations</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 className="text-2xl font-semibold mb-4">URL Shortening Best Practices</h3>
-            <ul className="space-y-3 mb-8">
-              <li><strong>Use Descriptive URLs:</strong> When possible, choose custom short URLs that describe the content</li>
-              <li><strong>Test Your Links:</strong> Always test shortened URLs before sharing</li>
-              <li><strong>Monitor Performance:</strong> Track click-through rates when possible</li>
-              <li><strong>Keep Originals:</strong> Save original URLs for backup purposes</li>
-              <li><strong>Use HTTPS:</strong> Ensure your original URLs use secure connections</li>
-            </ul>
-
-            <h3 className="text-2xl font-semibold mb-4">Why Choose Our URL Shortener?</h3>
-            <p className="mb-6">
-              Our URL shortener is powered by TinyURL, one of the most trusted and reliable URL shortening 
-              services. We provide a clean, ad-free interface that makes shortening URLs quick and easy. 
-              All processing happens securely, and we don&apos;t store or track your personal information.
-            </p>
-
-            <div className="bg-muted/50 rounded-lg p-6 mt-8">
-              <h4 className="text-xl font-semibold mb-3">About TinyURL</h4>
-              <ul className="space-y-2 text-sm">
-                <li> One of the oldest and most reliable URL shortening services</li>
-                <li> Permanent links that don&apos;t expire</li>
-                <li> No registration or account required</li>
-                <li> High uptime and reliability</li>
-                <li> Trusted by millions of users worldwide</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        
-        {/* Related Tools */}
-        <div className="container mx-auto px-6 pb-12 max-w-4xl">
-          <RelatedTools currentPath="/url-shortener" />
-        </div>
-      </main>
-      <Footer />
-    </div>
+      </ToolPageLayout>
+    </>
   )
-} 
+}

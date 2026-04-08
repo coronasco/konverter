@@ -155,15 +155,6 @@ export default function ColorGenerator() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Color Generator
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Extract beautiful color palettes from your images. Upload an image or provide a URL to generate CSS color variables.
-        </p>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Section */}
         <Card>

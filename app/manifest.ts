@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Konverter - Advanced SVG to CSS/JSX Converter',
+    name: 'Konverter | Frontend Tools',
     short_name: 'Konverter',
-    description: 'Free online tool to convert SVG to CSS, Base64, and React JSX components',
+    description: 'Browser-based frontend tools for SVG workflows, asset prep, and code-ready utilities.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#3b82f6',
+    background_color: '#f7f3ec',
+    theme_color: '#1d7c74',
     icons: [
       {
         src: '/icon.svg',
@@ -22,8 +22,8 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: 'maskable',
       },
     ],
-    categories: ['developer', 'productivity', 'utilities'],
+    categories: ['developer', 'design', 'utilities'],
     lang: 'en',
     dir: 'ltr',
   }
-} 
+}
