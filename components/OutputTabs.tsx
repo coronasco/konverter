@@ -1,19 +1,30 @@
 'use client'
 
 import { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Check, Code, Copy, Download, FileCode, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Copy, Check, Info, Code, FileCode, Palette, Download } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface OutputTabsProps {
   urlEncoded: string
   base64: string
   jsx: string
   svgString: string
+  onOpenJsxModal?: () => void
 }
 
-export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: OutputTabsProps) {
+function downloadText(content: string, fileName: string) {
+  const blob = new Blob([content], { type: 'text/plain' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = fileName
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+export default function OutputTabs({ urlEncoded, base64, jsx, svgString, onOpenJsxModal }: OutputTabsProps) {
   const [copiedTab, setCopiedTab] = useState<string | null>(null)
 
   const copyToClipboard = async (text: string, tabName: string) => {
@@ -28,83 +39,67 @@ export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: Outpu
 
   const tabConfig = [
     {
+      value: 'svg',
+      label: 'Clean SVG',
+      icon: FileText,
+      note: 'Copy or download the current SVG markup.',
+      fileName: 'cleaned.svg',
+      content: svgString,
+    },
+    {
       value: 'url-encoded',
-      label: 'URL-encoded CSS',
+      label: 'CSS data URI',
       icon: Code,
-      description: 'Perfect for CSS background images. Smaller file size, works in all browsers.',
-      useCase: 'Use when you need the SVG as a background image in CSS.',
-      example: 'background-image: url("data:image/svg+xml,...")'
+      note: 'Useful for CSS background-image work.',
+      fileName: 'svg-data-uri.txt',
+      content: urlEncoded,
     },
     {
       value: 'base64',
-      label: 'Base64 CSS',
+      label: 'Base64',
       icon: FileCode,
-      description: 'Encoded as Base64 string. Larger size but more compatible with older systems.',
-      useCase: 'Use when you need maximum compatibility or for email templates.',
-      example: 'background-image: url("data:image/svg+xml;base64,...")'
+      note: 'Useful for systems that expect Base64 strings.',
+      fileName: 'svg-base64.txt',
+      content: base64,
     },
     {
       value: 'jsx',
       label: 'React JSX',
-      icon: Palette,
-      description: 'Ready-to-use React component. Perfect for React/Next.js applications.',
-      useCase: 'Use in React components when you need to manipulate the SVG dynamically.',
-      example: '<SvgIcon className="w-6 h-6" />'
-    }
-  ]
+      icon: Code,
+      note: 'Start here if the SVG is going straight into a React project.',
+      fileName: 'SvgIcon.tsx',
+      content: jsx,
+    },
+  ] as const
 
-  const CodeBlock = ({ content, label, config }: { content: string; label: string; config: typeof tabConfig[0] }) => (
+  const CodeBlock = ({ content, label, note, fileName, allowAdvanced }: {
+    content: string
+    label: string
+    note: string
+    fileName: string
+    allowAdvanced?: boolean
+  }) => (
     <div className="space-y-4">
-      {/* Info Section */}
-      <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-        <div className="flex items-start gap-3">
-          <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-          <div className="space-y-2">
-            <p className="text-sm text-blue-800 dark:text-blue-200 font-medium">
-              {config.description}
-            </p>
-            <div className="text-xs text-blue-700 dark:text-blue-300">
-              <strong>Best for:</strong> {config.useCase}
-            </div>
-            <div className="text-xs text-blue-700 dark:text-blue-300 font-mono bg-blue-100 dark:bg-blue-900/30 px-2 py-1 rounded">
-              {config.example}
-            </div>
-          </div>
-        </div>
+      <div className="rounded-[20px] border border-border/70 bg-[var(--surface-secondary)]/88 px-4 py-3 text-sm text-muted-foreground">
+        {note}
       </div>
 
-      {/* Code Block */}
       <div className="relative">
-        <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm font-mono border">
+        <pre className="max-h-[360px] overflow-x-auto rounded-[20px] border border-border/70 bg-muted/60 p-4 text-sm font-mono">
           <code>{content || 'No output available'}</code>
         </pre>
-        <div className="absolute top-2 right-2 flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm"
-            onClick={() => copyToClipboard(content, label)}
-          >
-            {copiedTab === label ? (
-              <Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
+        <div className="absolute right-2 top-2 flex gap-2">
+          <Button variant="outline" size="sm" className="shadow-sm" onClick={() => copyToClipboard(content, label)}>
+            {copiedTab === label ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
           </Button>
-          {label === 'jsx' && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm"
-              onClick={() => {
-                // Trigger JSX export modal
-                const event = new CustomEvent('openJsxExport', { detail: { svgString } })
-                window.dispatchEvent(event)
-              }}
-            >
-              <Download className="h-4 w-4" />
+          <Button variant="outline" size="sm" className="shadow-sm" onClick={() => downloadText(content, fileName)}>
+            <Download className="h-4 w-4" />
+          </Button>
+          {allowAdvanced && onOpenJsxModal ? (
+            <Button variant="outline" size="sm" className="shadow-sm" onClick={onOpenJsxModal}>
+              Advanced
             </Button>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
@@ -115,19 +110,19 @@ export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: Outpu
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Code className="h-5 w-5" />
-          Output Formats
+          Output
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="url-encoded" className="w-full">
-          <TabsList className="flex w-full h-auto gap-2 p-1">
+        <Tabs defaultValue="svg" className="w-full">
+          <TabsList className="flex h-auto w-full flex-wrap gap-2 p-1">
             {tabConfig.map((tab) => {
               const Icon = tab.icon
               return (
-                <TabsTrigger 
-                  key={tab.value} 
+                <TabsTrigger
+                  key={tab.value}
                   value={tab.value}
-                  className="flex flex-col items-center gap-1 h-auto py-3 px-2 text-xs sm:text-sm flex-1"
+                  className="flex h-auto flex-1 flex-col items-center gap-1 px-2 py-3 text-xs sm:text-sm"
                 >
                   <Icon className="h-4 w-4" />
                   <span className="hidden sm:inline">{tab.label}</span>
@@ -136,16 +131,15 @@ export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: Outpu
               )
             })}
           </TabsList>
-          
+
           {tabConfig.map((tab) => (
             <TabsContent key={tab.value} value={tab.value} className="mt-6">
-              <CodeBlock 
-                content={
-                  tab.value === 'url-encoded' ? urlEncoded :
-                  tab.value === 'base64' ? base64 : jsx
-                } 
+              <CodeBlock
+                content={tab.content}
                 label={tab.value}
-                config={tab}
+                note={tab.note}
+                fileName={tab.fileName}
+                allowAdvanced={tab.value === 'jsx'}
               />
             </TabsContent>
           ))}
@@ -153,4 +147,4 @@ export default function OutputTabs({ urlEncoded, base64, jsx, svgString }: Outpu
       </CardContent>
     </Card>
   )
-} 
+}

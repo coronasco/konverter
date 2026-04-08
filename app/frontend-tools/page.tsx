@@ -15,16 +15,16 @@ export const metadata: Metadata = {
 
 const notes = [
   {
-    title: 'Useful in codebases',
-    description: 'The point is to generate something a developer can use immediately: clean text output, token files, shortened links, assets, or copied snippets.',
+    title: 'Small jobs, less friction',
+    description: 'Format the data, minify the CSS, shorten the link, or generate the token file and keep going.',
   },
   {
-    title: 'Fast by default',
-    description: 'These tools are arranged for quick input, visible output, and easy copy or download actions without unnecessary ceremony.',
+    title: 'Built for copy and download',
+    description: 'The result should be easy to grab and drop into whatever you are already working on.',
   },
   {
-    title: 'Connected internally',
-    description: 'Pages now link more clearly across related frontend workflows so the site behaves like a product, not a dead-end tool grid.',
+    title: 'Useful around the edges of a build',
+    description: 'These are the jobs that are usually too small for a whole app and too annoying to do by hand.',
   },
 ]
 
@@ -36,8 +36,8 @@ export default function FrontendToolsPage() {
       <section className="section-frame section-grid-background">
         <SectionIntro
           eyebrow="Frontend tools"
-          title="Frontend helpers that stay practical"
-          description="This side of Konverter handles the day-to-day jobs around formatting, encoding, tokens, links, QR output, and lightweight utility work in the browser."
+          title="Frontend tools for the jobs around the edges of a build"
+          description="Format JSON, minify CSS, make tokens, shorten links, generate QR codes, or pull colors without opening five different tabs."
         />
       </section>
 
@@ -53,8 +53,8 @@ export default function FrontendToolsPage() {
       <section className="space-y-8">
         <SectionIntro
           eyebrow="All frontend tools"
-          title="Keep common utility work in one place"
-          description="The product is wider than SVG, but still tuned for frontend workflows and browser-native usage."
+          title="Pick the one you need"
+          description="These are the utility tools people keep reaching for in day-to-day frontend work."
         />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {tools.map((tool) => (

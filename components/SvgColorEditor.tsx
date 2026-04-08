@@ -9,7 +9,9 @@ import { logger } from '@/lib/logger'
 
 interface ColorElement {
   id: string
+  nodeIndex: number
   type: 'fill' | 'stroke'
+  source: 'attribute' | 'style'
   originalColor: string
   currentColor: string
   element: Element
@@ -25,12 +27,27 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
   const [colorElements, setColorElements] = useState<ColorElement[]>([])
   const [isVisible, setIsVisible] = useState(true)
 
+  const parseStyleValue = (styleValue: string, property: 'fill' | 'stroke') => {
+    const match = styleValue.match(new RegExp(`${property}\\s*:\\s*([^;]+)`, 'i'))
+    return match?.[1]?.trim() ?? null
+  }
+
+  const updateStyleValue = (styleValue: string, property: 'fill' | 'stroke', color: string) => {
+    if (new RegExp(`${property}\\s*:`, 'i').test(styleValue)) {
+      return styleValue.replace(new RegExp(`(${property}\\s*:\\s*)([^;]+)`, 'i'), `$1${color}`)
+    }
+
+    const trimmed = styleValue.trim()
+    if (!trimmed) return `${property}: ${color};`
+    return `${trimmed}${trimmed.endsWith(';') ? '' : ';'} ${property}: ${color};`
+  }
+
   // Parse SVG and extract color elements
   useEffect(() => {
-    if (!originalSvg) return
+    if (!svgContent) return
 
     const parser = new DOMParser()
-    const svgDoc = parser.parseFromString(originalSvg, 'image/svg+xml')
+    const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml')
     const svgElement = svgDoc.querySelector('svg')
     
     if (!svgElement) return
@@ -41,33 +58,62 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
     // Find all elements with fill or stroke attributes
     const allElements = svgElement.querySelectorAll('*')
     
-    allElements.forEach((element) => {
+    allElements.forEach((element, index) => {
       const fill = element.getAttribute('fill')
       const stroke = element.getAttribute('stroke')
+      const style = element.getAttribute('style') || ''
+      const styleFill = parseStyleValue(style, 'fill')
+      const styleStroke = parseStyleValue(style, 'stroke')
       
       if (fill && fill !== 'none' && fill !== 'currentColor') {
         elements.push({
           id: `fill-${idCounter++}`,
+          nodeIndex: index,
           type: 'fill',
+          source: 'attribute',
           originalColor: fill,
           currentColor: fill,
           element: element
+        })
+      }
+      if (styleFill && styleFill !== 'none' && styleFill !== 'currentColor') {
+        elements.push({
+          id: `fill-style-${idCounter++}`,
+          nodeIndex: index,
+          type: 'fill',
+          source: 'style',
+          originalColor: styleFill,
+          currentColor: styleFill,
+          element: element,
         })
       }
       
       if (stroke && stroke !== 'none' && stroke !== 'currentColor') {
         elements.push({
           id: `stroke-${idCounter++}`,
+          nodeIndex: index,
           type: 'stroke',
+          source: 'attribute',
           originalColor: stroke,
           currentColor: stroke,
           element: element
         })
       }
+      if (styleStroke && styleStroke !== 'none' && styleStroke !== 'currentColor') {
+        elements.push({
+          id: `stroke-style-${idCounter++}`,
+          nodeIndex: index,
+          type: 'stroke',
+          source: 'style',
+          originalColor: styleStroke,
+          currentColor: styleStroke,
+          element: element,
+        })
+      }
     })
 
     setColorElements(elements)
-  }, [originalSvg, svgContent])
+  }, [svgContent])
 
   const handleColorChange = (id: string, newColor: string) => {
     logger.debug('Color change requested', { id, newColor }, 'SVG_COLOR_EDITOR')
@@ -87,38 +133,28 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
       return
     }
 
-    // Find and update the specific element that was changed
     const changedElement = updatedElements.find(el => el.id === id)
     if (!changedElement) {
       console.warn('Changed element not found')
       return
     }
 
-    // Find the element in the current SVG by matching its original color
     const allElements = svgElement.querySelectorAll('*')
-    let found = false
-    
-    for (let i = 0; i < allElements.length; i++) {
-      const element = allElements[i]
-      const elementFill = element.getAttribute('fill')
-      const elementStroke = element.getAttribute('stroke')
-      
-      if (changedElement.type === 'fill' && elementFill === changedElement.originalColor) {
-        element.setAttribute('fill', changedElement.currentColor)
-        found = true
-        logger.debug('Updated fill color', { element: element.tagName, color: newColor }, 'SVG_COLOR_EDITOR')
-        break
-      } else if (changedElement.type === 'stroke' && elementStroke === changedElement.originalColor) {
-        element.setAttribute('stroke', changedElement.currentColor)
-        found = true
-        logger.debug('Updated stroke color', { element: element.tagName, color: newColor }, 'SVG_COLOR_EDITOR')
-        break
-      }
+    const targetElement = allElements[changedElement.nodeIndex]
+
+    if (!targetElement) {
+      console.warn('Target SVG node not found')
+      return
     }
 
-    if (!found) {
-      console.warn('⚠️ Element with original color not found')
+    if (changedElement.source === 'attribute') {
+      targetElement.setAttribute(changedElement.type, newColor)
+    } else {
+      const currentStyle = targetElement.getAttribute('style') || ''
+      targetElement.setAttribute('style', updateStyleValue(currentStyle, changedElement.type, newColor))
     }
+
+    logger.debug('Updated color', { nodeIndex: changedElement.nodeIndex, type: changedElement.type, source: changedElement.source, color: newColor }, 'SVG_COLOR_EDITOR')
 
     const modifiedSvg = new XMLSerializer().serializeToString(svgElement)
     logger.debug('Applying color changes to SVG', undefined, 'SVG_COLOR_EDITOR')
@@ -140,7 +176,7 @@ export default function SvgColorEditor({ svgContent, originalSvg, onColorChange 
   const getColorTypeLabel = (element: ColorElement) => {
     const tagName = element.element.tagName.toLowerCase()
     const type = element.type === 'fill' ? 'Fill' : 'Stroke'
-    return `${tagName} ${type}`
+    return `${tagName} ${type}${element.source === 'style' ? ' (style)' : ''}`
   }
 
   if (!svgContent) {

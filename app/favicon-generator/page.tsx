@@ -38,8 +38,8 @@ export default function FaviconGeneratorPage() {
       <ToolPageLayout
         toolPath="/favicon-generator"
         eyebrow="SVG tools"
-        title="Generate a favicon and PWA asset pack from one logo upload"
-        description="Use this when you need the complete icon bundle for a site or installable web app without manually exporting every size yourself."
+        title="Turn one logo into the favicon and app icon files a site actually needs"
+        description="Upload the logo, check the previews, and export the pack with the manifest and HTML tags."
         highlights={['ZIP export', 'Manifest + HTML snippet', 'Maskable icon support']}
         toolNote="Upload one logo, check the previews, and leave with the files most sites and PWAs actually need."
         useCases={[

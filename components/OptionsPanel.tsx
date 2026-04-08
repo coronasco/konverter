@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback } from 'react'
-import { Switch } from '@/components/ui/switch'
+import { AlertCircle, Settings, Zap } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Settings, Zap, Info, AlertCircle, Gauge } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 import { logger } from '@/lib/logger'
 
 interface OptionsPanelProps {
@@ -14,12 +14,12 @@ interface OptionsPanelProps {
   isOptimizing?: boolean
 }
 
-export default function OptionsPanel({ 
-  isOptimized, 
-  optimizationLevel, 
-  onOptimizedChange, 
+export default function OptionsPanel({
+  isOptimized,
+  optimizationLevel,
+  onOptimizedChange,
   onOptimizationLevelChange,
-  isOptimizing = false 
+  isOptimizing = false,
 }: OptionsPanelProps) {
   const handleToggle = useCallback((value: boolean) => {
     logger.debug('Optimization toggle changed', { enabled: value }, 'OPTIONS_PANEL')
@@ -34,77 +34,62 @@ export default function OptionsPanel({
   const optimizationLevels = [
     {
       id: 'conservative',
-      name: 'Conservative',
-      description: 'Safe optimizations only',
-      features: ['Remove comments', 'Clean whitespace', 'Remove metadata', 'Remove titles'],
+      name: 'Light',
+      description: 'Small cleanup with the lowest risk.',
       reduction: '5-15%',
-      color: 'text-blue-600'
     },
     {
       id: 'balanced',
-      name: 'Balanced',
-      description: 'Good balance of size and safety',
-      features: ['All conservative +', 'Remove version', 'Remove unused xmlns', 'Optimize numbers'],
+      name: 'Safe',
+      description: 'The best default for most SVG files.',
       reduction: '15-30%',
-      color: 'text-green-600'
     },
     {
       id: 'aggressive',
-      name: 'Aggressive',
-      description: 'Maximum size reduction',
-      features: ['All balanced +', 'Remove classes', 'Remove hidden elements', 'Simplify paths'],
+      name: 'Strong',
+      description: 'Cuts more size and may change some files.',
       reduction: '30-50%',
-      color: 'text-orange-600'
     },
     {
       id: 'maximum',
       name: 'Maximum',
-      description: 'Extreme optimization (may affect quality)',
-      features: ['All aggressive +', 'Remove styles', 'Remove transforms', 'Remove filters'],
+      description: 'Use only if you are checking the result carefully.',
       reduction: '50-70%',
-      color: 'text-red-600'
-    }
-  ]
+    },
+  ] as const
 
   return (
-    <Card className="border-l-4 border-l-blue-500">
+    <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Settings className="h-5 w-5 text-blue-600" />
-          Optimization Options
+          <Settings className="h-5 w-5 text-[var(--brand-accent)]" />
+          Cleanup
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Enable/Disable Toggle */}
-        <div className="flex items-start justify-between">
-          <div className="space-y-2 flex-1">
-            <div className="flex items-center gap-2">
-              <label className="text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                SVG Optimization
-              </label>
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </div>
-            
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Choose your optimization level. Higher levels reduce file size more but may affect visual quality.
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold leading-none">Optimize the SVG before exporting</label>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Good for smaller files, cleaner output, and fewer leftovers from design exports.
             </p>
           </div>
-          
-          <div className="flex items-center gap-3 ml-4">
-            {isOptimizing && (
-              <div className="flex items-center gap-2 text-sm text-blue-600">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                <span>Optimizing...</span>
+
+          <div className="flex items-center gap-3">
+            {isOptimizing ? (
+              <div className="flex items-center gap-2 text-sm text-[var(--brand-accent)]">
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--brand-accent)] border-t-transparent"></div>
+                <span>Working...</span>
               </div>
-            )}
-            
+            ) : null}
+
             <div className="flex items-center gap-2">
               <Switch
                 checked={isOptimized}
                 onCheckedChange={handleToggle}
                 disabled={isOptimizing}
                 aria-label="Toggle SVG optimization"
-                className="data-[state=checked]:bg-blue-600"
+                className="data-[state=checked]:bg-[var(--brand-accent)]"
               />
               <div className="flex items-center gap-1">
                 {isOptimized ? (
@@ -112,83 +97,58 @@ export default function OptionsPanel({
                 ) : (
                   <AlertCircle className="h-4 w-4 text-muted-foreground" />
                 )}
-                <span className="text-xs font-medium">
-                  {isOptimized ? 'Enabled' : 'Disabled'}
-                </span>
+                <span className="text-xs font-medium">{isOptimized ? 'On' : 'Off'}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Optimization Level Selector */}
-        {isOptimized && (
-          <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium">Optimization Level</span>
-            </div>
-            
-                        {/* Modern Tab Selector */}
-            <div className="space-y-4">
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-                <div className="flex">
-                  {optimizationLevels.map((level) => {
-                    const isActive = optimizationLevel === level.id
-                    
-                    return (
-                      <button
-                        key={level.id}
-                        onClick={() => handleLevelChange(level.id as 'conservative' | 'balanced' | 'aggressive' | 'maximum')}
-                        className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 ${
-                          isActive
-                            ? 'bg-white dark:bg-gray-900 text-blue-600 dark:text-blue-400 shadow-sm'
-                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
-                        }`}
-                      >
-                        {level.name}
-                      </button>
-                    )
-                  })}
-                </div>
+        {isOptimized ? (
+          <>
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">How strong should the cleanup be?</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {optimizationLevels.map((level) => {
+                  const isActive = optimizationLevel === level.id
+
+                  return (
+                    <button
+                      key={level.id}
+                      type="button"
+                      onClick={() => handleLevelChange(level.id)}
+                      className={`rounded-[22px] border px-4 py-4 text-left transition-colors ${
+                        isActive
+                          ? 'border-[var(--brand-accent)]/70 bg-[var(--surface-secondary)]/90'
+                          : 'border-border/70 bg-white/75 hover:border-foreground/20'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-medium text-foreground">{level.name}</span>
+                        <span className="text-xs text-muted-foreground">{level.reduction}</span>
+                      </div>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">{level.description}</p>
+                    </button>
+                  )
+                })}
               </div>
             </div>
-            
-            {/* Modern Level Details */}
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  {optimizationLevels.find(l => l.id === optimizationLevel)?.name}
-                </span>
+
+            <div className="rounded-[20px] border border-border/70 bg-[var(--surface-secondary)]/85 p-4 text-sm leading-6 text-muted-foreground">
+              Start with <strong className="text-foreground">Safe</strong>. Move up only if you care more about file size than preserving every little detail from the original export.
+            </div>
+
+            <div className="rounded-[20px] border border-border/70 bg-white/80 p-4">
+              <div className="flex items-center gap-2 text-sm text-foreground">
+                <Zap className="h-4 w-4" />
+                <span className="font-medium">Optimization is on</span>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                {optimizationLevels.find(l => l.id === optimizationLevel)?.description}
+              <p className="mt-1 text-xs text-muted-foreground">
+                Check the preview before exporting, especially if you picked a stronger cleanup level.
               </p>
-              <div className="grid grid-cols-1 gap-2">
-                {optimizationLevels.find(l => l.id === optimizationLevel)?.features.map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0"></div>
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
             </div>
-          </div>
-        )}
-        
-        {isOptimized && (
-          <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">
-              <Zap className="h-4 w-4" />
-              <span className="font-medium">Optimization Active</span>
-            </div>
-            <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
-              Your SVG will be optimized using {optimizationLevels.find(l => l.id === optimizationLevel)?.name.toLowerCase()} settings. 
-              Check the preview and file statistics below to see the results.
-            </p>
-          </div>
-        )}
+          </>
+        ) : null}
       </CardContent>
     </Card>
   )
-} 
+}

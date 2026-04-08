@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
+import { AlertCircle, ChevronDown } from 'lucide-react'
 import SvgInputArea from './SvgInputArea'
 import OptionsPanel from './OptionsPanel'
 import SvgPreview from './SvgPreview'
@@ -16,8 +17,6 @@ import { logger } from '@/lib/logger'
 import { showToast } from '@/components/Toast'
 import SvgStats from '@/components/SvgStats'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { AlertCircle } from 'lucide-react'
-
 
 export default function SvgConverter() {
   const [inputSvg, setInputSvg] = useState<string>('')
@@ -33,17 +32,8 @@ export default function SvgConverter() {
   const [isExporting, setIsExporting] = useState(false)
   const [showJsxExport, setShowJsxExport] = useState(false)
 
-  // Debounce input pentru a preveni procesarea frecventă
   const debouncedInputSvg = useDebounce(inputSvg, 300)
-  
-  // Cache pentru rezultate - temporar dezactivat pentru a evita re-rendering
-  // const cache = useCache<string>('svg-processing', 5 * 60 * 1000) // 5 minute cache
-  
-  // Async operation pentru optimizare - temporar simplificat
   const [isOptimizing, setIsOptimizing] = useState(false)
-  // const svgOptimizer = useAsyncOperation(optimizeSvg)
-  
-  // Debug tracking removed - component is now stable
 
   const handleSvgChange = useCallback((newSvg: string) => {
     setInputSvg(newSvg)
@@ -72,28 +62,15 @@ export default function SvgConverter() {
       }
     } catch (error) {
       logger.error('Export failed', error, 'SVG_CONVERTER')
-              const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-        setError(`Export failed: ${errorMessage}`)
-        showToast.error(`Export failed: ${errorMessage}`)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      setError(`Export failed: ${errorMessage}`)
+      showToast.error(`Export failed: ${errorMessage}`)
     } finally {
       setIsExporting(false)
     }
   }, [optimizedSvg, inputSvg, isOptimized])
 
-  const handleOpenJsxModal = useCallback(() => {
-    setShowJsxExport(true)
-  }, [])
-
-  const handleOptimizedChange = useCallback((value: boolean) => {
-    setIsOptimized(value)
-  }, [])
-
-  const handleOptimizationLevelChange = useCallback((level: 'conservative' | 'balanced' | 'aggressive' | 'maximum') => {
-    setOptimizationLevel(level)
-  }, [])
-
   const handleSvgPreviewChange = useCallback((modifiedSvg: string) => {
-    // Update the SVG that's being used for processing
     if (isOptimized) {
       setOptimizedSvg(modifiedSvg)
     } else {
@@ -101,11 +78,6 @@ export default function SvgConverter() {
     }
   }, [isOptimized, handleSvgChange])
 
-  const handleCloseJsxModal = useCallback(() => {
-    setShowJsxExport(false)
-  }, [])
-
-  // Memoized validation result
   const validationResult = useMemo(() => {
     if (!debouncedInputSvg.trim()) {
       return null
@@ -113,34 +85,24 @@ export default function SvgConverter() {
     return validateSvgAdvanced(debouncedInputSvg)
   }, [debouncedInputSvg])
 
-  // Effect pentru a actualiza validation state - ELIMINAT pentru a evita loop-uri
-  // useEffect(() => {
-  //   setValidation(validationResult)
-  // }, [validationResult])
-
-  // Memoized processed SVG pentru a evita recalcularea
   const processedSvgData = useMemo(() => {
     if (!debouncedInputSvg.trim()) {
       return null
     }
-    
+
     if (!validationResult?.isValid) {
       return { error: validationResult?.error || 'Input is not a valid SVG' }
     }
 
-    const originalSize = new Blob([debouncedInputSvg]).size
-    
     return {
       svg: debouncedInputSvg,
-      originalSize
+      originalSize: new Blob([debouncedInputSvg]).size,
     }
   }, [debouncedInputSvg, validationResult])
 
-  // Effect pentru procesarea SVG cu optimizare async
   useEffect(() => {
     const processSvg = async () => {
       if (!processedSvgData) {
-        // Clear everything
         setOptimizedSvg('')
         setFileStats(null)
         setError(null)
@@ -159,33 +121,27 @@ export default function SvgConverter() {
 
         if (isOptimized) {
           logger.debug('Starting SVG optimization', { level: optimizationLevel }, 'SVG_CONVERTER')
-          
+
           try {
             setIsOptimizing(true)
             const optimized = await optimizeSvg(processedSvgData.svg, optimizationLevel)
             setOptimizedSvg(optimized)
-            
+
             const optimizedSize = new Blob([optimized]).size
             const reduction = ((originalSize - optimizedSize) / originalSize) * 100
-            
+
             setFileStats({
               originalSize,
               optimizedSize,
-              reduction
+              reduction,
             })
-
-            // Cache rezultatul - temporar dezactivat
-            // cache.set(cacheKey, JSON.stringify({
-            //   optimized,
-            //   fileStats: { originalSize, optimizedSize, reduction }
-            // }))
           } catch (optimizeError) {
             logger.warn('Optimization failed, using original SVG', optimizeError, 'SVG_CONVERTER')
             setOptimizedSvg(processedSvgData.svg)
             setFileStats({
               originalSize,
               optimizedSize: originalSize,
-              reduction: 0
+              reduction: 0,
             })
             showToast.warning('SVG optimization failed, using original version')
           } finally {
@@ -196,7 +152,7 @@ export default function SvgConverter() {
           setFileStats({
             originalSize,
             optimizedSize: originalSize,
-            reduction: 0
+            reduction: 0,
           })
         }
 
@@ -213,120 +169,99 @@ export default function SvgConverter() {
     processSvg()
   }, [processedSvgData, optimizationLevel, isOptimized])
 
-  // Memoized output pentru a evita recalcularea frecventă
+  const activeSvg = isOptimized ? optimizedSvg : debouncedInputSvg
+
   const output = useMemo(() => {
-    const svgToProcess = isOptimized ? optimizedSvg : debouncedInputSvg
-    
-    if (!svgToProcess.trim()) {
+    if (!activeSvg.trim()) {
       return { urlEncoded: '', base64: '', jsx: '' }
     }
 
     logger.debug('Generating output formats', { isOptimized }, 'SVG_CONVERTER')
-    
-    const urlEncoded = urlEncodeSvg(svgToProcess)
-    const base64 = base64EncodeSvg(svgToProcess)
-    const jsx = convertToJsx(svgToProcess)
 
     return {
-      urlEncoded,
-      base64,
-      jsx,
+      urlEncoded: urlEncodeSvg(activeSvg),
+      base64: base64EncodeSvg(activeSvg),
+      jsx: convertToJsx(activeSvg),
     }
-  }, [isOptimized, optimizedSvg, debouncedInputSvg])
-
-  // Listen for JSX export events
-  useEffect(() => {
-    const handleJsxExport = (event: CustomEvent) => {
-      logger.debug('JSX Export triggered', { 
-        hasSvgString: !!event.detail?.svgString 
-      }, 'SVG_CONVERTER')
-      setShowJsxExport(true)
-    }
-
-    window.addEventListener('openJsxExport', handleJsxExport as EventListener)
-    
-    return () => {
-      window.removeEventListener('openJsxExport', handleJsxExport as EventListener)
-    }
-  }, [])
+  }, [activeSvg, isOptimized])
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      {error && (
+    <div className="space-y-6">
+      {error ? (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
-      )}
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      ) : null}
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <div className="space-y-6">
           <SvgInputArea value={inputSvg} onChange={handleSvgChange} />
-          <OptionsPanel 
-            isOptimized={isOptimized} 
-            optimizationLevel={optimizationLevel}
-            onOptimizedChange={handleOptimizedChange}
-            onOptimizationLevelChange={handleOptimizationLevelChange}
-            isOptimizing={isOptimizing}
+          <OutputTabs
+            urlEncoded={output.urlEncoded}
+            base64={output.base64}
+            jsx={output.jsx}
+            svgString={activeSvg}
+            onOpenJsxModal={() => setShowJsxExport(true)}
+          />
+          <ExportFormats
+            onExport={handleExport}
+            hasSvg={!!activeSvg}
+            onOpenJsxModal={() => setShowJsxExport(true)}
           />
         </div>
 
         <div className="space-y-6">
-          <SvgPreview 
-            svgString={isOptimized ? optimizedSvg : debouncedInputSvg} 
+          <SvgPreview
+            svgString={activeSvg}
             originalSvg={inputSvg}
             isOptimized={isOptimized}
             onSvgChange={handleSvgPreviewChange}
           />
-          {isOptimizing && (
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-              Optimizing SVG...
+          <OptionsPanel
+            isOptimized={isOptimized}
+            optimizationLevel={optimizationLevel}
+            onOptimizedChange={setIsOptimized}
+            onOptimizationLevelChange={setOptimizationLevel}
+            isOptimizing={isOptimizing}
+          />
+          {isOptimizing ? (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--brand-accent)] border-t-transparent"></div>
+              Cleaning up the SVG...
             </div>
-          )}
-          <SvgStats 
-            validation={validationResult || undefined} 
+          ) : null}
+          <SvgStats
+            validation={validationResult || undefined}
             fileStats={fileStats || undefined}
             isOptimized={isOptimized}
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <OutputTabs 
-          urlEncoded={output.urlEncoded}
-          base64={output.base64}
-          jsx={output.jsx}
-          svgString={isOptimized ? optimizedSvg : debouncedInputSvg}
-        />
-        
-        <ExportFormats 
-          onExport={handleExport}
-          hasSvg={!!(isOptimized ? optimizedSvg : debouncedInputSvg)}
-          onOpenJsxModal={handleOpenJsxModal}
-        />
-      </div>
+      {activeSvg ? (
+        <details className="group rounded-[28px] border border-border/70 bg-card/86 shadow-sm">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-6 py-5 text-sm font-medium text-foreground">
+            Advanced tools
+            <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="grid grid-cols-1 gap-6 px-6 pb-6 lg:grid-cols-2">
+            <ResponsiveSvgBuilder svgContent={activeSvg} />
+            <SvgAnimationEditor svgContent={activeSvg} />
+          </div>
+        </details>
+      ) : null}
 
-      {(isOptimized ? optimizedSvg : debouncedInputSvg) && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ResponsiveSvgBuilder svgContent={isOptimized ? optimizedSvg : debouncedInputSvg} />
-          <SvgAnimationEditor svgContent={isOptimized ? optimizedSvg : debouncedInputSvg} />
-        </div>
-      )}
+      {isExporting ? (
+        <div className="text-center text-sm text-muted-foreground">Exporting...</div>
+      ) : null}
 
-      {isExporting && (
-        <div className="text-sm text-muted-foreground text-center">
-          Exporting...
-        </div>
-      )}
-
-      {/* JSX Export Modal */}
-      {showJsxExport && (
-        <JsxExportModal 
-          svgString={isOptimized ? optimizedSvg : debouncedInputSvg}
-          onClose={handleCloseJsxModal}
+      {showJsxExport ? (
+        <JsxExportModal
+          svgString={activeSvg}
+          onClose={() => setShowJsxExport(false)}
         />
-      )}
+      ) : null}
     </div>
   )
-} 
+}

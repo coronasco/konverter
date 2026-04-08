@@ -38,8 +38,8 @@ export default function DesignTokenGeneratorPage() {
       <ToolPageLayout
         toolPath="/design-token-generator"
         eyebrow="Frontend tools"
-        title="Generate a cleaner design-token starting point for frontend work"
-        description="Use a small set of practical inputs to create CSS variables, JSON tokens, and Tailwind-ready output without building the token layer by hand from scratch."
+        title="Build a token file from a few base style choices"
+        description="Set your colors, spacing, radius, and type scale, then export CSS variables, JSON, and Tailwind-ready output."
         highlights={['CSS variables', 'Tailwind config', 'JSON tokens + dark mode']}
         toolNote="Start with a few solid styling decisions and get token files you can wire into a real frontend codebase."
         useCases={[

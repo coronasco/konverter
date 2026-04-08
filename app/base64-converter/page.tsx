@@ -38,8 +38,8 @@ export default function Base64ConverterPage() {
       <ToolPageLayout
         toolPath="/base64-converter"
         eyebrow="Frontend tools"
-        title="Encode and decode Base64 without leaving the browser"
-        description="This is useful when you need quick text encoding, file-to-Base64 conversion, or a fast way to inspect encoded content during frontend work."
+        title="Encode or decode Base64 and copy the result"
+        description="Useful for text, files, data URIs, and quick inspection."
         highlights={['Text and file input', 'Download actions', 'Two-way conversion']}
         toolNote="Useful when you need a fast Base64 check, a data URI helper, or a simple way to inspect encoded text."
         useCases={[

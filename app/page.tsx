@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, Globe, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Globe, ShieldCheck } from 'lucide-react'
 import SvgConverter from '@/components/SvgConverter'
 import FAQSchema, { svgConverterFAQs } from '@/components/FAQSchema'
 import ReviewSchema from '@/components/ReviewSchema'
@@ -8,7 +8,6 @@ import SectionIntro from '@/components/SectionIntro'
 import SupportCallout from '@/components/SupportCallout'
 import ToolCard from '@/components/ToolCard'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getFeaturedTools, getToolsByCategory } from '@/lib/tool-catalog'
 import { getAllPosts } from '@/lib/blog'
 
@@ -46,19 +45,19 @@ export const metadata: Metadata = {
 
 const platformNotes = [
   {
-    title: 'SVG-first workflow',
+    title: 'Start with the file',
     description:
-      'Konverter is built around the sort of SVG cleanup, export, and code generation work that happens constantly in frontend projects.',
+      'Drop in an SVG, a logo, an icon set, or a rough palette and work from there instead of starting from a blank page.',
   },
   {
-    title: 'Browser-based and direct',
+    title: 'Get the output and move on',
     description:
-      'Most tools work locally in the browser, which keeps turnaround quick and avoids unnecessary upload flows for everyday tasks.',
+      'The point is to leave with code, assets, or a clean export you can actually use in the next step of the job.',
   },
   {
-    title: 'Made for shipping',
+    title: 'Keep it simple',
     description:
-      'The outputs are meant to drop into real codebases: JSX, CSS, token files, icon packs, asset exports, and plain-text snippets.',
+      'No account wall, no giant setup, no trying to turn a small frontend task into a whole ordeal.',
   },
 ]
 
@@ -101,68 +100,67 @@ export default function Home() {
       />
 
       <div className="space-y-16 md:space-y-20">
-        <section className="section-frame section-grid-background overflow-hidden">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
-            <div className="space-y-8">
+        <section className="section-frame overflow-hidden">
+          <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_260px] xl:items-start">
+            <div className="space-y-6">
               <div className="space-y-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--brand-accent)]">
-                  Frontend tools for SVG work
+                  Konverter
                 </p>
                 <h1 className="font-display max-w-4xl text-4xl tracking-tight text-foreground md:text-6xl">
-                  Browser tools for SVG, icons, favicons, and the frontend asset jobs that should not take all afternoon.
+                  Tools for SVG, icons, favicons, tokens, and the frontend cleanup work that keeps showing up.
                 </h1>
                 <p className="max-w-3xl text-lg leading-8 text-muted-foreground">
-                  Clean up SVG, package icons, generate favicons, shape tokens, and export code you can actually drop into a project. Fast to open, easy to use, no account nonsense.
+                  Clean up an SVG, turn a folder of icons into components, generate a favicon pack, shape some design tokens, or just format the annoying bit of data in front of you and get back to the real work.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center gap-4">
                 <Button asChild size="lg">
                   <a href="#svg-workbench">
                     Open the SVG converter
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link href="/svg-tools">Browse all tools</Link>
-                </Button>
+                <Link href="/svg-tools" className="text-sm font-medium text-foreground underline decoration-[var(--brand-accent)]/50 underline-offset-4">
+                  Or go straight to all SVG tools
+                </Link>
               </div>
 
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                <span>Works in the browser.</span>
-                <span>Code-ready output.</span>
-                <span>No sign-up.</span>
+              <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+                <span>Runs in the browser.</span>
+                <span>Useful output you can copy or download.</span>
+                <span>No sign-up to get started.</span>
               </div>
             </div>
 
-          <div className="grid gap-4">
-            <Card className="border-border/70">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Sparkles className="h-5 w-5 text-[var(--brand-accent)]" />
-                    What Konverter is for
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm leading-6 text-muted-foreground">
-                  <p>Convert SVG into code, exports, and asset packages.</p>
-                  <p>Build frontend-ready files without leaving the browser.</p>
-                  <p>Move from raw input to production output with less friction.</p>
-                </CardContent>
-            </Card>
-            <Card className="border-border/70 bg-[var(--surface-secondary)]/92">
-              <CardContent className="p-6 text-sm leading-6 text-muted-foreground">
-                  Built for quick frontend jobs: cleaner inputs, clearer outputs, and fewer steps between the raw file and something you can actually use.
-              </CardContent>
-            </Card>
-          </div>
+            <div className="space-y-4 border-t border-border/60 pt-4 xl:border-t-0 xl:border-l xl:pl-6 xl:pt-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Start here
+              </p>
+              <div className="space-y-3 text-sm">
+                {featuredTools.slice(0, 4).map((tool) => (
+                  <Link
+                    key={tool.id}
+                    href={tool.href}
+                    className="block text-foreground/85 underline decoration-transparent underline-offset-4 transition-colors hover:text-foreground hover:decoration-[var(--brand-accent)]/45"
+                  >
+                    {tool.shortName}
+                  </Link>
+                ))}
+              </div>
+              <div className="pt-2 text-sm leading-6 text-muted-foreground">
+                Most people start with the SVG converter, then move into icons, favicons, or tokens if the job grows.
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="space-y-8">
           <SectionIntro
             eyebrow="Featured tools"
-            title="Start with the core workflows"
-            description="These are the tools people reach for most when they need to clean up SVGs, prepare assets, or generate frontend-ready output."
+            title="Start with the tools people use most"
+            description="If you came here to clean up SVG, build a favicon pack, turn icons into components, or make a token file, start with one of these."
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featuredTools.map((tool) => (
@@ -174,8 +172,8 @@ export default function Home() {
         <section className="space-y-8">
           <SectionIntro
             eyebrow="Why Konverter"
-            title="Clear utility beats noisy tooling"
-            description="Fast tools, readable output, and a workflow that makes sense matter more than flashy filler."
+            title="Built for the kind of jobs people usually have to piece together themselves"
+            description="Open the tool, do the job, copy or download the result, move on."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {platformNotes.map((item) => (
@@ -190,8 +188,8 @@ export default function Home() {
         <section id="svg-workbench" className="space-y-6">
           <SectionIntro
             eyebrow="SVG workbench"
-            title="Convert, tweak, and export SVG in one pass"
-            description="Paste code or upload a file, clean it up, adjust colors, and export the format you need without bouncing between tools."
+            title="Paste an SVG or drop in a file and work from there"
+            description="Clean it up, tweak it, export what you need, and keep going."
           />
           <div className="rounded-[32px] border border-border/70 bg-[var(--surface-secondary)]/72 p-2 shadow-[0_24px_70px_-40px_rgba(20,43,67,0.65)] md:p-4">
             <SvgConverter />
@@ -202,8 +200,8 @@ export default function Home() {
           <div className="section-frame">
             <SectionIntro
               eyebrow="Trust"
-              title="Built around browser-friendly processing"
-              description="For utility work, the product should explain itself quickly and keep the output close to the interface."
+              title="Why people keep using browser tools for this stuff"
+              description="For quick frontend jobs, it is usually easier when the page opens fast and the result stays right there in front of you."
             />
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
@@ -214,12 +212,12 @@ export default function Home() {
               <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
                 <ShieldCheck className="h-5 w-5 text-[var(--brand-accent)]" />
                 <p className="mt-3 font-semibold text-foreground">Local-first where possible</p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">Many workflows stay in the browser, which is useful for speed and privacy-sensitive asset work.</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">A lot of this stays in the browser, which is better for speed and often better for privacy too.</p>
               </div>
               <div className="rounded-[24px] border border-border/70 bg-white/75 p-5">
                 <CheckCircle2 className="h-5 w-5 text-[var(--brand-accent)]" />
                 <p className="mt-3 font-semibold text-foreground">Outputs you can use</p>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">The goal is not novelty. It is to give you code and assets you can drop into the next step immediately.</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">You should be able to copy the code, download the asset, and move straight into the next step.</p>
               </div>
             </div>
           </div>
@@ -227,8 +225,8 @@ export default function Home() {
           <div className="section-frame">
             <SectionIntro
               eyebrow="SVG tools"
-              title="A stronger SVG path"
-              description="SVG remains the clearest strength of the platform."
+              title="More SVG tools"
+              description="If the main converter is not the exact job, go straight to the tool that is."
             />
             <div className="mt-6 space-y-3">
               {svgTools.map((tool) => (
@@ -251,8 +249,8 @@ export default function Home() {
         <section className="space-y-8">
           <SectionIntro
             eyebrow="From the blog"
-            title="Short guides for the same kind of work"
-            description="SVG cleanup, icon workflows, favicons, tokens, and the small frontend tasks that are easier with the right tool."
+            title="Need a guide first?"
+            description="These posts cover the same kind of jobs people usually come here to solve."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {latestPosts.map((post) => (

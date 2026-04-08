@@ -171,8 +171,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="space-y-8">
         <SectionIntro
           eyebrow="Relevant tools"
-          title="Open a related workflow"
-          description="A guide should connect back to a practical next step."
+          title="Open the tool that goes with this"
+          description="If you want to do the job instead of just read about it, start here."
         />
         <div className="grid gap-4 md:grid-cols-3">
           {relatedTools.map((tool) => (
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <SectionIntro
             eyebrow="Related articles"
             title="Keep reading"
-            description="More posts in the same area."
+            description="More on the same kind of thing."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((relatedPost) => (

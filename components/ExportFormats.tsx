@@ -1,24 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  ChevronDown,
+  Download,
+  FileCode,
+  FileText,
+  Image as ImageIcon,
+  Monitor,
+  Smartphone,
+  Tablet,
+  Upload,
+  Zap,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { 
-  Download, 
-  Image as ImageIcon, 
-  FileText, 
-  Smartphone, 
-  Monitor, 
-  Tablet,
-  Palette,
-  Zap,
-  Upload,
-  FileCode
-} from 'lucide-react'
 
 interface ExportOptions {
   format: string
@@ -44,52 +43,48 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
   const responsiveSizes = [
     { name: 'Mobile', width: 375, height: 667 },
     { name: 'Tablet', width: 768, height: 1024 },
-    { name: 'Desktop', width: 1920, height: 1080 }
+    { name: 'Desktop', width: 1920, height: 1080 },
   ]
 
   const handleImageExport = (format: 'png' | 'jpg' | 'webp') => {
-    const options = {
+    onExport(`image-${format}`, {
       format,
       width: imageSize,
       height: imageSize,
       backgroundColor: transparent ? 'transparent' : backgroundColor,
-      quality
-    }
-    onExport(`image-${format}`, options)
+      quality,
+    })
   }
 
   const handleIconSetExport = () => {
-    iconSizes.forEach(size => {
-      const options = {
+    iconSizes.forEach((size) => {
+      onExport(`icon-${size}px`, {
         format: 'png',
         width: size,
         height: size,
         backgroundColor: transparent ? 'transparent' : backgroundColor,
-        quality: 100
-      }
-      onExport(`icon-${size}px`, options)
+        quality: 100,
+      })
     })
   }
 
   const handleResponsiveExport = (size: { name: string; width: number; height: number }) => {
-    const options = {
+    onExport(`responsive-${size.name.toLowerCase()}`, {
       format: 'png',
       width: size.width,
       height: size.height,
       backgroundColor: transparent ? 'transparent' : backgroundColor,
-      quality
-    }
-    onExport(`responsive-${size.name.toLowerCase()}`, options)
+      quality,
+    })
   }
 
   const handlePdfExport = () => {
-    const options = {
+    onExport('pdf', {
       format: 'pdf',
       width: imageSize,
       height: imageSize,
-      backgroundColor: transparent ? 'transparent' : backgroundColor
-    }
-    onExport('pdf', options)
+      backgroundColor: transparent ? 'transparent' : backgroundColor,
+    })
   }
 
   if (!hasSvg) {
@@ -98,12 +93,12 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Download className="h-5 w-5" />
-            Export Formats
+            Export
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8">
-            <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+          <div className="py-8 text-center">
+            <Upload className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">Upload an SVG to unlock export options</p>
           </div>
         </CardContent>
@@ -116,209 +111,144 @@ export default function ExportFormats({ onExport, hasSvg = false, onOpenJsxModal
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Download className="h-5 w-5" />
-          Export Formats
+          Export
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="images" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="images" className="flex items-center gap-2">
-                <ImageIcon className="h-4 w-4" aria-hidden="true" />
-                Images
-              </TabsTrigger>
-            <TabsTrigger value="icons" className="flex items-center gap-2">
-              <Palette className="h-4 w-4" />
-              Icons
-            </TabsTrigger>
-            <TabsTrigger value="responsive" className="flex items-center gap-2">
-              <Monitor className="h-4 w-4" />
-              Responsive
-            </TabsTrigger>
-            <TabsTrigger value="documents" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Documents
-            </TabsTrigger>
-            <TabsTrigger value="jsx" className="flex items-center gap-2">
-              <FileCode className="h-4 w-4" />
-              JSX
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Images Tab */}
-          <TabsContent value="images" className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="imageSize">Image Size (px)</Label>
-                  <Input
-                    id="imageSize"
-                    type="number"
-                    value={imageSize}
-                    onChange={(e) => setImageSize(Number(e.target.value))}
-                    min="16"
-                    max="2048"
-                    step="16"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="backgroundColor">Background Color</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="backgroundColor"
-                      type="color"
-                      value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
-                      disabled={transparent}
-                    />
-                    <div className="flex items-center space-x-2">
-                      <Switch
-                        id="transparent"
-                        checked={transparent}
-                        onCheckedChange={setTransparent}
-                      />
-                      <Label htmlFor="transparent">Transparent</Label>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="quality">Quality (%)</Label>
-                  <Input
-                    id="quality"
-                    type="range"
-                    min="1"
-                    max="100"
-                    value={quality}
-                    onChange={(e) => setQuality(Number(e.target.value))}
-                  />
-                  <span className="text-sm text-muted-foreground">{quality}%</span>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <Button 
-                  onClick={() => handleImageExport('png')}
-                  className="w-full justify-start"
-                  variant="outline"
-                >
-                  <ImageIcon className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Export as PNG
-                </Button>
-                
-                <Button 
-                  onClick={() => handleImageExport('jpg')}
-                  className="w-full justify-start"
-                  variant="outline"
-                >
-                  <ImageIcon className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Export as JPG
-                </Button>
-                
-                <Button 
-                  onClick={() => handleImageExport('webp')}
-                  className="w-full justify-start"
-                  variant="outline"
-                >
-                  <Zap className="h-4 w-4 mr-2" />
-                  Export as WebP
-                </Button>
-              </div>
-            </div>
-          </TabsContent>
-
-          {/* Icons Tab */}
-          <TabsContent value="icons" className="space-y-4">
+        <div className="space-y-6">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-4">
               <div>
-                <Label>Icon Set Sizes</Label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-                  {iconSizes.map(size => (
-                    <div key={size} className="text-center p-2 border rounded">
-                      <div className="text-sm font-medium">{size}px</div>
-                    </div>
-                  ))}
+                <Label htmlFor="imageSize">Image size</Label>
+                <Input
+                  id="imageSize"
+                  type="number"
+                  value={imageSize}
+                  onChange={(e) => setImageSize(Number(e.target.value))}
+                  min="16"
+                  max="2048"
+                  step="16"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="backgroundColor">Background</Label>
+                <div className="flex items-center gap-3">
+                  <Input
+                    id="backgroundColor"
+                    type="color"
+                    value={backgroundColor}
+                    onChange={(e) => setBackgroundColor(e.target.value)}
+                    disabled={transparent}
+                    className="w-20"
+                  />
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="transparent"
+                      checked={transparent}
+                      onCheckedChange={setTransparent}
+                    />
+                    <Label htmlFor="transparent">Transparent</Label>
+                  </div>
                 </div>
               </div>
-              
-              <Button 
-                onClick={handleIconSetExport}
-                className="w-full"
-                size="lg"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                Export Complete Icon Set
+
+              <div>
+                <Label htmlFor="quality">Quality</Label>
+                <Input
+                  id="quality"
+                  type="range"
+                  min="1"
+                  max="100"
+                  value={quality}
+                  onChange={(e) => setQuality(Number(e.target.value))}
+                />
+                <span className="text-sm text-muted-foreground">{quality}%</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Quick exports for the formats people usually need first.
+              </p>
+              <Button onClick={() => handleImageExport('png')} className="w-full justify-start" variant="outline">
+                <ImageIcon className="mr-2 h-4 w-4" aria-hidden="true" />
+                Export PNG
+              </Button>
+              <Button onClick={() => handleImageExport('webp')} className="w-full justify-start" variant="outline">
+                <Zap className="mr-2 h-4 w-4" />
+                Export WebP
+              </Button>
+              <Button onClick={() => handleImageExport('jpg')} className="w-full justify-start" variant="outline">
+                <ImageIcon className="mr-2 h-4 w-4" aria-hidden="true" />
+                Export JPG
               </Button>
             </div>
-          </TabsContent>
+          </div>
 
-          {/* Responsive Tab */}
-          <TabsContent value="responsive" className="space-y-4">
-            <div className="space-y-4">
-              {responsiveSizes.map(size => (
-                <div key={size.name} className="flex items-center justify-between p-3 border rounded">
-                  <div className="flex items-center gap-3">
-                    {size.name === 'Mobile' && <Smartphone className="h-4 w-4" />}
-                    {size.name === 'Tablet' && <Tablet className="h-4 w-4" />}
-                    {size.name === 'Desktop' && <Monitor className="h-4 w-4" />}
-                    <div>
-                      <div className="font-medium">{size.name}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {size.width} × {size.height}
-                      </div>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={() => handleResponsiveExport(size)}
-                    variant="outline"
-                    size="sm"
-                  >
-                    Export
-                  </Button>
+          <div className="rounded-[22px] border border-border/70 bg-[var(--surface-secondary)]/88 p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="font-medium text-foreground">Icon sizes</p>
+                <p className="mt-1 text-sm text-muted-foreground">Good for app icons, favicons, and quick asset handoff.</p>
+              </div>
+              <Button onClick={handleIconSetExport} size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Export set
+              </Button>
+            </div>
+            <div className="mt-4 grid grid-cols-4 gap-2 md:grid-cols-7">
+              {iconSizes.map((size) => (
+                <div key={size} className="rounded-full border border-border/70 bg-white/80 px-3 py-2 text-center text-sm text-foreground">
+                  {size}px
                 </div>
               ))}
             </div>
-          </TabsContent>
+          </div>
 
-          {/* Documents Tab */}
-          <TabsContent value="documents" className="space-y-4">
-            <div className="space-y-4">
-              <Button 
-                onClick={handlePdfExport}
-                className="w-full justify-start"
-                variant="outline"
-                size="lg"
-              >
-                <FileText className="h-4 w-4 mr-2" />
-                Export as PDF Document
-              </Button>
-              
-              <div className="text-sm text-muted-foreground">
-                PDF export includes the SVG as a vector graphic, maintaining quality at any scale.
+          <details className="group rounded-[22px] border border-border/70 bg-white/70">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 text-sm font-medium text-foreground">
+              Advanced exports
+              <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="space-y-4 px-4 pb-4">
+              <div className="grid gap-3">
+                {responsiveSizes.map((size) => (
+                  <div key={size.name} className="flex items-center justify-between rounded-[18px] border border-border/70 px-3 py-3">
+                    <div className="flex items-center gap-3">
+                      {size.name === 'Mobile' ? <Smartphone className="h-4 w-4" /> : null}
+                      {size.name === 'Tablet' ? <Tablet className="h-4 w-4" /> : null}
+                      {size.name === 'Desktop' ? <Monitor className="h-4 w-4" /> : null}
+                      <div>
+                        <div className="font-medium">{size.name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {size.width} × {size.height}
+                        </div>
+                      </div>
+                    </div>
+                    <Button onClick={() => handleResponsiveExport(size)} variant="outline" size="sm">
+                      Export
+                    </Button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <Button onClick={handlePdfExport} className="justify-start" variant="outline">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Export PDF
+                </Button>
+                {onOpenJsxModal ? (
+                  <Button onClick={onOpenJsxModal} className="justify-start" variant="outline">
+                    <FileCode className="mr-2 h-4 w-4" />
+                    Open JSX export
+                  </Button>
+                ) : null}
               </div>
             </div>
-          </TabsContent>
-
-          {/* JSX Tab */}
-          <TabsContent value="jsx" className="space-y-4">
-            <div className="space-y-4">
-              <Button 
-                onClick={onOpenJsxModal}
-                className="w-full justify-start"
-                variant="outline"
-                size="lg"
-              >
-                <FileCode className="h-4 w-4 mr-2" />
-                Export React Component
-              </Button>
-              
-              <div className="text-sm text-muted-foreground">
-                Generate TypeScript React components with configurable props and color customization.
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+          </details>
+        </div>
       </CardContent>
     </Card>
   )
-} 
+}

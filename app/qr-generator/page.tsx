@@ -38,8 +38,8 @@ export default function QrGeneratorPage() {
       <ToolPageLayout
         toolPath="/qr-generator"
         eyebrow="Frontend tools"
-        title="Create QR codes that are useful in real projects, not just placeholders"
-        description="Generate QR codes for links, contact details, WiFi access, and short text with enough customization to make them presentable in production or client-facing work."
+        title="Make a QR code and export it without the usual junk"
+        description="Use it for links, contact details, WiFi, and short text, then copy or download the result."
         highlights={['Multiple QR types', 'Logo support', 'Copy and download actions']}
         toolNote="Helpful when a QR code needs to look presentable enough for a client handoff, print piece, or product page."
         useCases={[

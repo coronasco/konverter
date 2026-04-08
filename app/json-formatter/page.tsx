@@ -38,8 +38,8 @@ export default function JsonFormatterPage() {
       <ToolPageLayout
         toolPath="/json-formatter"
         eyebrow="Frontend tools"
-        title="Format, validate, and convert JSON without leaving the browser"
-        description="Use this when you need quick structure cleanup, readable API payloads, or a fast JSON-to-YAML pass during development."
+        title="Format, validate, minify, or convert JSON in one place"
+        description="Paste a payload, make it readable, check it, or turn it into YAML."
         highlights={['Beautify and minify', 'Validation feedback', 'YAML conversion']}
         toolNote="Paste a payload, clean it up, validate it, and copy the result without opening a heavier editor."
         useCases={[

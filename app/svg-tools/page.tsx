@@ -18,16 +18,16 @@ export const metadata: Metadata = {
 
 const svgNotes = [
   {
-    title: 'Convert and export',
-    description: 'Move from raw SVG markup into JSX, CSS backgrounds, image exports, and production-ready snippets.',
+    title: 'Clean it up',
+    description: 'Fix messy markup, tweak colors, and turn raw SVG into something easier to work with.',
   },
   {
-    title: 'Package assets',
-    description: 'Build favicon sets, app icons, and icon component libraries without piecing the workflow together manually.',
+    title: 'Export what you need',
+    description: 'Go from one logo or a folder of icons to favicons, app icons, sprites, or component files.',
   },
   {
-    title: 'Stay in the browser',
-    description: 'The toolset is built for quick iteration when you need to test, tweak, and export in one session.',
+    title: 'Stay close to the code',
+    description: 'The output is shaped for frontend work, so the next step is easier once you leave the page.',
   },
 ]
 
@@ -40,11 +40,11 @@ export default function SvgToolsPage() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
           <SectionIntro
             eyebrow="SVG tools"
-            title="A cleaner path through SVG work"
-            description="Konverter is positioned first as an SVG workflow platform. These tools handle conversion, asset generation, and developer-ready output without turning the site into a cluttered directory."
+            title="SVG tools for cleanup, conversion, icon packs, and favicon work"
+            description="If your file is messy, not ready for code, or missing the exports you actually need, start here."
           />
           <div className="rounded-[28px] border border-border/70 bg-white/78 p-6 text-sm leading-6 text-muted-foreground">
-            <p>Use these when you need browser-based asset prep that still feels close to the code.</p>
+            <p>Most people start with the converter. If you just need to clean up one SVG or turn it into code, open that first.</p>
             <Button asChild variant="outline" size="sm" className="mt-4">
               <Link href="/#svg-workbench">
                 Open the converter
@@ -67,8 +67,8 @@ export default function SvgToolsPage() {
       <section className="space-y-8">
         <SectionIntro
           eyebrow="All SVG tools"
-          title="Focused tooling, not a dump of utilities"
-          description="Each tool is meant to solve a concrete frontend asset problem."
+          title="Pick the job and open the tool"
+          description="Each one is here for a specific SVG-related task."
         />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {tools.map((tool) => (

@@ -29,7 +29,37 @@ export async function optimizeSvg(svgString: string, level: 'conservative' | 'ba
       logger.warn('SVG validation warnings', { warnings: validation.warnings }, 'SVG_OPTIMIZER')
     }
     
-    // Simple fallback optimization that always works
+    const collapseHexColors = (value: string) =>
+      value.replace(/#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3\b/g, '#$1$2$3')
+
+    const roundDecimals = (value: string, digits: number) =>
+      value.replace(/-?\d+\.\d+/g, (match) => {
+        const rounded = Number.parseFloat(match).toFixed(digits)
+        return rounded
+          .replace(/\.0+$/, '')
+          .replace(/(\.\d*?[1-9])0+$/, '$1')
+      })
+
+    const stripAttributes = (value: string, attributes: string[]) =>
+      attributes.reduce((svg, attribute) => svg.replace(new RegExp(`\\s+${attribute}="[^"]*"`, 'gi'), ''), value)
+
+    const normalizeStyleBlocks = (value: string) =>
+      value.replace(/\s+style="([^"]*)"/gi, (_match, styles: string) => {
+        const cleaned = styles
+          .split(';')
+          .map((part) => part.trim())
+          .filter(Boolean)
+          .map((part) => part.replace(/\s*:\s*/g, ':'))
+          .join(';')
+
+        return cleaned ? ` style="${cleaned};"` : ''
+      })
+
+    const removeEmptyStructuralNodes = (value: string) =>
+      value
+        .replace(/<g[^>]*>\s*<\/g>/gi, '')
+        .replace(/<defs[^>]*>\s*<\/defs>/gi, '')
+
     let optimized = sanitizedSvg
     
     // Conservative optimizations (all levels)
@@ -58,48 +88,31 @@ export async function optimizeSvg(svgString: string, level: 'conservative' | 'ba
       optimized = optimized.replace(/(\d+)\.0(?=\s|>|"|$)/g, '$1')
       optimized = optimized.replace(/(\d+)\.00(?=\s|>|"|$)/g, '$1')
       
-      // Remove empty groups
-      optimized = optimized.replace(/<g[^>]*>\s*<\/g>/g, '')
+      optimized = removeEmptyStructuralNodes(optimized)
+      optimized = normalizeStyleBlocks(optimized)
+      optimized = collapseHexColors(optimized)
     }
     
     if (level === 'aggressive' || level === 'maximum') {
-      // Aggressive optimizations
-      optimized = optimized.replace(/\s+class="[^"]*"/g, '') // Remove classes
-      optimized = optimized.replace(/\s+name="[^"]*"/g, '') // Remove names
+      optimized = stripAttributes(optimized, ['class', 'name', 'id', 'data-[\\w:-]+', 'aria-[\\w:-]+', 'role', 'focusable'])
       
-      // Remove hidden elements
       optimized = optimized.replace(/<[^>]*display="none"[^>]*>[\s\S]*?<\/[^>]*>/g, '')
       optimized = optimized.replace(/<[^>]*visibility="hidden"[^>]*>[\s\S]*?<\/[^>]*>/g, '')
-      
-      // Remove empty elements
-      optimized = optimized.replace(/<[^>]*>\s*<\/[^>]*>/g, '')
-      
-      // Clean up path data
+
       optimized = optimized.replace(/d="\s+/g, 'd="')
       optimized = optimized.replace(/\s+"/g, '"')
-      
-      // Simplify numbers in paths
-      optimized = optimized.replace(/(\d+)\.(\d{3,})/g, (match: string, whole: string, decimal: string) => {
-        return whole + '.' + decimal.substring(0, 2)
-      })
+      optimized = optimized.replace(/\s{2,}/g, ' ')
+      optimized = roundDecimals(optimized, 2)
+      optimized = removeEmptyStructuralNodes(optimized)
     }
     
     if (level === 'maximum') {
-      // Maximum optimizations
-      optimized = optimized.replace(/\s+style="[^"]*"/g, '') // Remove inline styles
-      optimized = optimized.replace(/\s+transform="[^"]*"/g, '') // Remove transforms
-      optimized = optimized.replace(/\s+opacity="[^"]*"/g, '') // Remove opacity
-      
-      // Remove filters, clip-paths, masks
-      optimized = optimized.replace(/\s+filter="[^"]*"/g, '')
-      optimized = optimized.replace(/\s+clip-path="[^"]*"/g, '')
-      optimized = optimized.replace(/\s+mask="[^"]*"/g, '')
-      
-      // Remove opacity="0" elements
+      optimized = stripAttributes(optimized, ['xmlns:xlink', 'xml:space', 'version', 'enable-background'])
+      optimized = roundDecimals(optimized, 1)
+      optimized = collapseHexColors(optimized)
       optimized = optimized.replace(/<[^>]*opacity="0"[^>]*>[\s\S]*?<\/[^>]*>/g, '')
-      
-      // Remove whitespace between tags
       optimized = optimized.replace(/>\s+</g, '><')
+      optimized = removeEmptyStructuralNodes(optimized)
     }
     
     // Final cleanup

@@ -38,8 +38,8 @@ export default function ColorGeneratorPage() {
       <ToolPageLayout
         toolPath="/color-generator"
         eyebrow="Frontend tools"
-        title="Pull usable color palettes out of screenshots, mockups, or artwork"
-        description="Use this when you need a quick palette from a reference image and want the result as copyable CSS instead of a vague inspiration board."
+        title="Pull a color palette out of an image and get usable CSS"
+        description="Drop in a screenshot, mockup, or piece of artwork and copy the palette as variables."
         highlights={['Upload or URL input', 'Palette preview', 'CSS variable export']}
         toolNote="A quick way to turn a reference image into a palette you can actually use in CSS or tokens."
         useCases={[

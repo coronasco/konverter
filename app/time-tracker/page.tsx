@@ -38,8 +38,8 @@ export default function TimeTrackerPage() {
       <ToolPageLayout
         toolPath="/time-tracker"
         eyebrow="Frontend tools"
-        title="Track sessions and rates without leaving the browser"
-        description="Use the tracker when you need a lightweight way to log freelance work, estimate earnings, or keep a simple running record without signing into another product."
+        title="Track time and rates without signing into anything"
+        description="A simple browser tracker for freelance work, quick sessions, and rough earnings checks."
         highlights={['Local browser storage', 'Rates and categories', 'Quick session history']}
         toolNote="A simple browser tracker for focused work sessions when a full billing app would be overkill."
         useCases={[

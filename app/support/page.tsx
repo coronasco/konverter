@@ -16,16 +16,16 @@ export const metadata: Metadata = {
 
 const reasons = [
   {
-    title: 'Keep the tools maintained',
-    description: 'Support helps cover ongoing work on new utilities, layout improvements, and fixes across the existing toolset.',
+    title: 'Keeps the tools online',
+    description: 'Hosting, fixes, cleanup, and all the little maintenance jobs still need time and money.',
   },
   {
-    title: 'Back a practical product',
-    description: 'Konverter is built around useful frontend workflows instead of turning every page into a lead funnel.',
+    title: 'Makes room for new tools',
+    description: 'It helps me keep building the kind of frontend utilities people actually need once the obvious ones are already done.',
   },
   {
-    title: 'Make room for more tools',
-    description: 'New work on favicon packs, icon workflows, and token generation depends on steady room to improve the product.',
+    title: 'Helps me smooth the rough edges',
+    description: 'A lot of the work is in the details: better exports, cleaner UI, clearer docs, and fewer annoying mistakes.',
   },
 ]
 
@@ -36,8 +36,8 @@ export default function SupportPage() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
           <SectionIntro
             eyebrow="Support"
-            title="If Konverter saved you time, this is the best place to support the project."
-            description="The support ask stays simple: use the tools, share them if they were helpful, and chip in if you want to help keep the platform moving."
+            title="If Konverter helped, this is where you can support it"
+            description="Use the tools, share them if they were useful, and if you want to help me keep building more of them, you can buy me a coffee."
           />
           <Card className="border-border/70">
             <CardHeader>
@@ -48,7 +48,7 @@ export default function SupportPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
               <p>
-                A coffee is a clean way to support continued work on new frontend-focused tools without adding clutter or paywalls.
+                A coffee helps me keep working on the site without turning it into a mess of popups, paywalls, or junk.
               </p>
               <Button asChild className="w-full">
                 <a href="https://coff.ee/danielzahav" target="_blank" rel="noopener noreferrer">
@@ -85,11 +85,11 @@ export default function SupportPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
               <MessageSquareMore className="h-5 w-5 text-[var(--brand-accent)]" />
-              Keep exploring
+              Need something else?
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-sm leading-6 text-muted-foreground">
-            <p>The site is structured to help you move between tools and guides without hunting around.</p>
+            <p>If you came here for one thing and ended up needing another, these are the best places to look next.</p>
             <div className="flex flex-wrap gap-3">
               <Button asChild variant="outline">
                 <Link href="/svg-tools">SVG tools</Link>

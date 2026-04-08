@@ -38,8 +38,8 @@ export default function SvgIconPackGeneratorPage() {
       <ToolPageLayout
         toolPath="/svg-icon-pack-generator"
         eyebrow="SVG tools"
-        title="Turn a folder of SVGs into a developer-ready icon pack"
-        description="Upload a batch of SVG icons, normalize the set, and export the result as React components, Vue components, a sprite, or a combined ZIP package."
+        title="Turn a folder of SVGs into React components, Vue components, or a sprite"
+        description="Upload the set, clean up the names, keep the viewBox, and export something a frontend project can actually use."
         highlights={['Batch upload', 'React / Vue / sprite output', 'Normalized naming']}
         toolNote="Useful when a folder of raw icons needs to become something a frontend project can import without a cleanup sprint."
         useCases={[

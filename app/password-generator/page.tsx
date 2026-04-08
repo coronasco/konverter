@@ -38,8 +38,8 @@ export default function PasswordGeneratorPage() {
       <ToolPageLayout
         toolPath="/password-generator"
         eyebrow="Frontend tools"
-        title="Generate stronger passwords with practical controls and clearer feedback"
-        description="Use this when you need fast password generation with more context than a random string box, especially during development, account setup, or operations work."
+        title="Generate a password, check it, copy it, move on"
+        description="Useful when you need something strong quickly and do not want to guess whether it is any good."
         highlights={['Strength feedback', 'Entropy analysis', 'Copy in one click']}
         toolNote="Generate a password, sanity-check it, copy it, and move on without overthinking the setup."
         useCases={[

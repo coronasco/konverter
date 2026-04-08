@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="max-w-md space-y-4">
             <p className="font-display text-2xl font-semibold tracking-tight text-foreground">Konverter</p>
             <p className="text-sm leading-7 text-muted-foreground">
-              Browser-based frontend utilities with a strong SVG workflow focus. Built for practical conversion, export, and asset prep work.
+              Tools for SVG cleanup, icons, favicons, tokens, and the small frontend jobs that are easier in the browser.
             </p>
             <a
               href="https://coff.ee/danielzahav"
@@ -20,7 +20,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center text-sm font-medium text-foreground underline decoration-[var(--brand-accent)]/60 underline-offset-4"
             >
-              Support the project
+              Support Konverter
             </a>
           </div>
 

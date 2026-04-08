@@ -38,8 +38,8 @@ export default function UrlShortenerPage() {
       <ToolPageLayout
         toolPath="/url-shortener"
         eyebrow="Frontend tools"
-        title="Shorten links and move straight into sharing or QR generation"
-        description="Shorten a link, copy it, share it, or turn it into a QR code when the URL is only part of the job."
+        title="Shorten a link and send it straight to share or QR"
+        description="Make the short link, copy it, share it, or turn it into a QR code right away."
         highlights={['TinyURL-backed', 'Share actions', 'QR generator handoff']}
         toolNote="Best when you need a shorter link quickly and want the next step, like QR generation, close by."
         useCases={[

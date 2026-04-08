@@ -18,8 +18,8 @@ export default function RelatedTools({ currentPath, maxTools = 4 }: RelatedTools
     <section className="mt-12 space-y-6">
       <SectionIntro
         eyebrow="Related tools"
-        title="Keep moving through the workflow"
-        description="The next useful tool should be one click away."
+        title="You might need one of these next"
+        description="If this article is only one part of the job, keep going from here."
       />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {relatedTools.map((tool) => (

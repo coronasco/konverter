@@ -36,7 +36,7 @@ export default function Header() {
                 Konverter
               </p>
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                Frontend utility platform
+                SVG and frontend tools
               </p>
             </Link>
           </div>

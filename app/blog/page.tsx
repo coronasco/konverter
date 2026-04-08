@@ -25,8 +25,8 @@ export default function BlogPage() {
       <section className="section-frame section-grid-background">
         <SectionIntro
           eyebrow="Blog"
-          title="Writing about SVG, icons, favicons, tokens, and the frontend jobs people usually end up Googling at the last minute"
-          description="If you are trying to clean up an SVG, package an icon set, generate favicons, or make a token setup less messy, start here."
+          title="Posts about SVG, icons, favicons, tokens, and the small frontend jobs that always turn into a tab pile"
+          description="If you are in the middle of one of those jobs, start with the post that matches it."
           align="center"
         />
       </section>
@@ -76,7 +76,7 @@ export default function BlogPage() {
         <SectionIntro
           eyebrow="Latest posts"
           title="Recent posts"
-          description="Pick the one that matches what you are working on and get what you need."
+          description="Pick one and get moving."
         />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {remainingPosts.map((post) => (

@@ -9,7 +9,7 @@ interface SupportCalloutProps {
 
 export default function SupportCallout({
   title = 'If a tool saved you time, you can support the project.',
-  description = 'Konverter is built as a practical browser-based toolkit. Support helps keep the tools fast, useful, and free to use.',
+  description = 'If you want to help me keep working on Konverter, fixing rough edges, and adding more useful tools, this is the easiest way.',
 }: SupportCalloutProps) {
   return (
     <section className="section-frame">
@@ -31,7 +31,7 @@ export default function SupportCallout({
         </Button>
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
-        Looking for updates, guides, or background on the project?{' '}
+        Want the longer version, other ways to help, or a better picture of what the support goes toward?{' '}
         <Link href="/support" className="font-medium text-foreground underline decoration-[var(--brand-accent)]/60 underline-offset-4">
           Visit the support page
         </Link>
